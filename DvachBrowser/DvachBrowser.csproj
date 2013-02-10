@@ -67,8 +67,8 @@
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="ThreadListPage.xaml.cs">
+      <DependentUpon>ThreadListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\PostItemModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />
@@ -77,13 +77,26 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ThreadItemViewModel.cs" />
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
+    <Compile Include="Views\ThreadItemView.xaml.cs">
+      <DependentUpon>ThreadItemView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <DesignData Include="DesignData\ThreadListViewModelDesignData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="DesignData\ThreadItemViewModelDesignData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="ThreadListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreadItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,6 +112,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

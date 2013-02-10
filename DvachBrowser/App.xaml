@@ -4,12 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:converters="clr-namespace:DvachBrowser.Assets.Converters">
 
     <!--Application Resources-->
     <Application.Resources>
         <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
         <converters:BoolToCollapsedConverter x:Key="BoolToCollapsedConverter" />
+
+        <SolidColorBrush x:Key="NeutronBackground" Color="#212121" />
+        <SolidColorBrush x:Key="NeutronThreadTitle" Color="#3941AC" />
+        <SolidColorBrush x:Key="NeutronPrimaryText" Color="#698CC0" />
+        <SolidColorBrush x:Key="NeutronItemInfo" Color="#999999" />
+        <SolidColorBrush x:Key="NeutronListSeparator" Color="#333333" />
+
+        <sys:Double x:Key="FontSizeLarge">24</sys:Double>
+        <sys:Double x:Key="FontSizeMedium">20</sys:Double>
+        <sys:Double x:Key="FontSizeSmall">16</sys:Double>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

@@ -14,6 +14,8 @@ namespace DvachBrowser.ViewModels
 {
     public class ThreadItemViewModel
     {
+        public const int MaxCharNumber = 160;
+
         public ThreadItemViewModel(ThreadItemModel thread)
         {
             this.MapModel(thread);
@@ -25,9 +27,9 @@ namespace DvachBrowser.ViewModels
             this.RepliesImagesMessage = string.Format("{0} posts and {1} images", thread.ReplyCount, thread.ImageCount);
             this.Comment = thread.OpenPost.Comment;
 
-            if (this.Comment.Length > 200)
+            if (this.Comment.Length > MaxCharNumber)
             {
-                this.Comment = this.Comment.Substring(0, 200) + "...";
+                this.Comment = this.Comment.Substring(0, MaxCharNumber) + "...";
             }
         }
 
