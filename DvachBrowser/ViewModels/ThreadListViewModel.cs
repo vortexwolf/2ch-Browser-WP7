@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,11 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using DvachBrowser.Models;
 using DvachBrowser.Assets;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
@@ -34,18 +34,21 @@ namespace DvachBrowser.ViewModels
         private void OnPreLoadingThreads()
         {
             this.IsLoading = true;
+            this.IsError = false;
         }
 
         private void OnPostLoadingThreads(ThreadListModel responseObject)
         {
             this.DisplayThreads(responseObject);
             this.IsLoading = false;
+            this.IsError = false;
         }
 
-        private void OnError(HttpStatusCode code, string description)
+        private void OnError(string message)
         {
             this.IsLoading = false;
-            MessageBox.Show((int)code + description);
+            this.IsError = true;
+            this.ErrorMessage = message;
         }
 
         private void OnProgressChanged(double value)
@@ -70,11 +73,11 @@ namespace DvachBrowser.ViewModels
 
         public bool IsLoading
         {
-            get { return _isLoading; }
+            get { return this._isLoading; }
             set
             {
-                _isLoading = value;
-                OnPropertyChanged("IsLoading");
+                this._isLoading = value;
+                this.OnPropertyChanged("IsLoading");
             }
         }
 
@@ -82,11 +85,35 @@ namespace DvachBrowser.ViewModels
 
         public double Progress
         {
-            get { return _progress; }
+            get { return this._progress; }
             set
             {
-                _progress = value;
-                OnPropertyChanged("Progress");
+                this._progress = value;
+                this.OnPropertyChanged("Progress");
+            }
+        }
+
+        private bool _isError;
+
+        public bool IsError
+        {
+            get { return this._isError; }
+            set
+            {
+                this._isError = value;
+                this.OnPropertyChanged("IsError");
+            }
+        }
+
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return this._errorMessage; }
+            set
+            {
+                this._errorMessage = value;
+                this.OnPropertyChanged("ErrorMessage");
             }
         }
         

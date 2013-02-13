@@ -67,9 +67,6 @@
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
-    <Compile Include="ThreadListPage.xaml.cs">
-      <DependentUpon>ThreadListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\PostItemModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />
     <Compile Include="Models\ThreadListModel.cs" />
@@ -79,6 +76,9 @@
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
     <Compile Include="Views\ThreadItemView.xaml.cs">
       <DependentUpon>ThreadItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreadListPage.xaml.cs">
+      <DependentUpon>ThreadListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -92,13 +92,13 @@
     <DesignData Include="DesignData\ThreadItemViewModelDesignData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="ThreadListPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ThreadItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreadListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

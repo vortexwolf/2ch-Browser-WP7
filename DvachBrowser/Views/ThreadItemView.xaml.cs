@@ -16,7 +16,7 @@ namespace DvachBrowser.Views
     {
         public ThreadItemView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

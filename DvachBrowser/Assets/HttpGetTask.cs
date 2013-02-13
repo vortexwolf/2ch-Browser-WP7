@@ -1,14 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Windows;
 
 namespace DvachBrowser.Assets
 {
@@ -28,7 +24,7 @@ namespace DvachBrowser.Assets
             httpWebRequest.Accept = "application/json";
 
             // get the response asynchronously
-            httpWebRequest.BeginGetResponse(OnGetResponseCompleted, httpWebRequest);
+            httpWebRequest.BeginGetResponse(this.OnGetResponseCompleted, httpWebRequest);
         }
 
         private void OnGetResponseCompleted(IAsyncResult ar)
@@ -36,27 +32,61 @@ namespace DvachBrowser.Assets
             var httpWebRequest = (HttpWebRequest)ar.AsyncState;
 
             // get the response
-            var response = (HttpWebResponse)httpWebRequest.EndGetResponse(ar);
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)httpWebRequest.EndGetResponse(ar);
+            }
+            catch (WebException e)
+            {
+                this.InvokeOnErrorHandler("Unable to connect to the web page.");
+                return;
+            }
+            catch (Exception e)
+            {
+                this.InvokeOnErrorHandler(e.Message);
+                return;
+            }
+
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                if (this.OnError != null)
-                {
-                    this.InvokeInUiThread(() => this.OnError(response.StatusCode, response.StatusDescription));
-                }
-
+                this.InvokeOnErrorHandler((int)response.StatusCode + " " + response.StatusDescription);
                 return;
             }
 
             // response stream
-            var progressStream = new ProgressStream(response.GetResponseStream(), response.ContentLength);
-            progressStream.OnProgressChanged = v => this.InvokeInUiThread(() => this.OnProgressChanged(v));
+            Stream stream;
+            if (this.OnProgressChanged != null && response.Headers.AllKeys.Any(key => key == "Content-Length"))
+            {
+                var progressStream = new ProgressStream(response.GetResponseStream(), response.ContentLength);
+                progressStream.OnProgressChanged = v => this.InvokeInUiThread(() => this.OnProgressChanged(v));
+                stream = progressStream;
+            }
+            else
+            {
+                stream = response.GetResponseStream();
+            }
 
             // deserialize json
-            var jsonSerializer = new DataContractJsonSerializer(typeof(T));
-            var responseObject = (T)jsonSerializer.ReadObject(progressStream);
+            try
+            {
+                var jsonSerializer = new DataContractJsonSerializer(typeof(T));
+                var responseObject = (T)jsonSerializer.ReadObject(stream);
 
-            // call the virtual method
-            this.InvokeInUiThread(() => this.OnPostExecute(responseObject));
+                this.InvokeInUiThread(() => this.OnPostExecute(responseObject));
+            }
+            catch (SerializationException e)
+            {
+                this.InvokeOnErrorHandler("Unable to read the response from the server.");
+            }
+        }
+
+        private void InvokeOnErrorHandler(string message)
+        {
+            if (this.OnError != null)
+            {
+                this.InvokeInUiThread(() => this.OnError(message));
+            }
         }
 
         private void InvokeInUiThread(Action action)
@@ -68,9 +98,8 @@ namespace DvachBrowser.Assets
 
         public Action<T> OnPostExecute { get; private set; }
 
-        public Action<HttpStatusCode, string> OnError { get; set; }
+        public Action<string> OnError { get; set; }
 
         public Action<double> OnProgressChanged { get; set; }
     }
-
 }
