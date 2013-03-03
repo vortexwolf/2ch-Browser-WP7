@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0">
-            <TextBlock x:Name="ApplicationTitle" Text="2ch Browser" Style="{StaticResource PhoneTextNormalStyle}" />
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title}" Style="{StaticResource PhoneTextNormalStyle}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -48,7 +48,8 @@
             <ListBox Visibility="{Binding IsLoading, Converter={StaticResource BoolToCollapsedConverter}}"
                     ItemsSource="{Binding Threads}"
                     ItemTemplate="{StaticResource ThreadItemTemplate}"
-                    VerticalAlignment="Stretch" >
+                    VerticalAlignment="Stretch" 
+                     SelectionChanged="ListBox_SelectionChanged">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />

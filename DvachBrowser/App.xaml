@@ -17,6 +17,8 @@
         <SolidColorBrush x:Key="NeutronPrimaryText" Color="#698CC0" />
         <SolidColorBrush x:Key="NeutronItemInfo" Color="#999999" />
         <SolidColorBrush x:Key="NeutronListSeparator" Color="#333333" />
+        <SolidColorBrush x:Key="NeutronPostBorder" Color="#575757" />
+        <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
 
         <sys:Double x:Key="FontSizeLarge">24</sys:Double>
         <sys:Double x:Key="FontSizeMedium">20</sys:Double>

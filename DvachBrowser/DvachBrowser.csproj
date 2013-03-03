@@ -68,12 +68,21 @@
     <Compile Include="Assets\HttpGetTask.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
     <Compile Include="Models\PostItemModel.cs" />
+    <Compile Include="Models\PostListModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />
     <Compile Include="Models\ThreadListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PostItemViewModel.cs" />
+    <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\ThreadItemViewModel.cs" />
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\PostItemView.xaml.cs">
+      <DependentUpon>PostItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostListPage.xaml.cs">
+      <DependentUpon>PostListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ThreadItemView.xaml.cs">
       <DependentUpon>ThreadItemView.xaml</DependentUpon>
     </Compile>
@@ -92,6 +101,17 @@
     <DesignData Include="DesignData\ThreadItemViewModelDesignData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
+    <DesignData Include="DesignData\PostListViewModelDesignData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="Views\PostItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PostListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ThreadItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

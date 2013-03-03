@@ -1,0 +1,8 @@
+﻿<vm:PostListViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
+                        IsLoading="False">
+    <vm:PostListViewModel.Posts>
+        <vm:PostItemViewModel Subject="Test subject 1" Comment="Test comment 1" />
+        <vm:PostItemViewModel Subject="Test subject 2" Comment="Test comment 2" />
+        <vm:PostItemViewModel Subject="Test subject 3" Comment="Test comment 3" />
+    </vm:PostListViewModel.Posts>
+</vm:PostListViewModel>

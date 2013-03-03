@@ -6,7 +6,7 @@ namespace DvachBrowser.Models
     public class PostItemModel
     {
         [DataMember(Name = "num")]
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         [DataMember(Name = "timestamp")]
         public int Timestamp { get; set; }

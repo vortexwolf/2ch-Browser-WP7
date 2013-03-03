@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,25 +10,26 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
+using System.Collections.ObjectModel;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ThreadListViewModel : ViewModel
+    public class PostListViewModel : ViewModel
     {
-        public ThreadListViewModel()
+        public PostListViewModel()
         {
-            this.Threads = new ObservableCollection<ThreadItemViewModel>();
-
-            this.Load("test");
+            this.Posts = new ObservableCollection<PostItemViewModel>();
         }
 
-        public void Load(string boardName)
+        public void Load(string boardName, string threadNumber)
         {
             this.BoardName = boardName;
-            this.Title = boardName;
+            this.ThreadNumber = threadNumber;
+            this.Title = boardName + "/" + threadNumber;
 
-            // load threads from the network
-            var httpGet = new HttpGetTask<ThreadListModel>("http://2ch.hk/test/wakaba.json", this.OnPostLoadingThreads);
+            // load posts from the network
+            string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json", boardName, threadNumber);
+            var httpGet = new HttpGetTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
             httpGet.OnError = this.OnError;
             httpGet.OnProgressChanged = this.OnProgressChanged;
 
@@ -45,9 +43,9 @@ namespace DvachBrowser.ViewModels
             this.IsError = false;
         }
 
-        private void OnPostLoadingThreads(ThreadListModel responseObject)
+        private void OnPostLoadingPosts(PostListModel responseObject)
         {
-            this.DisplayThreads(responseObject);
+            this.DisplayPosts(responseObject);
             this.IsLoading = false;
             this.IsError = false;
         }
@@ -63,23 +61,58 @@ namespace DvachBrowser.ViewModels
         {
             this.Progress = value;
         }
-        
-        private void DisplayThreads(ThreadListModel threadList)
-        {
-            foreach (var thread in threadList.Threads)
-            {
-                var vm = new ThreadItemViewModel(thread);
 
-                this.Threads.Add(vm);
+        private void DisplayPosts(PostListModel postList)
+        {
+            foreach (var postArray in postList.Posts)
+            {
+                var post = postArray[0];
+                var vm = new PostItemViewModel(post);
+
+                this.Posts.Add(vm);
+            }
+        }
+        
+        public ObservableCollection<PostItemViewModel> Posts { get; set; }
+
+        private string _boardName;
+
+        public string BoardName
+        {
+            get { return _boardName; }
+            set
+            {
+                _boardName = value;
+                OnPropertyChanged("BoardName");
             }
         }
 
-        public string BoardName { get; set; }
 
-        public string Title { get; set; }
+        private string _threadNumber;
 
-        public ObservableCollection<ThreadItemViewModel> Threads { get; set; }
-        
+        public string ThreadNumber
+        {
+            get { return _threadNumber; }
+            set
+            {
+                _threadNumber = value;
+                OnPropertyChanged("ThreadNumber");
+            }
+        }
+
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                OnPropertyChanged("Title");
+            }
+        }
+	
+
         private bool _isLoading;
 
         public bool IsLoading

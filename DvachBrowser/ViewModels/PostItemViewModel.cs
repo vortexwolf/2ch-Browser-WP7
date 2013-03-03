@@ -12,21 +12,20 @@ using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ThreadItemViewModel
+    public class PostItemViewModel
     {
         public const int MaxCharNumber = 160;
 
-        public ThreadItemViewModel(ThreadItemModel thread)
+        public PostItemViewModel(PostItemModel thread)
         {
             this.MapModel(thread);
         }
 
-        public void MapModel(ThreadItemModel thread)
+        public void MapModel(PostItemModel post)
         {
-            this.Number = thread.OpenPost.Number;
-            this.Subject = thread.OpenPost.Subject;
-            this.RepliesImagesMessage = string.Format("{0} posts and {1} images", thread.ReplyCount, thread.ImageCount);
-            this.Comment = thread.OpenPost.Comment;
+            this.Number = post.Number;
+            this.Subject = post.Subject;
+            this.Comment = post.Comment;
 
             if (this.Comment.Length > MaxCharNumber)
             {
@@ -39,7 +38,5 @@ namespace DvachBrowser.ViewModels
         public string Subject { get; set; }
 
         public string Comment { get; set; }
-
-        public string RepliesImagesMessage { get; set; }
     }
 }
