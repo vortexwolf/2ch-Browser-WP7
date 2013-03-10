@@ -1,4 +1,6 @@
 ﻿<vm:ThreadItemViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
     Subject="Test subject 1" 
     Comment="Test comment 1" 
-    RepliesImagesMessage="1 reply 1 image" />
+    RepliesImagesMessage="1 reply 1 image"
+    HasImage="True"
+    ThumbnailImage="/Images/image.png"/>

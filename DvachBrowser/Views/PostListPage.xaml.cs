@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using DvachBrowser.ViewModels;
+using System.Diagnostics;
 
 namespace DvachBrowser.Views
 {
@@ -33,6 +34,11 @@ namespace DvachBrowser.Views
             this._viewModel.Load(boardName, threadNumber);
 
             base.OnNavigatedTo(e);
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine("Post item clicked");
         }
     }
 }

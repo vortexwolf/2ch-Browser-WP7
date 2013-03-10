@@ -8,12 +8,11 @@ using System.Windows;
 
 namespace DvachBrowser.Assets
 {
-    public class HttpGetTask<T>
+    public abstract class HttpGetTask
     {
-        public HttpGetTask(string url, Action<T> onPostExecute)
+        public HttpGetTask(string url)
         {
             this.Url = url;
-            this.OnPostExecute = onPostExecute;
         }
 
         public void Execute()
@@ -22,6 +21,7 @@ namespace DvachBrowser.Assets
             HttpWebRequest httpWebRequest = WebRequest.CreateHttp(this.Url);
             httpWebRequest.Method = "GET";
             httpWebRequest.Accept = "application/json";
+            httpWebRequest.UserAgent = "2ch Browser (Windows Phone)";
 
             // get the response asynchronously
             httpWebRequest.BeginGetResponse(this.OnGetResponseCompleted, httpWebRequest);
@@ -67,21 +67,12 @@ namespace DvachBrowser.Assets
                 stream = response.GetResponseStream();
             }
 
-            // deserialize json
-            try
-            {
-                var jsonSerializer = new DataContractJsonSerializer(typeof(T));
-                var responseObject = (T)jsonSerializer.ReadObject(stream);
-
-                this.InvokeInUiThread(() => this.OnPostExecute(responseObject));
-            }
-            catch (SerializationException e)
-            {
-                this.InvokeOnErrorHandler("Unable to read the response from the server.");
-            }
+            this.OnStreamDownloaded(stream);
         }
 
-        private void InvokeOnErrorHandler(string message)
+        protected abstract void OnStreamDownloaded(Stream stream);
+
+        protected void InvokeOnErrorHandler(string message)
         {
             if (this.OnError != null)
             {
@@ -89,14 +80,12 @@ namespace DvachBrowser.Assets
             }
         }
 
-        private void InvokeInUiThread(Action action)
+        protected void InvokeInUiThread(Action action)
         {
             Deployment.Current.Dispatcher.BeginInvoke(action);
         }
 
         public string Url { get; private set; }
-
-        public Action<T> OnPostExecute { get; private set; }
 
         public Action<string> OnError { get; set; }
 

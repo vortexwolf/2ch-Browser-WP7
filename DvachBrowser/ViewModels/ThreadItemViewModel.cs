@@ -9,37 +9,25 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using DvachBrowser.Models;
+using System.Windows.Media.Imaging;
+using DvachBrowser.Assets;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ThreadItemViewModel
+    public class ThreadItemViewModel : ThreadPostBaseViewModel
     {
-        public const int MaxCharNumber = 160;
-
-        public ThreadItemViewModel(ThreadItemModel thread)
+        public ThreadItemViewModel(string boardName, ThreadItemModel thread, BitmapManager bitmapManager) : base(boardName, bitmapManager)
         {
             this.MapModel(thread);
         }
 
         public void MapModel(ThreadItemModel thread)
         {
-            this.Number = thread.OpenPost.Number;
-            this.Subject = thread.OpenPost.Subject;
-            this.RepliesImagesMessage = string.Format("{0} posts and {1} images", thread.ReplyCount, thread.ImageCount);
-            this.Comment = thread.OpenPost.Comment;
+            base.MapModel(thread.OpenPost);
 
-            if (this.Comment.Length > MaxCharNumber)
-            {
-                this.Comment = this.Comment.Substring(0, MaxCharNumber) + "...";
-            }
+            this.RepliesImagesMessage = string.Format("{0} posts and {1} images", thread.ReplyCount, thread.ImageCount);
         }
 
-        public string Number { get; set; }
-
-        public string Subject { get; set; }
-
-        public string Comment { get; set; }
-
-        public string RepliesImagesMessage { get; set; }
+        public string RepliesImagesMessage { get; private set; }
     }
 }

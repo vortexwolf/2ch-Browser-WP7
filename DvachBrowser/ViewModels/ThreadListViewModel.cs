@@ -18,9 +18,12 @@ namespace DvachBrowser.ViewModels
 {
     public class ThreadListViewModel : ViewModel
     {
+        private readonly BitmapManager _bitmapManager;
+
         public ThreadListViewModel()
         {
             this.Threads = new ObservableCollection<ThreadItemViewModel>();
+            this._bitmapManager = Container.Resolve<BitmapManager>();
 
             this.Load("test");
         }
@@ -31,7 +34,7 @@ namespace DvachBrowser.ViewModels
             this.Title = boardName;
 
             // load threads from the network
-            var httpGet = new HttpGetTask<ThreadListModel>("http://2ch.hk/test/wakaba.json", this.OnPostLoadingThreads);
+            var httpGet = new HttpGetJsonTask<ThreadListModel>("http://2ch.hk/test/wakaba.json", this.OnPostLoadingThreads);
             httpGet.OnError = this.OnError;
             httpGet.OnProgressChanged = this.OnProgressChanged;
 
@@ -68,7 +71,7 @@ namespace DvachBrowser.ViewModels
         {
             foreach (var thread in threadList.Threads)
             {
-                var vm = new ThreadItemViewModel(thread);
+                var vm = new ThreadItemViewModel(this.BoardName, thread, this._bitmapManager);
 
                 this.Threads.Add(vm);
             }

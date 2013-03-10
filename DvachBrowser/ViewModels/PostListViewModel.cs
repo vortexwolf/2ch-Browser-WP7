@@ -16,9 +16,12 @@ namespace DvachBrowser.ViewModels
 {
     public class PostListViewModel : ViewModel
     {
+        private readonly BitmapManager _bitmapManager;
+
         public PostListViewModel()
         {
             this.Posts = new ObservableCollection<PostItemViewModel>();
+            this._bitmapManager = Container.Resolve<BitmapManager>();
         }
 
         public void Load(string boardName, string threadNumber)
@@ -29,7 +32,7 @@ namespace DvachBrowser.ViewModels
 
             // load posts from the network
             string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json", boardName, threadNumber);
-            var httpGet = new HttpGetTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
+            var httpGet = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
             httpGet.OnError = this.OnError;
             httpGet.OnProgressChanged = this.OnProgressChanged;
 
@@ -67,7 +70,7 @@ namespace DvachBrowser.ViewModels
             foreach (var postArray in postList.Posts)
             {
                 var post = postArray[0];
-                var vm = new PostItemViewModel(post);
+                var vm = new PostItemViewModel(this.BoardName, post, this._bitmapManager);
 
                 this.Posts.Add(vm);
             }

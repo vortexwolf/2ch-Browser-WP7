@@ -63,8 +63,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\BitmapManager.cs" />
+    <Compile Include="Assets\CachedBitmapImageModel.cs" />
+    <Compile Include="Assets\Container.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
+    <Compile Include="Assets\HttpGetJsonTask.cs" />
+    <Compile Include="Assets\HttpGetStreamTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
     <Compile Include="Models\PostItemModel.cs" />
@@ -76,6 +81,7 @@
     <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\ThreadItemViewModel.cs" />
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
+    <Compile Include="ViewModels\ThreadPostBaseViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\PostItemView.xaml.cs">
       <DependentUpon>PostItemView.xaml</DependentUpon>
@@ -132,7 +138,8 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\image.png" />
+    <Content Include="Images\alert.png" />
+    <Content Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
