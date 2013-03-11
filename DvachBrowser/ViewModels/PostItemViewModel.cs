@@ -8,16 +8,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using DvachBrowser.Models;
+
 using DvachBrowser.Assets;
+using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
     public class PostItemViewModel : ThreadPostBaseViewModel
     {
-        public PostItemViewModel(string boardName, PostItemModel thread, BitmapManager bitmapManager) : base(boardName, bitmapManager)
+        public PostItemViewModel(string boardName, BitmapManager bitmapManager) : base(boardName, bitmapManager)
         {
-            this.MapModel(thread);
         }
     }
 }

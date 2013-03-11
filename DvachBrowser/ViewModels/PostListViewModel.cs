@@ -1,16 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Collections.ObjectModel;
+
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
-using System.Collections.ObjectModel;
 
 namespace DvachBrowser.ViewModels
 {
@@ -70,7 +61,8 @@ namespace DvachBrowser.ViewModels
             foreach (var postArray in postList.Posts)
             {
                 var post = postArray[0];
-                var vm = new PostItemViewModel(this.BoardName, post, this._bitmapManager);
+                var vm = new PostItemViewModel(this.BoardName, this._bitmapManager);
+                vm.MapModel(post);
 
                 this.Posts.Add(vm);
             }
@@ -82,24 +74,23 @@ namespace DvachBrowser.ViewModels
 
         public string BoardName
         {
-            get { return _boardName; }
+            get { return this._boardName; }
             set
             {
-                _boardName = value;
-                OnPropertyChanged("BoardName");
+                this._boardName = value;
+                this.OnPropertyChanged("BoardName");
             }
         }
-
 
         private string _threadNumber;
 
         public string ThreadNumber
         {
-            get { return _threadNumber; }
+            get { return this._threadNumber; }
             set
             {
-                _threadNumber = value;
-                OnPropertyChanged("ThreadNumber");
+                this._threadNumber = value;
+                this.OnPropertyChanged("ThreadNumber");
             }
         }
 
@@ -107,14 +98,13 @@ namespace DvachBrowser.ViewModels
 
         public string Title
         {
-            get { return _title; }
+            get { return this._title; }
             set
             {
-                _title = value;
-                OnPropertyChanged("Title");
+                this._title = value;
+                this.OnPropertyChanged("Title");
             }
         }
-	
 
         private bool _isLoading;
 

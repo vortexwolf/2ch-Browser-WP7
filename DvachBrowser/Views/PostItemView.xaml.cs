@@ -16,7 +16,7 @@ namespace DvachBrowser.Views
     {
         public PostItemView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

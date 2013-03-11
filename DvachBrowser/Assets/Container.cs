@@ -1,44 +1,60 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace DvachBrowser.Assets
 {
     public class Container
     {
-        private static readonly Dictionary<Type, Type> _registrations = new Dictionary<Type, Type>();
-        private static readonly Dictionary<Type, object> _objects = new Dictionary<Type, object>();
+        private static readonly Dictionary<Type, Type> Registrations = new Dictionary<Type, Type>();
+        private static readonly Dictionary<Type, object> Instances = new Dictionary<Type, object>();
 
-        public static void Register<T, U>() where U : T, new()
+        public static void Register<TInterface, TImplementation>() where TImplementation : TInterface, new()
         {
-            if (!_registrations.ContainsKey(typeof(T)))
+            Register(typeof(TInterface), typeof(TImplementation));
+        }
+
+        public static void Register(Type interfaceType, Type implementationType)
+        {
+            if (!Registrations.ContainsKey(interfaceType))
             {
-                _registrations.Add(typeof(T), typeof(U));
+                Registrations.Add(interfaceType, implementationType);
             }
         }
 
         public static T Resolve<T>()
         {
-            if (_objects.ContainsKey(typeof(T)))
+            return (T)Resolve(typeof(T));
+        }
+
+        public static object Resolve(Type type)
+        {
+            var registration = Registrations[type];
+
+            if (Instances.ContainsKey(type))
             {
-                return (T)_objects[typeof(T)];
+                return Instances[type];
             }
             else
             {
-                var registration = _registrations[typeof(T)];
-                var instance = Activator.CreateInstance(registration);
-                _objects.Add(typeof(T), instance);
+                var instance = CreateInstance(registration);
+                Instances.Add(type, instance);
 
-                return (T)instance;
+                return instance;
             }
+        }
+
+        private static object CreateInstance(Type type)
+        {
+            ConstructorInfo constructor = type.GetConstructors()[0];
+            ParameterInfo[] parameters = constructor.GetParameters();
+
+            var arguments = parameters.Select(p => Resolve(p.ParameterType)).ToArray();
+
+            var instance = constructor.Invoke(arguments);
+
+            return instance;
         }
     }
 }

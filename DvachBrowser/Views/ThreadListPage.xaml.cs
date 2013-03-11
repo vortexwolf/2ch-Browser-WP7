@@ -1,12 +1,13 @@
+using System;
+
 using DvachBrowser.ViewModels;
 using Microsoft.Phone.Controls;
-using System;
 
 namespace DvachBrowser.Views
 {
     public partial class ThreadListPage : PhoneApplicationPage
     {
-        private ThreadListViewModel _viewModel;
+        private readonly ThreadListViewModel _viewModel;
 
         // Constructor
         public ThreadListPage()

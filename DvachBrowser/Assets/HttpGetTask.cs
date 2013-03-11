@@ -2,8 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Windows;
 
 namespace DvachBrowser.Assets
@@ -25,6 +23,21 @@ namespace DvachBrowser.Assets
 
             // get the response asynchronously
             httpWebRequest.BeginGetResponse(this.OnGetResponseCompleted, httpWebRequest);
+        }
+
+        protected abstract void OnStreamDownloaded(Stream stream);
+
+        protected void InvokeOnErrorHandler(string message)
+        {
+            if (this.OnError != null)
+            {
+                this.InvokeInUiThread(() => this.OnError(message));
+            }
+        }
+
+        protected void InvokeInUiThread(Action action)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(action);
         }
 
         private void OnGetResponseCompleted(IAsyncResult ar)
@@ -68,21 +81,6 @@ namespace DvachBrowser.Assets
             }
 
             this.OnStreamDownloaded(stream);
-        }
-
-        protected abstract void OnStreamDownloaded(Stream stream);
-
-        protected void InvokeOnErrorHandler(string message)
-        {
-            if (this.OnError != null)
-            {
-                this.InvokeInUiThread(() => this.OnError(message));
-            }
-        }
-
-        protected void InvokeInUiThread(Action action)
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(action);
         }
 
         public string Url { get; private set; }

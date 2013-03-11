@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace DvachBrowser.Assets
 {
@@ -28,14 +19,14 @@ namespace DvachBrowser.Assets
         
         public CachedBitmapImageModel GetCachedImage(string uri)
         {
-            if (_errors.ContainsKey(uri))
+            if (this._errors.ContainsKey(uri))
             {
-                return new CachedBitmapImageModel() { IsCached = true, Error = _errors[uri] };
+                return new CachedBitmapImageModel() { IsCached = true, Error = this._errors[uri] };
             }
 
-            if (_images.ContainsKey(uri))
+            if (this._images.ContainsKey(uri))
             {
-                var imageModel = _images[uri];
+                var imageModel = this._images[uri];
                 imageModel.LastAccess = DateTime.UtcNow;
 
                 return new CachedBitmapImageModel { IsCached = true, Image = imageModel.Image };
@@ -55,7 +46,7 @@ namespace DvachBrowser.Assets
             }
 
             // download image
-            var httpGet = new HttpGetStreamTask(uri, stream => OnStreamDownloaded(uri, stream, onFinished));
+            var httpGet = new HttpGetStreamTask(uri, stream => this.OnStreamDownloaded(uri, stream, onFinished));
             httpGet.OnError = error => this.OnError(uri, error, onFinished);
 
             httpGet.Execute();
@@ -73,7 +64,7 @@ namespace DvachBrowser.Assets
             catch (Exception e)
             {
                 // if the downloaded stream is not an image
-                _errors.Add(uri, e.Message);
+                this._errors.Add(uri, e.Message);
             }
 
             onFinished();
@@ -81,7 +72,7 @@ namespace DvachBrowser.Assets
 
         private void OnError(string uri, string error, Action onFinished)
         {
-            _errors.Add(uri, error);
+            this._errors.Add(uri, error);
 
             onFinished();
         }
@@ -91,17 +82,17 @@ namespace DvachBrowser.Assets
             var imageModel = new BitmapImageWithLastAccess { Image = bitmap, LastAccess = DateTime.UtcNow };
 
             // remove old images if their number is too high
-            if (_images.Count >= MaxImagesNumber)
+            if (this._images.Count >= MaxImagesNumber)
             {
-                var oldImagesUris = _images.OrderBy(b => b.Value.LastAccess).Take(RemoveExceedingImagesNumber).Select(b => b.Key).ToList();
+                var oldImagesUris = this._images.OrderBy(b => b.Value.LastAccess).Take(RemoveExceedingImagesNumber).Select(b => b.Key).ToList();
                 foreach (var imageUri in oldImagesUris)
                 {
-                    _images.Remove(imageUri);
+                    this._images.Remove(imageUri);
                 }
             }
 
             // add the image to cache
-            _images.Add(uri, imageModel);
+            this._images.Add(uri, imageModel);
         }
 
         private class BitmapImageWithLastAccess

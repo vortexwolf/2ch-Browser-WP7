@@ -7,8 +7,9 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
 
@@ -18,12 +19,12 @@ namespace DvachBrowser.ViewModels
     {
         public const int MaxCharNumber = 160;
 
-        protected readonly BitmapManager _bitmapManager;
+        protected readonly BitmapManager BitmapManager;
 
         public ThreadPostBaseViewModel(string boardName, BitmapManager bitmapManager)
         {
             this.BoardName = boardName;
-            this._bitmapManager = bitmapManager;
+            this.BitmapManager = bitmapManager;
         }
         
         public virtual void MapModel(PostItemModel post)
@@ -65,7 +66,7 @@ namespace DvachBrowser.ViewModels
 
         private BitmapImage GetThumbnailImage()
         {
-            var cachedImage = this._bitmapManager.GetCachedImage(this.ThumbnailUri);
+            var cachedImage = this.BitmapManager.GetCachedImage(this.ThumbnailUri);
             if (cachedImage.IsCached)
             {
                 if (cachedImage.Error != null)
@@ -79,7 +80,7 @@ namespace DvachBrowser.ViewModels
             }
             else
             {
-                this._bitmapManager.DownloadImage(this.ThumbnailUri, () => this.RaiseThumbnaiImageChanged());
+                this.BitmapManager.DownloadImage(this.ThumbnailUri, () => this.RaiseThumbnaiImageChanged());
                 return null;
             }
         }
