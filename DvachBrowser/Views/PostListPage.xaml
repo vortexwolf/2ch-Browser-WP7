@@ -37,7 +37,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1">
             <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}"
                         VerticalAlignment="Center">
-                <TextBlock Text="Loading..." HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" />
+                <TextBlock Text="{Binding Strings.Loading, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" />
                 <ProgressBar Value="{Binding Progress}" Maximum="1" IsIndeterminate="False" Height="50" />
             </StackPanel>
             <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"

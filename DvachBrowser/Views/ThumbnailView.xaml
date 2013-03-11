@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="DvachBrowser.Views.ThumbnailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="150" d:DesignWidth="150"
+    d:DataContext="{d:DesignData Source=../DesignData/ThreadItemViewModelDesignData.xaml}">
+
+    <StackPanel Visibility="{Binding HasImage, Converter={StaticResource BoolToVisibleConverter}}"
+                Background="Transparent"
+                Margin="0,10,10,0"
+                MouseLeftButtonUp="OnImageMouseLeftButtonUp">
+        <Image Source="{Binding ThumbnailImage}"
+                VerticalAlignment="Top"
+                Width="72" Height="72" 
+                Stretch="Uniform"/>
+    </StackPanel>
+</UserControl>

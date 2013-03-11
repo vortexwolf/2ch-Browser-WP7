@@ -35,6 +35,7 @@ namespace DvachBrowser.ViewModels
             this.Comment = post.Comment;
             this.HasImage = !string.IsNullOrEmpty(post.ThumbnailUri);
             this.ThumbnailUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ThumbnailUri : null;
+            this.ImageUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ImageUri : null;
 
             if (this.Comment.Length > MaxCharNumber)
             {
@@ -55,6 +56,8 @@ namespace DvachBrowser.ViewModels
         public bool HasImage { get; protected set; }
 
         public string ThumbnailUri { get; protected set; }
+
+        public string ImageUri { get; set; }
 
         public BitmapSource ThumbnailImage
         {

@@ -1,5 +1,6 @@
 ﻿<vm:ThreadListViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
-                        IsLoading="False">
+                        IsLoading="False"
+                        Title="/test/">
     <vm:ThreadListViewModel.Threads>
         <vm:ThreadItemViewModel Subject="Test subject 1" Comment="Test comment 1" RepliesImagesMessage="1 reply 1 image" HasImage="True" ThumbnailImage="/Images/image.png"/>
         <vm:ThreadItemViewModel Subject="Test subject 2" Comment="Test comment 2" RepliesImagesMessage="2 replies 2 images" HasImage="True" ThumbnailImage="/Images/image.png"/>

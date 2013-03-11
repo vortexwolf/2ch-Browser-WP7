@@ -65,13 +65,27 @@
     </Compile>
     <Compile Include="Assets\BitmapManager.cs" />
     <Compile Include="Assets\CachedBitmapImageModel.cs" />
+    <Compile Include="Assets\Constants.cs" />
     <Compile Include="Assets\Container.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
     <Compile Include="Assets\HttpGetStreamTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
+    <Compile Include="Assets\LocalizedStrings.cs" />
+    <Compile Include="Assets\PageNavigationService.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
+    <Compile Include="Assets\QueryStringBuilder.cs" />
+    <Compile Include="Assets\Resources\ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\PostItemModel.cs" />
     <Compile Include="Models\PostListModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />
@@ -83,6 +97,9 @@
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
     <Compile Include="ViewModels\ThreadPostBaseViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\ImageBrowserPage.xaml.cs">
+      <DependentUpon>ImageBrowserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PostItemView.xaml.cs">
       <DependentUpon>PostItemView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +111,9 @@
     </Compile>
     <Compile Include="Views\ThreadListPage.xaml.cs">
       <DependentUpon>ThreadListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThumbnailView.xaml.cs">
+      <DependentUpon>ThumbnailView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +130,10 @@
     <DesignData Include="DesignData\PostListViewModelDesignData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Views\ImageBrowserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PostItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +149,10 @@
     <Page Include="Views\ThreadListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ThumbnailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +170,16 @@
     <Content Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Resources\ErrorMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

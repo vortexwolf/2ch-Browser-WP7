@@ -3,6 +3,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
+using DvachBrowser.Assets.Resources;
+
 namespace DvachBrowser.Assets
 {
     public class HttpGetJsonTask<T> : HttpGetTask
@@ -24,7 +26,7 @@ namespace DvachBrowser.Assets
             }
             catch (SerializationException e)
             {
-                this.InvokeOnErrorHandler("Unable to read the response from the server.");
+                this.InvokeOnErrorHandler(ErrorMessages.JsonParseError);
             }
         }
 

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 
+using DvachBrowser.Assets.Resources;
+
 namespace DvachBrowser.Assets
 {
     public abstract class HttpGetTask
@@ -52,7 +54,7 @@ namespace DvachBrowser.Assets
             }
             catch (WebException e)
             {
-                this.InvokeOnErrorHandler("Unable to connect to the web page.");
+                this.InvokeOnErrorHandler(ErrorMessages.WebPageLoadError);
                 return;
             }
             catch (Exception e)

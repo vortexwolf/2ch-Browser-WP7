@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
 
+using DvachBrowser.Assets;
 using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
@@ -20,8 +21,8 @@ namespace DvachBrowser.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            string boardName = this.NavigationContext.QueryString["board"];
-            string threadNumber = this.NavigationContext.QueryString["thread"];
+            string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
+            string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
 
             this._viewModel.Load(boardName, threadNumber);
 

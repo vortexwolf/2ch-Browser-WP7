@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.Resources;
 using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
@@ -26,7 +27,7 @@ namespace DvachBrowser.ViewModels
         {
             base.MapModel(thread.OpenPost);
 
-            this.RepliesImagesMessage = string.Format("{0} posts and {1} images", thread.ReplyCount, thread.ImageCount);
+            this.RepliesImagesMessage = string.Format(Strings.DataFormat_PostsAndImages, thread.ReplyCount, thread.ImageCount);
         }
 
         public string RepliesImagesMessage { get; private set; }

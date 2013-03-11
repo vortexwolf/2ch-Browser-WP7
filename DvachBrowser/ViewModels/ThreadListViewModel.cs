@@ -31,7 +31,7 @@ namespace DvachBrowser.ViewModels
         public void Load(string boardName)
         {
             this.BoardName = boardName;
-            this.Title = boardName;
+            this.Title = "/" + boardName + "/";
 
             // load threads from the network
             var httpGet = new HttpGetJsonTask<ThreadListModel>("http://2ch.hk/test/wakaba.json", this.OnPostLoadingThreads);

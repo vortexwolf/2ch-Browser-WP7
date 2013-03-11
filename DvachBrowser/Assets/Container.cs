@@ -20,6 +20,10 @@ namespace DvachBrowser.Assets
             if (!Registrations.ContainsKey(interfaceType))
             {
                 Registrations.Add(interfaceType, implementationType);
+            } 
+            else
+            {
+                Registrations[interfaceType] = implementationType;
             }
         }
 

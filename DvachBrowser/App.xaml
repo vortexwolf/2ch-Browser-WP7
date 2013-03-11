@@ -5,10 +5,13 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:converters="clr-namespace:DvachBrowser.Assets.Converters">
+    xmlns:converters="clr-namespace:DvachBrowser.Assets.Converters"
+    xmlns:assets="clr-namespace:DvachBrowser.Assets">
 
     <!--Application Resources-->
     <Application.Resources>
+        <assets:LocalizedStrings x:Key="LocalizedStrings" />
+        
         <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
         <converters:BoolToCollapsedConverter x:Key="BoolToCollapsedConverter" />
 
@@ -23,6 +26,12 @@
         <sys:Double x:Key="FontSizeLarge">24</sys:Double>
         <sys:Double x:Key="FontSizeMedium">20</sys:Double>
         <sys:Double x:Key="FontSizeSmall">16</sys:Double>
+
+        <Style x:Key="ErrorMessageStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

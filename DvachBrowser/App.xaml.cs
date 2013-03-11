@@ -65,6 +65,7 @@ namespace DvachBrowser
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             Container.Register<BitmapManager, BitmapManager>();
+            Container.Register<PageNavigationService, PageNavigationService>();
         }
 
         // Code to execute when the application is activated (brought to foreground)

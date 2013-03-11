@@ -19,7 +19,7 @@ namespace DvachBrowser.ViewModels
         {
             this.BoardName = boardName;
             this.ThreadNumber = threadNumber;
-            this.Title = boardName + "/" + threadNumber;
+            this.Title = "/" + boardName + "/" + threadNumber;
 
             // load posts from the network
             string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json", boardName, threadNumber);
