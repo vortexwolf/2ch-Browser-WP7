@@ -30,11 +30,6 @@ namespace DvachBrowser.ViewModels
             base.MapModel(thread.OpenPost);
 
             this.RepliesImagesMessage = string.Format(Strings.DataFormat_PostsAndImages, thread.ReplyCount, thread.ImageCount);
-
-            if (this.Comment.Length > MaxCharNumber)
-            {
-                this.Comment = this.Comment.Substring(0, MaxCharNumber) + "...";
-            }
         }
 
         public string RepliesImagesMessage { get; private set; }

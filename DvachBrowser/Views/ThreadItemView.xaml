@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:DvachBrowser.Views"
+    xmlns:view="clr-namespace:DvachBrowser.Views"    
+    xmlns:controls="clr-namespace:DvachBrowser.Assets.Controls"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -25,10 +26,10 @@
                             Foreground="{StaticResource NeutronThreadTitle}"
                             FontSize="{StaticResource FontSizeLarge}"
                             TextTrimming="WordEllipsis" />
-            <TextBlock Text="{Binding Comment}" 
+            <controls:HtmlRichTextBox Text="{Binding Comment}" 
                             Foreground="{StaticResource NeutronPrimaryText}"
-                            TextWrapping="Wrap" 
-                            FontSize="{StaticResource FontSizeMedium}" />
+                            FontSize="{StaticResource FontSizeMedium}"
+                            MaxHeight="250"/>
             <TextBlock Text="{Binding RepliesImagesMessage}"
                             Foreground="{StaticResource NeutronItemInfo}"
                             FontSize="{StaticResource FontSizeSmall}" />

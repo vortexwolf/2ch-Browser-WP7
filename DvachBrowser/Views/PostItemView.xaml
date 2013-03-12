@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:DvachBrowser.Views" 
+    xmlns:controls="clr-namespace:DvachBrowser.Assets.Controls"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -24,9 +25,8 @@
                             Foreground="{StaticResource NeutronThreadTitle}"
                             FontSize="{StaticResource FontSizeLarge}"
                             TextTrimming="WordEllipsis" />
-            <TextBlock Text="{Binding Comment}" 
-                            Foreground="{StaticResource NeutronPrimaryText}"
-                            TextWrapping="Wrap" 
+            <controls:HtmlRichTextBox Text="{Binding Comment}" 
+                            Foreground="{StaticResource NeutronPrimaryText}" 
                             FontSize="{StaticResource FontSizeMedium}" />
         </StackPanel>
     </Grid>

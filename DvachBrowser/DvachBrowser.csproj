@@ -58,6 +58,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -67,6 +68,7 @@
     <Compile Include="Assets\CachedBitmapImageModel.cs" />
     <Compile Include="Assets\Constants.cs" />
     <Compile Include="Assets\Container.cs" />
+    <Compile Include="Assets\Controls\HtmlRichTextBox.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
