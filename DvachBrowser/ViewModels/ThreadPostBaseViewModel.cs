@@ -17,8 +17,6 @@ namespace DvachBrowser.ViewModels
 {
     public class ThreadPostBaseViewModel : ViewModel
     {
-        public const int MaxCharNumber = 160;
-
         protected readonly BitmapManager BitmapManager;
 
         public ThreadPostBaseViewModel(string boardName, BitmapManager bitmapManager)
@@ -36,16 +34,11 @@ namespace DvachBrowser.ViewModels
             this.HasImage = !string.IsNullOrEmpty(post.ThumbnailUri);
             this.ThumbnailUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ThumbnailUri : null;
             this.ImageUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ImageUri : null;
-
-            if (this.Comment.Length > MaxCharNumber)
-            {
-                this.Comment = this.Comment.Substring(0, MaxCharNumber) + "...";
-            }
         }
 
         public string BoardName { get; private set; }
 
-        public string Number { get; protected set; }
+        public long Number { get; protected set; }
 
         public bool HasSubject { get; set; }
 

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Container.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
+    <Compile Include="Assets\Extensions\PageExtensions.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
     <Compile Include="Assets\HttpGetStreamTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
@@ -165,6 +166,7 @@
     <Content Include="Background.png" />
     <Content Include="icon.png" />
     <Content Include="Images\alert.png" />
+    <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

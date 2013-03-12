@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
@@ -9,6 +11,8 @@ namespace DvachBrowser.ViewModels
     {
         private readonly BitmapManager _bitmapManager;
 
+        private HttpGetJsonTask<PostListModel> _currentTask;
+
         public PostListViewModel()
         {
             this.Posts = new ObservableCollection<PostItemViewModel>();
@@ -17,18 +21,30 @@ namespace DvachBrowser.ViewModels
 
         public void Load(string boardName, string threadNumber)
         {
+            this.IsLoadCalled = true;
+
+            if (this._currentTask != null)
+            {
+                this._currentTask.Cancel();
+            }
+
             this.BoardName = boardName;
             this.ThreadNumber = threadNumber;
             this.Title = "/" + boardName + "/" + threadNumber;
 
             // load posts from the network
-            string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json", boardName, threadNumber);
-            var httpGet = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
-            httpGet.OnError = this.OnError;
-            httpGet.OnProgressChanged = this.OnProgressChanged;
+            string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json?nocache={2}", boardName, threadNumber, DateTime.UtcNow);
+            this._currentTask = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
+            this._currentTask.OnError = this.OnError;
+            this._currentTask.OnProgressChanged = this.OnProgressChanged;
 
             this.OnPreLoadingThreads();
-            httpGet.Execute();
+            this._currentTask.Execute();
+        }
+
+        public void Refresh()
+        {
+            this.Load(this.BoardName, this.ThreadNumber);
         }
 
         private void OnPreLoadingThreads()
@@ -42,6 +58,7 @@ namespace DvachBrowser.ViewModels
             this.DisplayPosts(responseObject);
             this.IsLoading = false;
             this.IsError = false;
+            this._currentTask = null;
         }
 
         private void OnError(string message)
@@ -49,6 +66,7 @@ namespace DvachBrowser.ViewModels
             this.IsLoading = false;
             this.IsError = true;
             this.ErrorMessage = message;
+            this._currentTask = null;
         }
 
         private void OnProgressChanged(double value)
@@ -58,16 +76,20 @@ namespace DvachBrowser.ViewModels
 
         private void DisplayPosts(PostListModel postList)
         {
-            foreach (var postArray in postList.Posts)
+            var lastPostNumber = this.Posts.Select(p => p.Number).DefaultIfEmpty(0).Max();
+            var newPosts = postList.Posts.Select(postArray => postArray[0]).SkipWhile(post => post.Number <= lastPostNumber);
+
+            foreach (var post in newPosts)
             {
-                var post = postArray[0];
                 var vm = new PostItemViewModel(this.BoardName, this._bitmapManager);
                 vm.MapModel(post);
 
                 this.Posts.Add(vm);
             }
         }
-        
+
+        public bool IsLoadCalled { get; private set; }
+
         public ObservableCollection<PostItemViewModel> Posts { get; set; }
 
         private string _boardName;

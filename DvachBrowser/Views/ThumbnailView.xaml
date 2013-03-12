@@ -16,7 +16,7 @@
                 MouseLeftButtonUp="OnImageMouseLeftButtonUp">
         <Image Source="{Binding ThumbnailImage}"
                 VerticalAlignment="Top"
-                Width="72" Height="72" 
+                Width="126" Height="126" 
                 Stretch="Uniform"/>
     </StackPanel>
 </UserControl>

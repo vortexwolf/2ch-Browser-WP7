@@ -1,16 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
 
@@ -20,26 +9,39 @@ namespace DvachBrowser.ViewModels
     {
         private readonly BitmapManager _bitmapManager;
 
+        private HttpGetJsonTask<ThreadListModel> _currentTask;
+
         public ThreadListViewModel()
         {
             this.Threads = new ObservableCollection<ThreadItemViewModel>();
             this._bitmapManager = Container.Resolve<BitmapManager>();
-
-            this.Load("test");
         }
 
         public void Load(string boardName)
         {
+            this.IsLoadCalled = true;
+
+            if (this._currentTask != null)
+            {
+                this._currentTask.Cancel();
+            }
+
             this.BoardName = boardName;
             this.Title = "/" + boardName + "/";
 
             // load threads from the network
-            var httpGet = new HttpGetJsonTask<ThreadListModel>("http://2ch.hk/test/wakaba.json", this.OnPostLoadingThreads);
-            httpGet.OnError = this.OnError;
-            httpGet.OnProgressChanged = this.OnProgressChanged;
+            string threadsUrl = string.Format("http://2ch.hk/{0}/wakaba.json?nocache={1}", boardName, DateTime.UtcNow);
+            this._currentTask = new HttpGetJsonTask<ThreadListModel>(threadsUrl, this.OnPostLoadingThreads);
+            this._currentTask.OnError = this.OnError;
+            this._currentTask.OnProgressChanged = this.OnProgressChanged;
 
             this.OnPreLoadingThreads();
-            httpGet.Execute();
+            this._currentTask.Execute();
+        }
+
+        public void Refresh()
+        {
+            this.Load(this.BoardName);
         }
 
         private void OnPreLoadingThreads()
@@ -53,6 +55,7 @@ namespace DvachBrowser.ViewModels
             this.DisplayThreads(responseObject);
             this.IsLoading = false;
             this.IsError = false;
+            this._currentTask = null;
         }
 
         private void OnError(string message)
@@ -60,6 +63,7 @@ namespace DvachBrowser.ViewModels
             this.IsLoading = false;
             this.IsError = true;
             this.ErrorMessage = message;
+            this._currentTask = null;
         }
 
         private void OnProgressChanged(double value)
@@ -69,6 +73,8 @@ namespace DvachBrowser.ViewModels
         
         private void DisplayThreads(ThreadListModel threadList)
         {
+            this.Threads.Clear();
+
             foreach (var thread in threadList.Threads)
             {
                 var vm = new ThreadItemViewModel(this.BoardName, thread, this._bitmapManager);
@@ -76,6 +82,8 @@ namespace DvachBrowser.ViewModels
                 this.Threads.Add(vm);
             }
         }
+
+        public bool IsLoadCalled { get; private set; }
 
         public string BoardName { get; set; }
 

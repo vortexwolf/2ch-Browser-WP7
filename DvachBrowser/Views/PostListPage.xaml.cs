@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.Extensions;
 using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
@@ -17,14 +19,19 @@ namespace DvachBrowser.Views
             this.InitializeComponent();
 
             this.DataContext = this._viewModel = new PostListViewModel();
+
+            this.LocalizeAppBar();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
-            string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
+            if (!this._viewModel.IsLoadCalled)
+            {
+                string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
+                string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
 
-            this._viewModel.Load(boardName, threadNumber);
+                this._viewModel.Load(boardName, threadNumber);
+            }
 
             base.OnNavigatedTo(e);
         }
@@ -32,6 +39,11 @@ namespace DvachBrowser.Views
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Debug.WriteLine("Post item clicked");
+        }
+
+        private void OnRefreshClick(object sender, EventArgs e)
+        {
+            this._viewModel.Refresh();
         }
     }
 }

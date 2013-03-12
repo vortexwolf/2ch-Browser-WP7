@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,13 +11,23 @@ namespace DvachBrowser.Assets
 {
     public abstract class HttpGetTask
     {
-        public HttpGetTask(string url)
+        private bool _isCancelled;
+        private bool _isExecuted;
+
+        protected HttpGetTask(string url)
         {
             this.Url = url;
         }
 
         public void Execute()
         {
+            if (this._isExecuted)
+            {
+                throw new NotSupportedException();
+            }
+
+            this._isExecuted = true;
+
             // create the http request
             HttpWebRequest httpWebRequest = WebRequest.CreateHttp(this.Url);
             httpWebRequest.Method = "GET";
@@ -25,6 +36,11 @@ namespace DvachBrowser.Assets
 
             // get the response asynchronously
             httpWebRequest.BeginGetResponse(this.OnGetResponseCompleted, httpWebRequest);
+        }
+
+        public void Cancel()
+        {
+            this._isCancelled = true;
         }
 
         protected abstract void OnStreamDownloaded(Stream stream);
@@ -39,11 +55,19 @@ namespace DvachBrowser.Assets
 
         protected void InvokeInUiThread(Action action)
         {
-            Deployment.Current.Dispatcher.BeginInvoke(action);
+            if (!this._isCancelled)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(action);
+            }
         }
 
         private void OnGetResponseCompleted(IAsyncResult ar)
         {
+            if (this._isCancelled)
+            {
+                return;
+            }
+
             var httpWebRequest = (HttpWebRequest)ar.AsyncState;
 
             // get the response
@@ -82,7 +106,10 @@ namespace DvachBrowser.Assets
                 stream = response.GetResponseStream();
             }
 
-            this.OnStreamDownloaded(stream);
+            if (!this._isCancelled)
+            {
+                this.OnStreamDownloaded(stream);
+            }
         }
 
         public string Url { get; private set; }

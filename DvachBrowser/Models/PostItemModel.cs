@@ -6,10 +6,10 @@ namespace DvachBrowser.Models
     public class PostItemModel
     {
         [DataMember(Name = "num")]
-        public string Number { get; set; }
+        public long Number { get; set; }
 
         [DataMember(Name = "timestamp")]
-        public int Timestamp { get; set; }
+        public long Timestamp { get; set; }
 
         [DataMember(Name = "thumbnail")]
         public string ThumbnailUri { get; set; }
