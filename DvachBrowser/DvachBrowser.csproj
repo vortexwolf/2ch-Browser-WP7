@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WriteableBitmapExWinPhone">
+      <HintPath>..\References\WriteableBitmapExWinPhone.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -78,6 +81,7 @@
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\Extensions\CollectionExtensions.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
+    <Compile Include="Assets\GifDecoder.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
     <Compile Include="Assets\HttpGetStreamTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />

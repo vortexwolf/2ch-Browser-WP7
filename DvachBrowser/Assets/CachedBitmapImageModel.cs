@@ -8,6 +8,6 @@ namespace DvachBrowser.Assets
 
         public string Error { get; set; }
 
-        public BitmapImage Image { get; set; }
+        public BitmapSource Image { get; set; }
     }
 }

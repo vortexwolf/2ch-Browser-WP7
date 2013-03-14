@@ -64,7 +64,7 @@ namespace DvachBrowser.ViewModels
             }
         }
 
-        private BitmapImage GetThumbnailImage()
+        private BitmapSource GetThumbnailImage()
         {
             var cachedImage = this.BitmapManager.GetCachedImage(this.ThumbnailUri);
             if (cachedImage.IsCached)

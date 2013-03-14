@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using System.Diagnostics;
 
 namespace DvachBrowser.Assets
 {
@@ -54,20 +55,44 @@ namespace DvachBrowser.Assets
 
         private void OnStreamDownloaded(string uri, MemoryStream stream, Action onFinished)
         {
-            var bitmap = new BitmapImage();
+            BitmapSource bitmap = null;
             try
             {
-                bitmap.SetSource(stream);
+                // the special case for gif images
+                if (uri.EndsWith("gif"))
+                {
+                    bitmap = DecodeGif(uri, new MemoryStream(stream.ToArray()));
+                }
+
+                // try to use the default way for all other images and for failed gif images
+                if (bitmap == null)
+                {
+                    bitmap = new BitmapImage();
+                    bitmap.SetSource(stream);
+                }
 
                 this.AddImage(uri, bitmap);
             }
             catch (Exception e)
             {
-                // if the downloaded stream is not an image
                 this._errors.Add(uri, e.Message);
             }
 
             onFinished();
+        }
+
+        private WriteableBitmap DecodeGif(string uri, MemoryStream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+
+            var gd = new GifDecoder();
+            int status = gd.Read(stream);
+            if (status == GifDecoder.STATUS_OK)
+            {
+                return gd.GetImage();
+            }
+
+            return null;
         }
 
         private void OnError(string uri, string error, Action onFinished)
@@ -77,7 +102,7 @@ namespace DvachBrowser.Assets
             onFinished();
         }
 
-        private void AddImage(string uri, BitmapImage bitmap)
+        private void AddImage(string uri, BitmapSource bitmap)
         {
             var imageModel = new BitmapImageWithLastAccess { Image = bitmap, LastAccess = DateTime.UtcNow };
 
@@ -97,7 +122,7 @@ namespace DvachBrowser.Assets
 
         private class BitmapImageWithLastAccess
         {
-            public BitmapImage Image { get; set; }
+            public BitmapSource Image { get; set; }
 
             public DateTime LastAccess { get; set; }
         }
