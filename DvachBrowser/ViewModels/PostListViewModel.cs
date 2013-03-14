@@ -21,8 +21,6 @@ namespace DvachBrowser.ViewModels
 
         public void Load(string boardName, string threadNumber)
         {
-            this.IsLoadCalled = true;
-
             if (this._currentTask != null)
             {
                 this._currentTask.Cancel();
@@ -51,6 +49,7 @@ namespace DvachBrowser.ViewModels
         {
             this.IsLoading = true;
             this.IsError = false;
+            this.IsListLoaded = false;
         }
 
         private void OnPostLoadingPosts(PostListModel responseObject)
@@ -58,6 +57,8 @@ namespace DvachBrowser.ViewModels
             this.DisplayPosts(responseObject);
             this.IsLoading = false;
             this.IsError = false;
+            this.IsListLoaded = true;
+
             this._currentTask = null;
         }
 
@@ -66,6 +67,8 @@ namespace DvachBrowser.ViewModels
             this.IsLoading = false;
             this.IsError = true;
             this.ErrorMessage = message;
+            this.IsListLoaded = false;
+
             this._currentTask = null;
         }
 
@@ -87,8 +90,6 @@ namespace DvachBrowser.ViewModels
                 this.Posts.Add(vm);
             }
         }
-
-        public bool IsLoadCalled { get; private set; }
 
         public ObservableCollection<PostItemViewModel> Posts { get; set; }
 
@@ -173,6 +174,18 @@ namespace DvachBrowser.ViewModels
             {
                 this._errorMessage = value;
                 this.OnPropertyChanged("ErrorMessage");
+            }
+        }
+
+        private bool _isListLoaded;
+
+        public bool IsListLoaded
+        {
+            get { return this._isListLoaded; }
+            set
+            {
+                this._isListLoaded = value;
+                this.OnPropertyChanged("IsListLoaded");
             }
         }
     }

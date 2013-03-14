@@ -1,0 +1,8 @@
+﻿<vm:BoardListViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
+                        TypedBoard="some typed text">
+    <vm:BoardListViewModel.Boards>
+        <vm:BoardItemViewModel Code="test1" Title="test 1" />
+        <vm:BoardItemViewModel Code="test2" Title="test 2" />
+        <vm:BoardItemViewModel Code="test3" Title="test 3" />
+    </vm:BoardListViewModel.Boards>
+</vm:BoardListViewModel>

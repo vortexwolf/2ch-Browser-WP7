@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.Resources;
 using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
@@ -18,7 +19,7 @@ namespace DvachBrowser.ViewModels
     public class ThreadPostBaseViewModel : ViewModel
     {
         protected readonly BitmapManager BitmapManager;
-
+        
         public ThreadPostBaseViewModel(string boardName, BitmapManager bitmapManager)
         {
             this.BoardName = boardName;
@@ -34,6 +35,7 @@ namespace DvachBrowser.ViewModels
             this.HasImage = !string.IsNullOrEmpty(post.ThumbnailUri);
             this.ThumbnailUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ThumbnailUri : null;
             this.ImageUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ImageUri : null;
+            this.AttachmentInfo = string.Format(Strings.DataFormat_Kb, post.ImageSize);
         }
 
         public string BoardName { get; private set; }
@@ -51,6 +53,8 @@ namespace DvachBrowser.ViewModels
         public string ThumbnailUri { get; protected set; }
 
         public string ImageUri { get; set; }
+
+        public string AttachmentInfo { get; set; }
 
         public BitmapSource ThumbnailImage
         {

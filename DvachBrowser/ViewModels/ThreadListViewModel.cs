@@ -19,8 +19,6 @@ namespace DvachBrowser.ViewModels
 
         public void Load(string boardName)
         {
-            this.IsLoadCalled = true;
-
             if (this._currentTask != null)
             {
                 this._currentTask.Cancel();
@@ -48,6 +46,7 @@ namespace DvachBrowser.ViewModels
         {
             this.IsLoading = true;
             this.IsError = false;
+            this.IsListLoaded = false;
         }
 
         private void OnPostLoadingThreads(ThreadListModel responseObject)
@@ -55,6 +54,8 @@ namespace DvachBrowser.ViewModels
             this.DisplayThreads(responseObject);
             this.IsLoading = false;
             this.IsError = false;
+            this.IsListLoaded = true;
+
             this._currentTask = null;
         }
 
@@ -63,6 +64,8 @@ namespace DvachBrowser.ViewModels
             this.IsLoading = false;
             this.IsError = true;
             this.ErrorMessage = message;
+            this.IsListLoaded = false;
+
             this._currentTask = null;
         }
 
@@ -83,14 +86,22 @@ namespace DvachBrowser.ViewModels
             }
         }
 
-        public bool IsLoadCalled { get; private set; }
-
         public string BoardName { get; set; }
 
-        public string Title { get; set; }
-
         public ObservableCollection<ThreadItemViewModel> Threads { get; set; }
-        
+
+        private string _title;
+
+        public string Title
+        {
+            get { return this._title; }
+            set
+            {
+                this._title = value;
+                this.OnPropertyChanged("Title");
+            }
+        }
+
         private bool _isLoading;
 
         public bool IsLoading
@@ -136,6 +147,18 @@ namespace DvachBrowser.ViewModels
             {
                 this._errorMessage = value;
                 this.OnPropertyChanged("ErrorMessage");
+            }
+        }
+
+        private bool _isListLoaded;
+
+        public bool IsListLoaded
+        {
+            get { return this._isListLoaded; }
+            set 
+            {
+                this._isListLoaded = value;
+                this.OnPropertyChanged("IsListLoaded");
             }
         }
     }

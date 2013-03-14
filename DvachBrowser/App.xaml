@@ -32,6 +32,15 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
+
+        <Style x:Key="FullWidthListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+
+        <Style x:Key="NeutronTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
+            <Setter Property="Foreground" Value="{StaticResource NeutronPrimaryText}" />
+            <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+        </Style>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

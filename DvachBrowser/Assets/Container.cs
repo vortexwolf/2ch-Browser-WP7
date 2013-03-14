@@ -34,6 +34,11 @@ namespace DvachBrowser.Assets
 
         public static object Resolve(Type type)
         {
+            if (!Registrations.ContainsKey(type))
+            {
+                return null;
+            }
+
             var registration = Registrations[type];
 
             if (Instances.ContainsKey(type))

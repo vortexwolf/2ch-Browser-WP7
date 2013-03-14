@@ -18,8 +18,6 @@ namespace DvachBrowser.ViewModels
 {
     public class ThreadItemViewModel : ThreadPostBaseViewModel
     {
-        public const int MaxCharNumber = 160;
-
         public ThreadItemViewModel(string boardName, ThreadItemModel thread, BitmapManager bitmapManager) : base(boardName, bitmapManager)
         {
             this.MapModel(thread);

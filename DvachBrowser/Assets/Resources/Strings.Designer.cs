@@ -61,6 +61,33 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 2ch boards.
+        /// </summary>
+        public static string AppTitle_2ch_boards {
+            get {
+                return ResourceManager.GetString("AppTitle_2ch_boards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boards.
+        /// </summary>
+        public static string Boards {
+            get {
+                return ResourceManager.GetString("Boards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Kb.
+        /// </summary>
+        public static string DataFormat_Kb {
+            get {
+                return ResourceManager.GetString("DataFormat_Kb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} posts and {1} images.
         /// </summary>
         public static string DataFormat_PostsAndImages {
@@ -75,6 +102,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New thread.
+        /// </summary>
+        public static string New_Thread {
+            get {
+                return ResourceManager.GetString("New_Thread", resourceCulture);
             }
         }
         

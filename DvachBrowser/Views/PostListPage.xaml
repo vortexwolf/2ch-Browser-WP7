@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title}" Style="{StaticResource PhoneTextNormalStyle}" />
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title}"  Style="{StaticResource NeutronTextBlockStyle}" />
         </StackPanel>
         
         <Grid x:Name="ContentPanel" Grid.Row="1">
@@ -45,16 +45,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Style="{StaticResource PhoneTextNormalStyle}" />
-            <ListBox Visibility="{Binding IsLoading, Converter={StaticResource BoolToCollapsedConverter}}"
+            <ListBox Visibility="{Binding IsListLoaded, Converter={StaticResource BoolToVisibleConverter}}"
                     ItemsSource="{Binding Posts}"
                     ItemTemplate="{StaticResource PostItemTemplate}"
+                    ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
                     VerticalAlignment="Stretch"
-                     SelectionChanged="ListBox_SelectionChanged">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
+                    SelectionChanged="ListBox_SelectionChanged">
             </ListBox>
         </Grid>
     </Grid>

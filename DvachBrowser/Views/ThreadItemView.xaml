@@ -26,10 +26,10 @@
                             Foreground="{StaticResource NeutronThreadTitle}"
                             FontSize="{StaticResource FontSizeLarge}"
                             TextTrimming="WordEllipsis" />
-            <controls:HtmlRichTextBox Text="{Binding Comment}" 
+            <controls:HtmlRichTextBox Text="{Binding Comment}"
                             Foreground="{StaticResource NeutronPrimaryText}"
                             FontSize="{StaticResource FontSizeMedium}"
-                            MaxHeight="250"/>
+                            MaxNumberOfSymbols="150"/>
             <TextBlock Text="{Binding RepliesImagesMessage}"
                             Foreground="{StaticResource NeutronItemInfo}"
                             FontSize="{StaticResource FontSizeSmall}" />

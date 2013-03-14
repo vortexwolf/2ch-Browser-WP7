@@ -13,6 +13,7 @@ namespace DvachBrowser.Views
     public partial class PostListPage : PhoneApplicationPage
     {
         private readonly PostListViewModel _viewModel;
+        private bool _isLoaded;
 
         public PostListPage()
         {
@@ -25,12 +26,14 @@ namespace DvachBrowser.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (!this._viewModel.IsLoadCalled)
+            if (!this._isLoaded)
             {
                 string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
                 string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
 
                 this._viewModel.Load(boardName, threadNumber);
+
+                this._isLoaded = true;
             }
 
             base.OnNavigatedTo(e);

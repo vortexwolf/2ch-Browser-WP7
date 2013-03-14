@@ -11,10 +11,15 @@ namespace DvachBrowser.Views
     public partial class ThreadListPage : PhoneApplicationPage
     {
         private readonly ThreadListViewModel _viewModel;
+        private readonly PageNavigationService _pageNavigationService;
+
+        private bool _isLoaded;
 
         public ThreadListPage()
         {
             this.InitializeComponent();
+
+            this._pageNavigationService = Container.Resolve<PageNavigationService>();
 
             this.DataContext = this._viewModel = new ThreadListViewModel();
 
@@ -23,9 +28,13 @@ namespace DvachBrowser.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (!this._viewModel.IsLoadCalled)
+            if (!this._isLoaded)
             {
-                this._viewModel.Load(Constants.DefaultBoardName);
+                string board = this.NavigationContext.QueryString.GetValueOrDefault(Constants.QueryStringBoard)
+                               ?? Constants.DefaultBoardName;
+
+                this._viewModel.Load(board);
+                this._isLoaded = true;
             }
 
             // clear the previous selection so that we can navigate to the same thread more than 1 time
@@ -47,12 +56,17 @@ namespace DvachBrowser.Views
                 .Add(Constants.QueryStringThread, selectedItem.Number.ToString())
                 .Build();
 
-            Container.Resolve<PageNavigationService>().Navigate(Constants.PostListPageUri + queryString);
+            this._pageNavigationService.Navigate(Constants.PostListPageUri + queryString);
         }
 
         private void OnRefreshClick(object sender, EventArgs e)
         {
             this._viewModel.Refresh();
+        }
+
+        private void OnBoardsButtonClick(object sender, EventArgs e)
+        {
+            this._pageNavigationService.Navigate(Constants.BoardListPageUri);
         }
     }
 }

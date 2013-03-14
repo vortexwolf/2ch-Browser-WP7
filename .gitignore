@@ -1,6 +1,6 @@
 *.Cache
 *.suo
 /_ReSharper.DvachBrowser
-/DvachBrowser/Bin
-/DvachBrowser/obj
-/DvachBrowser/DvachBrowser.csproj.user
+Bin
+obj
+*.user

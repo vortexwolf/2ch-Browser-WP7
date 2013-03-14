@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppTitle_2ch_boards" xml:space="preserve">
+    <value>2ch boards</value>
+  </data>
+  <data name="Boards" xml:space="preserve">
+    <value>Boards</value>
+  </data>
+  <data name="DataFormat_Kb" xml:space="preserve">
+    <value>{0}Kb</value>
+  </data>
   <data name="DataFormat_PostsAndImages" xml:space="preserve">
     <value>{0} posts and {1} images</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="New_Thread" xml:space="preserve">
+    <value>New thread</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>

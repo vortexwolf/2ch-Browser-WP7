@@ -30,8 +30,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title}" Style="{StaticResource PhoneTextNormalStyle}" />
+        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource NeutronTextBlockStyle}" />
         </StackPanel>
 
         <Grid x:Name="ContentPanel" Grid.Row="1">
@@ -44,17 +44,13 @@
             <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
                         Text="{Binding ErrorMessage}" 
                         Style="{StaticResource ErrorMessageStyle}" />
-            
-            <ListBox x:Name="list" Visibility="{Binding IsLoading, Converter={StaticResource BoolToCollapsedConverter}}"
+
+            <ListBox x:Name="list" Visibility="{Binding IsListLoaded, Converter={StaticResource BoolToVisibleConverter}}"
                     ItemsSource="{Binding Threads}"
                     ItemTemplate="{StaticResource ThreadItemTemplate}"
+                    ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
                     VerticalAlignment="Stretch"
                     SelectionChanged="OnSelectionChanged">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
             </ListBox>
         </Grid>
     </Grid>
@@ -62,6 +58,8 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.png" Text="Refresh" Click="OnRefreshClick"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.png" Text="New_Thread" />
             <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>

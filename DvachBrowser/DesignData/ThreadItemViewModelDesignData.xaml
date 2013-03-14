@@ -3,4 +3,5 @@
     Comment="Test comment 1" 
     RepliesImagesMessage="1 reply 1 image"
     HasImage="True"
-    ThumbnailImage="/Images/image.png"/>
+    ThumbnailImage="/Images/image.png"
+    AttachmentInfo="50Kb"/>
