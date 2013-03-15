@@ -81,7 +81,7 @@
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\Extensions\CollectionExtensions.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
-    <Compile Include="Assets\GifDecoder.cs" />
+    <Compile Include="Assets\GifDecoder.Designer.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
     <Compile Include="Assets\HttpGetStreamTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />

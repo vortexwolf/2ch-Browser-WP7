@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
-using System.Diagnostics;
 
 namespace DvachBrowser.Assets
 {
@@ -61,7 +61,7 @@ namespace DvachBrowser.Assets
                 // the special case for gif images
                 if (uri.EndsWith("gif"))
                 {
-                    bitmap = DecodeGif(uri, new MemoryStream(stream.ToArray()));
+                    bitmap = this.DecodeGif(uri, new MemoryStream(stream.ToArray()));
                 }
 
                 // try to use the default way for all other images and for failed gif images
