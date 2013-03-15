@@ -57,6 +57,8 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.png" Text="Refresh" Click="OnRefreshClick"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.png" Text="New_Post" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

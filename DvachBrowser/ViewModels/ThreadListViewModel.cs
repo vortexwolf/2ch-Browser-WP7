@@ -5,7 +5,7 @@ using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ThreadListViewModel : ViewModel
+    public class ThreadListViewModel : ListBaseViewModel
     {
         private readonly BitmapManager _bitmapManager;
 
@@ -29,11 +29,11 @@ namespace DvachBrowser.ViewModels
 
             // load threads from the network
             string threadsUrl = string.Format("http://2ch.hk/{0}/wakaba.json?nocache={1}", boardName, DateTime.UtcNow);
-            this._currentTask = new HttpGetJsonTask<ThreadListModel>(threadsUrl, this.OnPostLoadingThreads);
-            this._currentTask.OnError = this.OnError;
-            this._currentTask.OnProgressChanged = this.OnProgressChanged;
+            this._currentTask = new HttpGetJsonTask<ThreadListModel>(threadsUrl, this.OnThreadsLoaded);
+            this._currentTask.OnError = this.ShowError;
+            this._currentTask.OnProgressChanged = this.UpdateProgress;
 
-            this.OnPreLoadingThreads();
+            this.ShowLoading();
             this._currentTask.Execute();
         }
 
@@ -42,36 +42,20 @@ namespace DvachBrowser.ViewModels
             this.Load(this.BoardName);
         }
 
-        private void OnPreLoadingThreads()
-        {
-            this.IsLoading = true;
-            this.IsError = false;
-            this.IsListLoaded = false;
-        }
-
-        private void OnPostLoadingThreads(ThreadListModel responseObject)
+        private void OnThreadsLoaded(ThreadListModel responseObject)
         {
             this.DisplayThreads(responseObject);
-            this.IsLoading = false;
-            this.IsError = false;
-            this.IsListLoaded = true;
+
+            this.HideLoading();
 
             this._currentTask = null;
         }
 
-        private void OnError(string message)
+        protected override void ShowError(string message)
         {
-            this.IsLoading = false;
-            this.IsError = true;
-            this.ErrorMessage = message;
-            this.IsListLoaded = false;
+            base.ShowError(message);
 
             this._currentTask = null;
-        }
-
-        private void OnProgressChanged(double value)
-        {
-            this.Progress = value;
         }
         
         private void DisplayThreads(ThreadListModel threadList)
@@ -89,77 +73,5 @@ namespace DvachBrowser.ViewModels
         public string BoardName { get; set; }
 
         public ObservableCollection<ThreadItemViewModel> Threads { get; set; }
-
-        private string _title;
-
-        public string Title
-        {
-            get { return this._title; }
-            set
-            {
-                this._title = value;
-                this.OnPropertyChanged("Title");
-            }
-        }
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get { return this._isLoading; }
-            set
-            {
-                this._isLoading = value;
-                this.OnPropertyChanged("IsLoading");
-            }
-        }
-
-        private double _progress;
-
-        public double Progress
-        {
-            get { return this._progress; }
-            set
-            {
-                this._progress = value;
-                this.OnPropertyChanged("Progress");
-            }
-        }
-
-        private bool _isError;
-
-        public bool IsError
-        {
-            get { return this._isError; }
-            set
-            {
-                this._isError = value;
-                this.OnPropertyChanged("IsError");
-            }
-        }
-
-        private string _errorMessage;
-
-        public string ErrorMessage
-        {
-            get { return this._errorMessage; }
-            set
-            {
-                this._errorMessage = value;
-                this.OnPropertyChanged("ErrorMessage");
-            }
-        }
-
-        private bool _isListLoaded;
-
-        public bool IsListLoaded
-        {
-            get { return this._isListLoaded; }
-            set 
-            {
-                this._isListLoaded = value;
-                this.OnPropertyChanged("IsListLoaded");
-            }
-        }
     }
 }

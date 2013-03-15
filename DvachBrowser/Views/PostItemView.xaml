@@ -10,24 +10,34 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="280" d:DesignWidth="480"
-    d:DataContext="{d:DesignData Source=../DesignData/ThreadItemViewModelDesignData.xaml}">
+    d:DataContext="{d:DesignData Source=../DesignData/PostItemViewModelDesignData.xaml}">
     <Grid Margin="10,0,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <view:ThumbnailView Grid.Column="0" />
-        
-        <StackPanel Grid.Column="1">
-            <TextBlock Visibility="{Binding HasSubject, Converter={StaticResource BoolToVisibleConverter}}"
-                            Text="{Binding Subject}" 
-                            Foreground="{StaticResource NeutronThreadTitle}"
-                            FontSize="{StaticResource FontSizeLarge}"
-                            TextTrimming="WordEllipsis" />
-            <controls:HtmlRichTextBox Text="{Binding Comment}" 
-                            Foreground="{StaticResource NeutronPrimaryText}" 
-                            FontSize="{StaticResource FontSizeMedium}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Index}"
+                       FontWeight="Bold"
+                       Foreground="#4F7942"
+                       FontSize="{StaticResource FontSizeMedium}"
+                       Margin="0,0,5,0" />
+            <TextBlock Text="{Binding Number}"
+                       Foreground="{StaticResource NeutronPostNumber}"
+                       FontSize="{StaticResource FontSizeMedium}"
+                       Margin="0,0,5,0" />
         </StackPanel>
+        
+        <view:ThumbnailView Grid.Column="0" Grid.Row="1" />
+        
+        <controls:HtmlRichTextBox Grid.Column="1" Grid.Row="1" 
+                        Text="{Binding Comment}" 
+                        Foreground="{StaticResource NeutronPrimaryText}" 
+                        FontSize="{StaticResource FontSizeMedium}" />
     </Grid>
 </UserControl>

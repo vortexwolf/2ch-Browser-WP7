@@ -106,11 +106,11 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New thread.
+        ///   Looks up a localized string similar to New post.
         /// </summary>
-        public static string New_Thread {
+        public static string New_Post {
             get {
-                return ResourceManager.GetString("New_Thread", resourceCulture);
+                return ResourceManager.GetString("New_Post", resourceCulture);
             }
         }
         

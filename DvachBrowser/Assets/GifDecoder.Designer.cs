@@ -326,7 +326,15 @@ namespace DvachBrowser.Assets
                         status = STATUS_FORMAT_ERROR;
                     }
                 }
-                inStream.Close();
+
+                if (!inStream.CanSeek)
+                {
+                    inStream.Close();
+                }
+                else
+                {
+                    inStream.Seek(0, SeekOrigin.Begin);
+                }
             }
             else
             {

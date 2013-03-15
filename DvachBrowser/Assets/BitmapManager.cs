@@ -61,13 +61,15 @@ namespace DvachBrowser.Assets
                 // the special case for gif images
                 if (uri.EndsWith("gif"))
                 {
-                    bitmap = this.DecodeGif(uri, new MemoryStream(stream.ToArray()));
+                    bitmap = this.DecodeGif(uri, stream);
                 }
 
                 // try to use the default way for all other images and for failed gif images
                 if (bitmap == null)
                 {
                     bitmap = new BitmapImage();
+
+                    stream.Seek(0, SeekOrigin.Begin);
                     bitmap.SetSource(stream);
                 }
 

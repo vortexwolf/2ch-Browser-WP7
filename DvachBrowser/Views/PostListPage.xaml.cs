@@ -13,11 +13,15 @@ namespace DvachBrowser.Views
     public partial class PostListPage : PhoneApplicationPage
     {
         private readonly PostListViewModel _viewModel;
+        private readonly PageNavigationService _pageNavigationService;
+
         private bool _isLoaded;
 
         public PostListPage()
         {
             this.InitializeComponent();
+
+            this._pageNavigationService = Container.Resolve<PageNavigationService>();
 
             this.DataContext = this._viewModel = new PostListViewModel();
 
@@ -47,6 +51,11 @@ namespace DvachBrowser.Views
         private void OnRefreshClick(object sender, EventArgs e)
         {
             this._viewModel.Refresh();
+        }
+
+        private void OnBoardsButtonClick(object sender, EventArgs e)
+        {
+            this._pageNavigationService.Navigate(Constants.BoardListPageUri);
         }
     }
 }

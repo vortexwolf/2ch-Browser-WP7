@@ -1,0 +1,8 @@
+﻿<vm:PostItemViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
+    Index="1"
+    Number="25345"
+    Subject="Test subject 1" 
+    Comment="Test comment 1"
+    HasImage="True"
+    ThumbnailImage="/Images/image.png"
+    AttachmentInfo="50Kb"/>

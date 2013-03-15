@@ -7,12 +7,17 @@ namespace DvachBrowser.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
+            this.OnPropertyChanged(propertyName);
         }
     }
 }

@@ -102,7 +102,8 @@ namespace DvachBrowser.Assets.Controls
             var href = element.Attribute("href");
 
             return new XElement(
-                "Hyperlink", 
+                "Hyperlink",
+                new XAttribute("Foreground", "#C9BE89"),
                 new XAttribute("NavigateUri", href.Value), 
                 new XAttribute("TargetName", "_blank"), 
                     content);

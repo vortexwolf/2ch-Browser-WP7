@@ -59,7 +59,6 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.png" Text="Refresh" Click="OnRefreshClick"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.png" Text="New_Thread" />
             <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>

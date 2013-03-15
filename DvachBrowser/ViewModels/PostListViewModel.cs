@@ -7,7 +7,7 @@ using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
-    public class PostListViewModel : ViewModel
+    public class PostListViewModel : ListBaseViewModel
     {
         private readonly BitmapManager _bitmapManager;
 
@@ -32,11 +32,11 @@ namespace DvachBrowser.ViewModels
 
             // load posts from the network
             string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json?nocache={2}", boardName, threadNumber, DateTime.UtcNow);
-            this._currentTask = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostLoadingPosts);
-            this._currentTask.OnError = this.OnError;
-            this._currentTask.OnProgressChanged = this.OnProgressChanged;
+            this._currentTask = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostsLoaded);
+            this._currentTask.OnError = this.ShowError;
+            this._currentTask.OnProgressChanged = this.UpdateProgress;
 
-            this.OnPreLoadingThreads();
+            this.ShowLoading();
             this._currentTask.Execute();
         }
 
@@ -45,49 +45,36 @@ namespace DvachBrowser.ViewModels
             this.Load(this.BoardName, this.ThreadNumber);
         }
 
-        private void OnPreLoadingThreads()
-        {
-            this.IsLoading = true;
-            this.IsError = false;
-            this.IsListLoaded = false;
-        }
-
-        private void OnPostLoadingPosts(PostListModel responseObject)
+        private void OnPostsLoaded(PostListModel responseObject)
         {
             this.DisplayPosts(responseObject);
-            this.IsLoading = false;
-            this.IsError = false;
-            this.IsListLoaded = true;
+
+            this.HideLoading();
 
             this._currentTask = null;
         }
 
-        private void OnError(string message)
+        protected override void ShowError(string message)
         {
-            this.IsLoading = false;
-            this.IsError = true;
-            this.ErrorMessage = message;
-            this.IsListLoaded = false;
+            base.ShowError(message);
 
             this._currentTask = null;
-        }
-
-        private void OnProgressChanged(double value)
-        {
-            this.Progress = value;
         }
 
         private void DisplayPosts(PostListModel postList)
         {
             var lastPostNumber = this.Posts.Select(p => p.Number).DefaultIfEmpty(0).Max();
             var newPosts = postList.Posts.Select(postArray => postArray[0]).SkipWhile(post => post.Number <= lastPostNumber);
+            int index = 1 + this.Posts.Select(p => p.Index).DefaultIfEmpty(0).Last();
 
             foreach (var post in newPosts)
             {
                 var vm = new PostItemViewModel(this.BoardName, this._bitmapManager);
-                vm.MapModel(post);
+                vm.MapModel(post, index);
 
                 this.Posts.Add(vm);
+
+                index++;
             }
         }
 
@@ -114,78 +101,6 @@ namespace DvachBrowser.ViewModels
             {
                 this._threadNumber = value;
                 this.OnPropertyChanged("ThreadNumber");
-            }
-        }
-
-        private string _title;
-
-        public string Title
-        {
-            get { return this._title; }
-            set
-            {
-                this._title = value;
-                this.OnPropertyChanged("Title");
-            }
-        }
-
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get { return this._isLoading; }
-            set
-            {
-                this._isLoading = value;
-                this.OnPropertyChanged("IsLoading");
-            }
-        }
-
-        private double _progress;
-
-        public double Progress
-        {
-            get { return this._progress; }
-            set
-            {
-                this._progress = value;
-                this.OnPropertyChanged("Progress");
-            }
-        }
-
-        private bool _isError;
-
-        public bool IsError
-        {
-            get { return this._isError; }
-            set
-            {
-                this._isError = value;
-                this.OnPropertyChanged("IsError");
-            }
-        }
-
-        private string _errorMessage;
-
-        public string ErrorMessage
-        {
-            get { return this._errorMessage; }
-            set
-            {
-                this._errorMessage = value;
-                this.OnPropertyChanged("ErrorMessage");
-            }
-        }
-
-        private bool _isListLoaded;
-
-        public bool IsListLoaded
-        {
-            get { return this._isListLoaded; }
-            set
-            {
-                this._isListLoaded = value;
-                this.OnPropertyChanged("IsListLoaded");
             }
         }
     }

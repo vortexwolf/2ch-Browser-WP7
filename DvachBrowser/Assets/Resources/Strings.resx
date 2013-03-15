@@ -132,8 +132,8 @@
   <data name="Loading" xml:space="preserve">
     <value>Loading...</value>
   </data>
-  <data name="New_Thread" xml:space="preserve">
-    <value>New thread</value>
+  <data name="New_Post" xml:space="preserve">
+    <value>New post</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
