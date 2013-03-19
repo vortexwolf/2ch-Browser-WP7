@@ -12,7 +12,7 @@
     <Tokens>
       <PrimaryToken TokenID="DvachBrowserToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">icon.png</BackgroundImageURI>
           <Count>0</Count>
           <Title>2ch Browser</Title>
         </TemplateType5>

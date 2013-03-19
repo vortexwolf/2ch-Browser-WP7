@@ -211,7 +211,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Background.png" />
     <Content Include="icon.png" />
     <Content Include="Images\alert.png" />
     <Content Include="Images\appbar.add.png" />
