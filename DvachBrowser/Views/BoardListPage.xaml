@@ -33,9 +33,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Strings.AppTitle_2ch_boards, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockStyle}" />
-        </StackPanel>
+        <TextBlock x:Name="ApplicationTitle" Grid.Row="0" Text="{Binding Strings.AppTitle_2ch_boards, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
         
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

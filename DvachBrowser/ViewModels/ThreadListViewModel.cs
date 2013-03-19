@@ -5,7 +5,7 @@ using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ThreadListViewModel : ListBaseViewModel
+    public class ThreadListViewModel : LoadingBaseViewModel
     {
         private readonly BitmapManager _bitmapManager;
 
@@ -42,18 +42,18 @@ namespace DvachBrowser.ViewModels
             this.Load(this.BoardName);
         }
 
+        public override void ShowError(string message)
+        {
+            base.ShowError(message);
+
+            this._currentTask = null;
+        }
+
         private void OnThreadsLoaded(ThreadListModel responseObject)
         {
             this.DisplayThreads(responseObject);
 
             this.HideLoading();
-
-            this._currentTask = null;
-        }
-
-        protected override void ShowError(string message)
-        {
-            base.ShowError(message);
 
             this._currentTask = null;
         }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 
 using DvachBrowser.Assets.Resources;
 
@@ -28,6 +30,11 @@ namespace DvachBrowser.Assets.Extensions
             {
                 menuItem.Text = Strings.ResourceManager.GetString(menuItem.Text);
             }
+        }
+
+        public static void AddValidationBinding(this PhoneApplicationPage page)
+        {
+            page.BindingValidationError += (s, e) => VisualStateManager.GoToState((Control)e.OriginalSource, e.Action == ValidationErrorEventAction.Added ? "Invalid" : "Valid", false);
         }
     }
 }

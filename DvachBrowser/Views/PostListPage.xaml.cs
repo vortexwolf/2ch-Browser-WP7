@@ -57,5 +57,10 @@ namespace DvachBrowser.Views
         {
             this._pageNavigationService.Navigate(Constants.BoardListPageUri);
         }
+
+        private void OnAddPostClick(object sender, EventArgs e)
+        {
+            this._pageNavigationService.Navigate(Constants.AddPostPageUri);
+        }
     }
 }

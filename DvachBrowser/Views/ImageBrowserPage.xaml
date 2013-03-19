@@ -19,21 +19,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0">
-            <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" />
-        </StackPanel>
+        <TextBlock x:Name="ApplicationTitle" Grid.Row="0" Text="{Binding Title}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
+        
         <Grid x:Name="ContentPanel" Grid.Row="1">
-            <StackPanel x:Name="loadingPanel" Visibility="Visible" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Strings.Loading, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" />
+            <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}" 
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding Strings.Loading, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource NeutronTextBlockStyle}" />
                 <ProgressBar IsIndeterminate="True" Height="50" />
             </StackPanel>
             
-            <TextBlock x:Name="error"
-                        Visibility="Collapsed"
+            <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
+                        Text="{Binding ErrorMessage}"
                         Style="{StaticResource ErrorMessageStyle}" />
             
             <phone:WebBrowser x:Name="browser"
-                        Visibility="Collapsed"
+                        Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
                         Background="{StaticResource NeutronBackground}"
                         HorizontalAlignment="Stretch" 
                         VerticalAlignment="Stretch"

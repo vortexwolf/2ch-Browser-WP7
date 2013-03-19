@@ -10,38 +10,48 @@
 
     <!--Application Resources-->
     <Application.Resources>
-        <assets:LocalizedStrings x:Key="LocalizedStrings" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Styles/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         
-        <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
-        <converters:BoolToCollapsedConverter x:Key="BoolToCollapsedConverter" />
+            <assets:LocalizedStrings x:Key="LocalizedStrings" />
+        
+            <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
+            <converters:BoolToCollapsedConverter x:Key="BoolToCollapsedConverter" />
 
-        <SolidColorBrush x:Key="NeutronBackground" Color="#212121" />
-        <SolidColorBrush x:Key="NeutronThreadTitle" Color="#3941AC" />
-        <SolidColorBrush x:Key="NeutronPrimaryText" Color="#698CC0" />
-        <SolidColorBrush x:Key="NeutronItemInfo" Color="#999999" />
-        <SolidColorBrush x:Key="NeutronListSeparator" Color="#333333" />
-        <SolidColorBrush x:Key="NeutronPostBorder" Color="#575757" />
-        <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
-        <SolidColorBrush x:Key="NeutronPostNumber" Color="#C9BE89" />
+            <SolidColorBrush x:Key="NeutronBackground" Color="#212121" />
+            <SolidColorBrush x:Key="NeutronThreadTitle" Color="#3941AC" />
+            <SolidColorBrush x:Key="NeutronPrimaryText" Color="#698CC0" />
+            <SolidColorBrush x:Key="NeutronItemInfo" Color="#999999" />
+            <SolidColorBrush x:Key="NeutronListSeparator" Color="#333333" />
+            <SolidColorBrush x:Key="NeutronPostBorder" Color="#575757" />
+            <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
+            <SolidColorBrush x:Key="NeutronPostNumber" Color="#C9BE89" />
 
-        <sys:Double x:Key="FontSizeLarge">24</sys:Double>
-        <sys:Double x:Key="FontSizeMedium">20</sys:Double>
-        <sys:Double x:Key="FontSizeSmall">16</sys:Double>
+            <sys:Double x:Key="FontSizeLarge">24</sys:Double>
+            <sys:Double x:Key="FontSizeMedium">20</sys:Double>
+            <sys:Double x:Key="FontSizeSmall">16</sys:Double>
 
-        <Style x:Key="ErrorMessageStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+            <Style x:Key="FullWidthListBoxItemStyle" TargetType="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
 
-        <Style x:Key="FullWidthListBoxItemStyle" TargetType="ListBoxItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        </Style>
+            <Style x:Key="NeutronTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
+                <Setter Property="Foreground" Value="{StaticResource NeutronPrimaryText}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+            </Style>
 
-        <Style x:Key="NeutronTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
-            <Setter Property="Foreground" Value="{StaticResource NeutronPrimaryText}" />
-            <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
-        </Style>
+            <Style x:Key="NeutronTextBlockLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource NeutronTextBlockStyle}">
+                <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+            </Style>
+
+            <Style x:Key="ErrorMessageStyle" TargetType="TextBlock" BasedOn="{StaticResource NeutronTextBlockStyle}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

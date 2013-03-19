@@ -30,14 +30,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="TitlePanel" Grid.Row="0">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource NeutronTextBlockStyle}" />
-        </StackPanel>
+        <TextBlock x:Name="ApplicationTitle" Grid.Row="0" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
 
         <Grid x:Name="ContentPanel" Grid.Row="1">
             <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}"
                         VerticalAlignment="Center">
-                <TextBlock Text="{Binding Strings.Loading, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" />
+                <TextBlock Text="{Binding Strings.Loading, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource NeutronTextBlockStyle}" />
                 <ProgressBar Value="{Binding Progress}" Maximum="1" IsIndeterminate="False" Height="50" />
             </StackPanel>
             
@@ -45,7 +43,7 @@
                         Text="{Binding ErrorMessage}" 
                         Style="{StaticResource ErrorMessageStyle}" />
 
-            <ListBox x:Name="list" Visibility="{Binding IsListLoaded, Converter={StaticResource BoolToVisibleConverter}}"
+            <ListBox x:Name="list" Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
                     ItemsSource="{Binding Threads}"
                     ItemTemplate="{StaticResource ThreadItemTemplate}"
                     ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"

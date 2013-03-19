@@ -7,7 +7,7 @@ using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
 {
-    public class PostListViewModel : ListBaseViewModel
+    public class PostListViewModel : LoadingBaseViewModel
     {
         private readonly BitmapManager _bitmapManager;
 
@@ -45,18 +45,18 @@ namespace DvachBrowser.ViewModels
             this.Load(this.BoardName, this.ThreadNumber);
         }
 
+        public override void ShowError(string message)
+        {
+            base.ShowError(message);
+
+            this._currentTask = null;
+        }
+
         private void OnPostsLoaded(PostListModel responseObject)
         {
             this.DisplayPosts(responseObject);
 
             this.HideLoading();
-
-            this._currentTask = null;
-        }
-
-        protected override void ShowError(string message)
-        {
-            base.ShowError(message);
 
             this._currentTask = null;
         }

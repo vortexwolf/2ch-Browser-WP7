@@ -80,10 +80,6 @@ namespace DvachBrowser.Assets.Controls
             {
                 text = this._htmlTagsHelper.FixTags(text.Substring(0, this.MaxNumberOfSymbols.Value)) + "...";
             }
-            else
-            {
-                text = this._htmlTagsHelper.FixTags(text);
-            }
 
             var html = XDocument.Parse("<div>" + text + "</div>");
 

@@ -70,11 +70,29 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New post.
+        /// </summary>
+        public static string AppTitle_AddNewPost {
+            get {
+                return ResourceManager.GetString("AppTitle_AddNewPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Boards.
         /// </summary>
         public static string Boards {
             get {
                 return ResourceManager.GetString("Boards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the confirmation code.
+        /// </summary>
+        public static string Captcha_Label {
+            get {
+                return ResourceManager.GetString("Captcha_Label", resourceCulture);
             }
         }
         
@@ -120,6 +138,24 @@ namespace DvachBrowser.Assets.Resources {
         public static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sage.
+        /// </summary>
+        public static string Sage {
+            get {
+                return ResourceManager.GetString("Sage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
     }

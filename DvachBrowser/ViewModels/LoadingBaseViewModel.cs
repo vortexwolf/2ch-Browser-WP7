@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DvachBrowser.ViewModels
 {
-    public class ListBaseViewModel : ViewModel
+    public class LoadingBaseViewModel : ViewModel
     {
         private string _title;
 
@@ -67,38 +67,38 @@ namespace DvachBrowser.ViewModels
             }
         }
 
-        private bool _isListLoaded;
-
-        public bool IsListLoaded
+        private bool _isLoaded;
+        
+        public bool IsLoaded
         {
-            get { return this._isListLoaded; }
+            get { return this._isLoaded; }
             set
             {
-                this._isListLoaded = value;
-                this.OnPropertyChanged("IsListLoaded");
+                this._isLoaded = value;
+                this.OnPropertyChanged("IsLoaded");
             }
         }
 
-        protected virtual void ShowLoading()
+        public virtual void ShowLoading()
         {
             this.IsLoading = true;
             this.IsError = false;
-            this.IsListLoaded = false;
+            this.IsLoaded = false;
         }
 
-        protected virtual void HideLoading()
+        public virtual void HideLoading()
         {
             this.IsLoading = false;
             this.IsError = false;
-            this.IsListLoaded = true;
+            this.IsLoaded = true;
         }
 
-        protected virtual void ShowError(string message)
+        public virtual void ShowError(string message)
         {
             this.IsLoading = false;
             this.IsError = true;
             this.ErrorMessage = message;
-            this.IsListLoaded = false;
+            this.IsLoaded = false;
         }
 
         protected virtual void UpdateProgress(double value)

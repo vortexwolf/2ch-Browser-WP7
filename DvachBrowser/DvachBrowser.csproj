@@ -81,6 +81,7 @@
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\Extensions\CollectionExtensions.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
+    <Compile Include="Assets\Extensions\PropertyNameExtensions.cs" />
     <Compile Include="Assets\GifDecoder.Designer.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
     <Compile Include="Assets\HttpGetStreamTask.cs" />
@@ -99,20 +100,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Assets\Validation\IPropertyValidation.cs" />
+    <Compile Include="Assets\Validation\ModelValidator.cs" />
+    <Compile Include="Assets\Validation\PropertyValidation.cs" />
     <Compile Include="Models\PostItemModel.cs" />
     <Compile Include="Models\PostListModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />
     <Compile Include="Models\ThreadListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddPostViewModel.cs" />
     <Compile Include="ViewModels\BoardItemViewModel.cs" />
     <Compile Include="ViewModels\BoardListViewModel.cs" />
-    <Compile Include="ViewModels\ListBaseViewModel.cs" />
+    <Compile Include="ViewModels\ImageBrowserViewModel.cs" />
+    <Compile Include="ViewModels\LoadingBaseViewModel.cs" />
     <Compile Include="ViewModels\PostItemViewModel.cs" />
     <Compile Include="ViewModels\PostListViewModel.cs" />
     <Compile Include="ViewModels\ThreadItemViewModel.cs" />
     <Compile Include="ViewModels\ThreadListViewModel.cs" />
     <Compile Include="ViewModels\ThreadPostBaseViewModel.cs" />
+    <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="Views\AddPostPage.xaml.cs">
+      <DependentUpon>AddPostPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoardListPage.xaml.cs">
       <DependentUpon>BoardListPage.xaml</DependentUpon>
     </Compile>
@@ -155,6 +165,14 @@
     <DesignData Include="DesignData\PostItemViewModelDesignData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Assets\Styles\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddPostPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BoardListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +213,7 @@
     <Content Include="icon.png" />
     <Content Include="Images\alert.png" />
     <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.check.png" />
     <Content Include="Images\appbar.list.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\image.png" />

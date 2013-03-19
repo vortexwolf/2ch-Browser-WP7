@@ -120,8 +120,14 @@
   <data name="AppTitle_2ch_boards" xml:space="preserve">
     <value>2ch boards</value>
   </data>
+  <data name="AppTitle_AddNewPost" xml:space="preserve">
+    <value>New post</value>
+  </data>
   <data name="Boards" xml:space="preserve">
     <value>Boards</value>
+  </data>
+  <data name="Captcha_Label" xml:space="preserve">
+    <value>Enter the confirmation code</value>
   </data>
   <data name="DataFormat_Kb" xml:space="preserve">
     <value>{0}Kb</value>
@@ -137,5 +143,11 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="Sage" xml:space="preserve">
+    <value>Sage</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
   </data>
 </root>
