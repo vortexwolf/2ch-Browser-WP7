@@ -32,7 +32,7 @@
             <CheckBox IsChecked="{Binding IsSage, Mode=TwoWay}">
                 <TextBlock Text="{Binding Strings.Sage, Source={StaticResource LocalizedStrings}}" 
                            Style="{StaticResource NeutronTextBlockStyle}"
-                           FontSize="{StaticResource FontSizeLarge}" 
+                           FontSize="{StaticResource PhoneFontSizeMediumLarge}" 
                            Margin="0"/>
             </CheckBox>
             
@@ -42,14 +42,24 @@
                      Style="{StaticResource ValidationTextBoxStyle}" />
 
             <TextBlock Grid.Row="2" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
-                       
-            <Grid Grid.Row="3">
+
+            <Grid Grid.Row="3" DataContext="{Binding CaptchaModel}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <ProgressBar IsIndeterminate="True" Height="50" />
-                <Button Content="Refresh" Grid.Column="1" />
+                <ProgressBar Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}" IsIndeterminate="True" Height="50" />
+                <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
+                        Text="{Binding ErrorMessage}"
+                        Style="{StaticResource ErrorMessageStyle}" />
+                <Image Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
+                       Source="{Binding Image}"
+                       Margin="15,0,0,0"/>
+
+                <Button Grid.Column="1" 
+                        Content="{Binding Strings.Refresh, Source={StaticResource LocalizedStrings}}" 
+                        VerticalAlignment="Center"
+                        Command="{Binding RefreshImageCommand}" />
             </Grid>
 
             <TextBox Grid.Row="4" 

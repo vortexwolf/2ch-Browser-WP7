@@ -150,4 +150,10 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="Validation_CaptchaAnswer" xml:space="preserve">
+    <value>The captcha answer cannot be empty.</value>
+  </data>
+  <data name="Validation_Comment" xml:space="preserve">
+    <value>The comment cannot be empty.</value>
+  </data>
 </root>

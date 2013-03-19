@@ -83,8 +83,9 @@
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
     <Compile Include="Assets\Extensions\PropertyNameExtensions.cs" />
     <Compile Include="Assets\GifDecoder.Designer.cs" />
+    <Compile Include="Assets\HttpGetImageTask.cs" />
     <Compile Include="Assets\HttpGetJsonTask.cs" />
-    <Compile Include="Assets\HttpGetStreamTask.cs" />
+    <Compile Include="Assets\HttpGetStringTask.cs" />
     <Compile Include="Assets\HttpGetTask.cs" />
     <Compile Include="Assets\LocalizedStrings.cs" />
     <Compile Include="Assets\PageNavigationService.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="ViewModels\AddPostViewModel.cs" />
     <Compile Include="ViewModels\BoardItemViewModel.cs" />
     <Compile Include="ViewModels\BoardListViewModel.cs" />
+    <Compile Include="ViewModels\CaptchaViewModel.cs" />
     <Compile Include="ViewModels\ImageBrowserViewModel.cs" />
     <Compile Include="ViewModels\LoadingBaseViewModel.cs" />
     <Compile Include="ViewModels\PostItemViewModel.cs" />

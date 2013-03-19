@@ -110,8 +110,8 @@
                             </Border>
                             <Border x:Name="ValidationBorder" BorderBrush="Red" BorderThickness="2" Visibility="Collapsed" Margin="6,3" />
                         </Grid>
-                        
-                        <TextBlock Grid.Row="1" x:Name="ValidationMessage" Foreground="Red" Visibility="Collapsed" Text="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource TemplatedParent}}" Margin="6,0" />
+
+                        <TextBlock Grid.Row="1" x:Name="ValidationMessage" Foreground="Red" Visibility="Collapsed" Text="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource TemplatedParent}}" Margin="12, 0" FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

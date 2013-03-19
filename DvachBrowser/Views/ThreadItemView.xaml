@@ -24,15 +24,15 @@
             <TextBlock Visibility="{Binding HasSubject, Converter={StaticResource BoolToVisibleConverter}}"
                             Text="{Binding Subject}" 
                             Foreground="{StaticResource NeutronThreadTitle}"
-                            FontSize="{StaticResource FontSizeLarge}"
+                            FontSize="{StaticResource PhoneFontSizeMediumLarge}"
                             TextTrimming="WordEllipsis" />
             <controls:HtmlRichTextBox Text="{Binding Comment}"
                             Foreground="{StaticResource NeutronPrimaryText}"
-                            FontSize="{StaticResource FontSizeMedium}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
                             MaxNumberOfSymbols="150"/>
             <TextBlock Text="{Binding RepliesImagesMessage}"
                             Foreground="{StaticResource NeutronItemInfo}"
-                            FontSize="{StaticResource FontSizeSmall}" />
+                            FontSize="{StaticResource PhoneFontSizeSmall}" />
         </StackPanel>
     </Grid>
 </UserControl>

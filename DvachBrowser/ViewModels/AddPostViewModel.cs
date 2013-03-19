@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using DvachBrowser.Assets.Resources;
+
 namespace DvachBrowser.ViewModels
 {
     public class AddPostViewModel : ValidationViewModel
     {
         public AddPostViewModel()
         {
-            this._validator.AddValidationFor(() => this.Text).NotEmpty().Show("The comment cannot be empty.");
-            this._validator.AddValidationFor(() => this.CaptchaAnswer).NotEmpty().Show("The captcha answer cannot be empty.");
+            this._validator.AddValidationFor(() => this.Text).NotEmpty().Show(Strings.Validation_Comment);
+            this._validator.AddValidationFor(() => this.CaptchaAnswer).NotEmpty().Show(Strings.Validation_CaptchaAnswer);
+
+            this.CaptchaModel = new CaptchaViewModel();
+            this.CaptchaModel.RefreshImage();
         }
+
+        public CaptchaViewModel CaptchaModel { get; set; }
 
         public bool IsSage { get; set; }
 

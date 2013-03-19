@@ -47,54 +47,17 @@ namespace DvachBrowser.Assets
             }
 
             // download image
-            var httpGet = new HttpGetStreamTask(uri, stream => this.OnStreamDownloaded(uri, stream, onFinished));
+            var httpGet = new HttpGetImageTask(uri, image => this.OnImageDownloaded(uri, image, onFinished));
             httpGet.OnError = error => this.OnError(uri, error, onFinished);
 
             httpGet.Execute();
         }
 
-        private void OnStreamDownloaded(string uri, MemoryStream stream, Action onFinished)
+        private void OnImageDownloaded(string uri, BitmapSource bitmap, Action onFinished)
         {
-            BitmapSource bitmap = null;
-            try
-            {
-                // the special case for gif images
-                if (uri.EndsWith("gif"))
-                {
-                    bitmap = this.DecodeGif(uri, stream);
-                }
-
-                // try to use the default way for all other images and for failed gif images
-                if (bitmap == null)
-                {
-                    bitmap = new BitmapImage();
-
-                    stream.Seek(0, SeekOrigin.Begin);
-                    bitmap.SetSource(stream);
-                }
-
-                this.AddImage(uri, bitmap);
-            }
-            catch (Exception e)
-            {
-                this._errors.Add(uri, e.Message);
-            }
+            this.AddImage(uri, bitmap);
 
             onFinished();
-        }
-
-        private WriteableBitmap DecodeGif(string uri, MemoryStream stream)
-        {
-            stream.Seek(0, SeekOrigin.Begin);
-
-            var gd = new GifDecoder();
-            int status = gd.Read(stream);
-            if (status == GifDecoder.STATUS_OK)
-            {
-                return gd.GetImage();
-            }
-
-            return null;
         }
 
         private void OnError(string uri, string error, Action onFinished)

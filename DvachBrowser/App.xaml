@@ -29,9 +29,7 @@
             <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
             <SolidColorBrush x:Key="NeutronPostNumber" Color="#C9BE89" />
 
-            <sys:Double x:Key="FontSizeLarge">24</sys:Double>
-            <sys:Double x:Key="FontSizeMedium">20</sys:Double>
-            <sys:Double x:Key="FontSizeSmall">16</sys:Double>
+            <sys:Double x:Key="PhoneFontSizeSmall">17</sys:Double>
 
             <Style x:Key="FullWidthListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -39,11 +37,11 @@
 
             <Style x:Key="NeutronTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
                 <Setter Property="Foreground" Value="{StaticResource NeutronPrimaryText}" />
-                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+                <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
             </Style>
 
             <Style x:Key="NeutronTextBlockLargeStyle" TargetType="TextBlock" BasedOn="{StaticResource NeutronTextBlockStyle}">
-                <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+                <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}" />
             </Style>
 
             <Style x:Key="ErrorMessageStyle" TargetType="TextBlock" BasedOn="{StaticResource NeutronTextBlockStyle}">

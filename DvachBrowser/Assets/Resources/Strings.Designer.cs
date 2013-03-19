@@ -158,5 +158,23 @@ namespace DvachBrowser.Assets.Resources {
                 return ResourceManager.GetString("Send", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The captcha answer cannot be empty..
+        /// </summary>
+        public static string Validation_CaptchaAnswer {
+            get {
+                return ResourceManager.GetString("Validation_CaptchaAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The comment cannot be empty..
+        /// </summary>
+        public static string Validation_Comment {
+            get {
+                return ResourceManager.GetString("Validation_Comment", resourceCulture);
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@
                            Margin="10,0"
                             VerticalAlignment="Center"
                             Foreground="{StaticResource NeutronPrimaryText}"
-                            FontSize="{StaticResource FontSizeMedium}"/>
+                            FontSize="{StaticResource PhoneFontSizeNormal}"/>
             </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>

@@ -25,11 +25,11 @@
             <TextBlock Text="{Binding Index}"
                        FontWeight="Bold"
                        Foreground="#4F7942"
-                       FontSize="{StaticResource FontSizeMedium}"
+                       FontSize="{StaticResource PhoneFontSizeNormal}"
                        Margin="0,0,5,0" />
             <TextBlock Text="{Binding Number}"
                        Foreground="{StaticResource NeutronPostNumber}"
-                       FontSize="{StaticResource FontSizeMedium}"
+                       FontSize="{StaticResource PhoneFontSizeNormal}"
                        Margin="0,0,5,0" />
         </StackPanel>
         
@@ -38,6 +38,6 @@
         <controls:HtmlRichTextBox Grid.Column="1" Grid.Row="1" 
                         Text="{Binding Comment}" 
                         Foreground="{StaticResource NeutronPrimaryText}" 
-                        FontSize="{StaticResource FontSizeMedium}" />
+                        FontSize="{StaticResource PhoneFontSizeNormal}" />
     </Grid>
 </UserControl>
