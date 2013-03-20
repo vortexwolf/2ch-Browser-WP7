@@ -18,13 +18,13 @@
         <DataTemplate x:Key="PostItemTemplate">
             <Border Margin="0,3"
                     BorderThickness="1" CornerRadius="5"
-                    Background="{StaticResource NeutronPostBackground}"
-                    BorderBrush="{StaticResource NeutronPostBorder}">
+                    Background="{StaticResource ThemePostBackground}"
+                    BorderBrush="{StaticResource ThemePostBorder}">
                 <view:PostItemView />
             </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-    <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

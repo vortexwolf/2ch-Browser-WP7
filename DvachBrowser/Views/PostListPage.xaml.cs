@@ -45,7 +45,7 @@ namespace DvachBrowser.Views
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine("Post item clicked");
+            // nothing
         }
 
         private void OnRefreshClick(object sender, EventArgs e)

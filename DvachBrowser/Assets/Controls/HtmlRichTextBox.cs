@@ -62,7 +62,7 @@ namespace DvachBrowser.Assets.Controls
 
         public static readonly DependencyProperty FontSizeProperty =
             DependencyProperty.Register("FontSize", typeof(double), typeof(HtmlRichTextBox), new PropertyMetadata(0d, (d, e) => ((HtmlRichTextBox)d)._textBox.FontSize = (double)e.NewValue));
-        
+
         private static void OnTextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             ((HtmlRichTextBox)d).UpdateXaml();

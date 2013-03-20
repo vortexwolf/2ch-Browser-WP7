@@ -66,6 +66,9 @@ namespace DvachBrowser
         {
             Container.Register<BitmapManager, BitmapManager>();
             Container.Register<PageNavigationService, PageNavigationService>();
+            Container.Register<ThemeManager, ThemeManager>();
+
+            Container.Resolve<ThemeManager>().ApplyTheme();
         }
 
         // Code to execute when the application is activated (brought to foreground)

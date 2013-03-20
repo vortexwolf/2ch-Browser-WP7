@@ -20,7 +20,7 @@
                 Stretch="Uniform"/>
         <TextBlock Text="{Binding AttachmentInfo}" 
                    HorizontalAlignment="Center"
-                   Foreground="{StaticResource NeutronItemInfo}" 
+                   Foreground="{StaticResource ThemeItemInfo}" 
                    FontSize="{StaticResource PhoneFontSizeSmall}" />
     </StackPanel>
 </UserControl>

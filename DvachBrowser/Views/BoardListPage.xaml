@@ -17,16 +17,16 @@
         <DataTemplate x:Key="BoardItemTemplate">
             <Border MinHeight="60" 
                     BorderThickness="0,0,0,2" 
-                    BorderBrush="{StaticResource NeutronListSeparator}">
+                    BorderBrush="{StaticResource ThemeListSeparator}">
                 <TextBlock Text="{Binding Title}" 
-                           Margin="10,0"
+                            Margin="10,0"
                             VerticalAlignment="Center"
-                            Foreground="{StaticResource NeutronPrimaryText}"
-                            FontSize="{StaticResource PhoneFontSizeNormal}"/>
+                            Style="{StaticResource NeutronTextBlockStyle}"/>
             </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-    <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

@@ -13,7 +13,7 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -34,7 +34,6 @@
             
             <phone:WebBrowser x:Name="browser"
                         Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
-                        Background="{StaticResource NeutronBackground}"
                         HorizontalAlignment="Stretch" 
                         VerticalAlignment="Stretch"
                         Navigating="BeforeBrowserNavigate"

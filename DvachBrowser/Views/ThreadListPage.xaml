@@ -18,13 +18,13 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="ThreadItemTemplate">
             <Border BorderThickness="0,0,0,2" 
-                    BorderBrush="{StaticResource NeutronListSeparator}">
+                    BorderBrush="{StaticResource ThemeListSeparator}">
                 <view:ThreadItemView />
             </Border>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

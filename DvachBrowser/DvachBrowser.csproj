@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Assets\ThemeManager.cs" />
     <Compile Include="Assets\Validation\IPropertyValidation.cs" />
     <Compile Include="Assets\Validation\ModelValidator.cs" />
     <Compile Include="Assets\Validation\PropertyValidation.cs" />

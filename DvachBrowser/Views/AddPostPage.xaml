@@ -15,7 +15,7 @@
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignData Source=../DesignData/AddPostViewModelDesignData.xaml}">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

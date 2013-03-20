@@ -20,6 +20,9 @@
             <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter" />
             <converters:BoolToCollapsedConverter x:Key="BoolToCollapsedConverter" />
 
+            <sys:Double x:Key="PhoneFontSizeSmall">17</sys:Double>
+            
+            <!-- themes -->
             <SolidColorBrush x:Key="NeutronBackground" Color="#212121" />
             <SolidColorBrush x:Key="NeutronThreadTitle" Color="#3941AC" />
             <SolidColorBrush x:Key="NeutronPrimaryText" Color="#698CC0" />
@@ -29,14 +32,31 @@
             <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
             <SolidColorBrush x:Key="NeutronPostNumber" Color="#C9BE89" />
 
-            <sys:Double x:Key="PhoneFontSizeSmall">17</sys:Double>
+            <SolidColorBrush x:Key="PhotonBackground" Color="#EEEEEE" />
+            <SolidColorBrush x:Key="PhotonThreadTitle" Color="#002244" />
+            <SolidColorBrush x:Key="PhotonPrimaryText" Color="#333333" />
+            <SolidColorBrush x:Key="PhotonItemInfo" Color="#666666" />
+            <SolidColorBrush x:Key="PhotonListSeparator" Color="#D9D9D9" />
+            <SolidColorBrush x:Key="PhotonPostBorder" Color="#CCCCCC" />
+            <SolidColorBrush x:Key="PhotonPostBackground" Color="#DDDDDD" />
+            <SolidColorBrush x:Key="PhotonPostNumber" Color="#333333" />
 
+            <SolidColorBrush x:Key="ThemeBackground" Color="#212121" />
+            <SolidColorBrush x:Key="ThemeThreadTitle" Color="#3941AC" />
+            <SolidColorBrush x:Key="ThemePrimaryText" Color="#698CC0" />
+            <SolidColorBrush x:Key="ThemeItemInfo" Color="#999999" />
+            <SolidColorBrush x:Key="ThemeListSeparator" Color="#333333" />
+            <SolidColorBrush x:Key="ThemePostBorder" Color="#575757" />
+            <SolidColorBrush x:Key="ThemePostBackground" Color="#2C2C2C" />
+            <SolidColorBrush x:Key="ThemePostNumber" Color="#C9BE89" />
+
+            <!-- control styles -->
             <Style x:Key="FullWidthListBoxItemStyle" TargetType="ListBoxItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
             <Style x:Key="NeutronTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextNormalStyle}">
-                <Setter Property="Foreground" Value="{StaticResource NeutronPrimaryText}" />
+                <Setter Property="Foreground" Value="{StaticResource ThemePrimaryText}" />
                 <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
             </Style>
 
