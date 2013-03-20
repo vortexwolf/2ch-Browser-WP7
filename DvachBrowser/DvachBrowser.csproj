@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Servicemodel.Web" />
     <Reference Include="System.Windows" />
@@ -77,18 +78,23 @@
     <Compile Include="Assets\Controls\HtmlElementToXamlElementConverter.cs" />
     <Compile Include="Assets\Controls\HtmlRichTextBox.cs" />
     <Compile Include="Assets\Controls\HtmlTagsHelper.cs" />
+    <Compile Include="Assets\Controls\TextBinding.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
     <Compile Include="Assets\Extensions\CollectionExtensions.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
     <Compile Include="Assets\Extensions\PropertyNameExtensions.cs" />
     <Compile Include="Assets\GifDecoder.Designer.cs" />
-    <Compile Include="Assets\HttpGetImageTask.cs" />
-    <Compile Include="Assets\HttpGetJsonTask.cs" />
-    <Compile Include="Assets\HttpGetStringTask.cs" />
-    <Compile Include="Assets\HttpGetTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpBaseTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpGetImageTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpGetJsonTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpGetStreamTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpGetStringTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpGetTask.cs" />
+    <Compile Include="Assets\HttpTasks\HttpPostTask.cs" />
     <Compile Include="Assets\LocalizedStrings.cs" />
     <Compile Include="Assets\PageNavigationService.cs" />
+    <Compile Include="Assets\PostResponseParser.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
     <Compile Include="Assets\QueryStringBuilder.cs" />
     <Compile Include="Assets\Resources\ErrorMessages.Designer.cs">
@@ -171,6 +177,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <DesignData Include="DesignData\AddPostViewModelDesignData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Views\AddPostPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +224,7 @@
     <Content Include="Images\alert.png" />
     <Content Include="Images\appbar.add.png" />
     <Content Include="Images\appbar.check.png" />
+    <Content Include="Images\appbar.download.png" />
     <Content Include="Images\appbar.list.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\image.png" />

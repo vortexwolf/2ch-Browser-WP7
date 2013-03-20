@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 
-namespace DvachBrowser.Assets
+namespace DvachBrowser.Assets.HttpTasks
 {
     public class HttpGetStringTask : HttpGetTask
     {
@@ -35,7 +33,7 @@ namespace DvachBrowser.Assets
             }
             catch (Exception e)
             {
-                this.InvokeInUiThread(() => this.OnError(e.Message));
+                this.InvokeOnErrorHandler(e.Message);
             }
         }
     }

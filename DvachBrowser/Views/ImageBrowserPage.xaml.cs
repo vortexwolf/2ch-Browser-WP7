@@ -34,7 +34,8 @@ namespace DvachBrowser.Views
             {
                 string uriStr = this.NavigationContext.QueryString[Constants.QueryStringUri];
 
-                this._viewModel.Title = uriStr;
+                this._viewModel.Init(uriStr);
+
                 this.browser.Navigate(new Uri(uriStr));
 
                 this._isLoaded = true;
@@ -56,6 +57,11 @@ namespace DvachBrowser.Views
         private void OnBrowserError(object sender, NavigationFailedEventArgs e)
         {
             this._viewModel.ShowError(ErrorMessages.ImageBrowserLoadError);
+        }
+
+        private void OnDownloadClick(object sender, EventArgs e)
+        {
+            this._viewModel.Download();
         }
     }
 }

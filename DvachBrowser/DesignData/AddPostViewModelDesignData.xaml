@@ -1,0 +1,9 @@
+﻿<vm:AddPostViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
+                    IsLoaded="True"
+                     Text="Comment test"
+                     CaptchaAnswer="Captcha answer test"
+                     IsSage="True">
+    <vm:AddPostViewModel.CaptchaModel>
+        <vm:CaptchaViewModel IsLoading="True" />
+    </vm:AddPostViewModel.CaptchaModel>
+</vm:AddPostViewModel>

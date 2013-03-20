@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
 
+using DvachBrowser.Assets.HttpTasks;
+
 namespace DvachBrowser.Assets
 {
     /// <summary>

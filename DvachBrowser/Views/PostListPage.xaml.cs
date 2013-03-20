@@ -60,7 +60,12 @@ namespace DvachBrowser.Views
 
         private void OnAddPostClick(object sender, EventArgs e)
         {
-            this._pageNavigationService.Navigate(Constants.AddPostPageUri);
+            string queryString = new QueryStringBuilder()
+                .Add(Constants.QueryStringBoard, this._viewModel.BoardName)
+                .Add(Constants.QueryStringThread, this._viewModel.ThreadNumber)
+                .Build();
+
+            this._pageNavigationService.Navigate(Constants.AddPostPageUri + queryString);
         }
     }
 }

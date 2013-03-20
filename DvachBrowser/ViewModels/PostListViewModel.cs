@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.HttpTasks;
 using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
@@ -31,7 +32,7 @@ namespace DvachBrowser.ViewModels
             this.Title = "/" + boardName + "/" + threadNumber;
 
             // load posts from the network
-            string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json?nocache={2}", boardName, threadNumber, DateTime.UtcNow);
+            string postsUrl = string.Format("http://2ch.hk/{0}/res/{1}.json?nocache={2}", boardName, threadNumber, DateTime.UtcNow.Ticks);
             this._currentTask = new HttpGetJsonTask<PostListModel>(postsUrl, this.OnPostsLoaded);
             this._currentTask.OnError = this.ShowError;
             this._currentTask.OnProgressChanged = this.UpdateProgress;

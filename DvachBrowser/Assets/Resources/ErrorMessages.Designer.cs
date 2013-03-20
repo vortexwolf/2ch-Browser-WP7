@@ -61,7 +61,25 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The requested image cannot be loaded..
+        ///   Looks up a localized string similar to Unable to download the image..
+        /// </summary>
+        public static string DownloadImageError {
+            get {
+                return ResourceManager.GetString("DownloadImageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to send the message..
+        /// </summary>
+        public static string HttpPostError {
+            get {
+                return ResourceManager.GetString("HttpPostError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load the image..
         /// </summary>
         public static string ImageBrowserLoadError {
             get {
@@ -79,7 +97,7 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The page cannot be loaded..
+        ///   Looks up a localized string similar to Unable to load the page..
         /// </summary>
         public static string WebPageLoadError {
             get {

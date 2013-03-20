@@ -2,6 +2,7 @@
 using System.Windows.Media.Imaging;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.HttpTasks;
 
 using GalaSoft.MvvmLight.Command;
 
@@ -16,6 +17,8 @@ namespace DvachBrowser.ViewModels
         {
             this.RefreshImageCommand = new RelayCommand(this.RefreshImage);
         }
+
+        public string Key { get; set; }
 
         public RelayCommand RefreshImageCommand { get; private set; }
 
@@ -43,7 +46,7 @@ namespace DvachBrowser.ViewModels
                 this._currentImageTask.Cancel();
             }
 
-            string checkUri = string.Format("http://2ch.hk/makaba/captcha.fcgi?nocache={0}", DateTime.UtcNow);
+            string checkUri = string.Format("http://2ch.hk/makaba/captcha.fcgi?nocache={0}", DateTime.UtcNow.Ticks);
             this._currentStringTask = new HttpGetStringTask(checkUri, this.OnCheckStringLoaded);
             this._currentStringTask.OnError = this.ShowError;
 
@@ -61,9 +64,9 @@ namespace DvachBrowser.ViewModels
 
         private void OnCheckStringLoaded(string str)
         {
-            string key = str.Substring(str.IndexOf('\n') + 1);
+            this.Key = str.Substring(str.IndexOf('\n') + 1);
 
-            this.LoadCaptcha(key);
+            this.LoadCaptcha(this.Key);
 
             this._currentStringTask = null;
         }

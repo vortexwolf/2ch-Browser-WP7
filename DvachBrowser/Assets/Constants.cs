@@ -17,6 +17,6 @@ namespace DvachBrowser.Assets
         public const string ImageBrowserPageUri = "/Views/ImageBrowserPage.xaml";
         public const string AddPostPageUri = "/Views/AddPostPage.xaml";
 
-        public const string DefaultBoardName = "test";
+        public const string DefaultBoardName = "d";
     }
 }

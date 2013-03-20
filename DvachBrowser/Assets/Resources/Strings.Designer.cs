@@ -115,6 +115,15 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string Loading {
@@ -129,6 +138,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string New_Post {
             get {
                 return ResourceManager.GetString("New_Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The image is saved to the media library..
+        /// </summary>
+        public static string Notification_ImageSaved {
+            get {
+                return ResourceManager.GetString("Notification_ImageSaved", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending....
+        /// </summary>
+        public static string Sending {
+            get {
+                return ResourceManager.GetString("Sending", resourceCulture);
             }
         }
         

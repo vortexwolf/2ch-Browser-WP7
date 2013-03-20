@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
+using DvachBrowser.Assets;
 using DvachBrowser.Assets.Extensions;
 using DvachBrowser.ViewModels;
 
@@ -18,6 +20,8 @@ namespace DvachBrowser.Views
     {
         private readonly AddPostViewModel _viewModel;
 
+        private bool _isLoaded;
+
         public AddPostPage()
         {
             this.InitializeComponent();
@@ -28,9 +32,35 @@ namespace DvachBrowser.Views
             this.AddValidationBinding();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (!this._isLoaded)
+            {
+                string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
+                string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
+
+                this._viewModel.Init(boardName, threadNumber);
+
+                this._isLoaded = true;
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
         private void OnSendClick(object sender, EventArgs e)
         {
+            this.UpdateFocusedTextBoxBinding();
+
             this._viewModel.Send();
+        }
+
+        private void UpdateFocusedTextBoxBinding()
+        {
+            var focusedElement = FocusManager.GetFocusedElement() as TextBox; 
+            if (focusedElement != null)
+            {
+                focusedElement.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            }
         }
     }
 }

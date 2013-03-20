@@ -4,15 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
+using Microsoft.Phone.Controls;
+
 namespace DvachBrowser.Assets
 {
     public class PageNavigationService
     {
         public void Navigate(string uri)
         {
-            var rootFrame = ((App)Application.Current).RootFrame;
+            RootFrame.Navigate(new Uri(uri, UriKind.Relative));
+        }
 
-            rootFrame.Navigate(new Uri(uri, UriKind.Relative));
+        public void GoBack()
+        {
+            RootFrame.GoBack();
+        }
+
+        private static PhoneApplicationFrame RootFrame
+        {
+            get { return ((App)Application.Current).RootFrame; }
         }
     }
 }

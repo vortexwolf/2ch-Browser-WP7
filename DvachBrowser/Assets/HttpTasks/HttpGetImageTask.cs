@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Media.Imaging;
 
-namespace DvachBrowser.Assets
+namespace DvachBrowser.Assets.HttpTasks
 {
     public class HttpGetImageTask : HttpGetTask
     {
@@ -45,7 +42,7 @@ namespace DvachBrowser.Assets
             }
             catch (Exception e)
             {
-                this.InvokeInUiThread(() => this.OnError(e.Message));
+                this.InvokeOnErrorHandler(e.Message);
             }
         }
 

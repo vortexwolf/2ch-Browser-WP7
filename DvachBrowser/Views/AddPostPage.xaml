@@ -6,12 +6,14 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:DvachBrowser.Assets.Controls"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    d:DataContext="{d:DesignData Source=../DesignData/AddPostViewModelDesignData.xaml}">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource NeutronBackground}">
         <Grid.RowDefinitions>
@@ -22,50 +24,58 @@
         <TextBlock x:Name="ApplicationTitle" Grid.Row="0" Text="{Binding Strings.AppTitle_AddNewPost, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
         
         <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <CheckBox IsChecked="{Binding IsSage, Mode=TwoWay}">
-                <TextBlock Text="{Binding Strings.Sage, Source={StaticResource LocalizedStrings}}" 
-                           Style="{StaticResource NeutronTextBlockStyle}"
-                           FontSize="{StaticResource PhoneFontSizeMediumLarge}" 
-                           Margin="0"/>
-            </CheckBox>
+            <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}"
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding Strings.Sending, Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Center" Style="{StaticResource NeutronTextBlockStyle}" />
+                <ProgressBar IsIndeterminate="True" Height="50" />
+            </StackPanel>
+
+            <Grid Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <CheckBox IsChecked="{Binding IsSage, Mode=TwoWay}">
+                    <TextBlock Text="{Binding Strings.Sage, Source={StaticResource LocalizedStrings}}" 
+                               Style="{StaticResource NeutronTextBlockStyle}"
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}" 
+                               Margin="0"/>
+                </CheckBox>
             
-            <TextBox Grid.Row="1" 
-                     Text="{Binding Text, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                     AcceptsReturn="True" 
-                     Style="{StaticResource ValidationTextBoxStyle}" />
+                <TextBox Grid.Row="1" 
+                         Text="{Binding Text, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
+                         AcceptsReturn="True" 
+                         Style="{StaticResource ValidationTextBoxStyle}" />
 
-            <TextBlock Grid.Row="2" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
+                <TextBlock Grid.Row="2" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
 
-            <Grid Grid.Row="3" DataContext="{Binding CaptchaModel}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <ProgressBar Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}" IsIndeterminate="True" Height="50" />
-                <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
-                        Text="{Binding ErrorMessage}"
-                        Style="{StaticResource ErrorMessageStyle}" />
-                <Image Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
-                       Source="{Binding Image}"
-                       Margin="15,0,0,0"/>
+                <Grid Grid.Row="3" DataContext="{Binding CaptchaModel}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressBar Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibleConverter}}" IsIndeterminate="True" Height="50" />
+                    <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
+                            Text="{Binding ErrorMessage}"
+                            Style="{StaticResource ErrorMessageStyle}" />
+                    <Image Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
+                           Source="{Binding Image}"
+                           Margin="15,0,0,0"/>
 
-                <Button Grid.Column="1" 
-                        Content="{Binding Strings.Refresh, Source={StaticResource LocalizedStrings}}" 
-                        VerticalAlignment="Center"
-                        Command="{Binding RefreshImageCommand}" />
+                    <Button Grid.Column="1" 
+                            Content="{Binding Strings.Refresh, Source={StaticResource LocalizedStrings}}" 
+                            VerticalAlignment="Center"
+                            Command="{Binding RefreshImageCommand}" />
+                </Grid>
+
+                <TextBox Grid.Row="4" 
+                         Text="{Binding CaptchaAnswer, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
+                         Style="{StaticResource ValidationTextBoxStyle}" />
+
             </Grid>
-
-            <TextBox Grid.Row="4" 
-                     Text="{Binding CaptchaAnswer, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                     Style="{StaticResource ValidationTextBoxStyle}" />
-
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>

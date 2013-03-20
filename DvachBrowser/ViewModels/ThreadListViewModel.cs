@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.HttpTasks;
 using DvachBrowser.Models;
 
 namespace DvachBrowser.ViewModels
@@ -28,7 +29,7 @@ namespace DvachBrowser.ViewModels
             this.Title = "/" + boardName + "/";
 
             // load threads from the network
-            string threadsUrl = string.Format("http://2ch.hk/{0}/wakaba.json?nocache={1}", boardName, DateTime.UtcNow);
+            string threadsUrl = string.Format("http://2ch.hk/{0}/wakaba.json?nocache={1}", boardName, DateTime.UtcNow.Ticks);
             this._currentTask = new HttpGetJsonTask<ThreadListModel>(threadsUrl, this.OnThreadsLoaded);
             this._currentTask.OnError = this.ShowError;
             this._currentTask.OnProgressChanged = this.UpdateProgress;

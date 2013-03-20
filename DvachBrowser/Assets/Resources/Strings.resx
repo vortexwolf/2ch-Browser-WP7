@@ -135,11 +135,17 @@
   <data name="DataFormat_PostsAndImages" xml:space="preserve">
     <value>{0} posts and {1} images</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
   <data name="Loading" xml:space="preserve">
     <value>Loading...</value>
   </data>
   <data name="New_Post" xml:space="preserve">
     <value>New post</value>
+  </data>
+  <data name="Notification_ImageSaved" xml:space="preserve">
+    <value>The image is saved to the media library.</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Sending...</value>
   </data>
   <data name="Validation_CaptchaAnswer" xml:space="preserve">
     <value>The captcha answer cannot be empty.</value>
