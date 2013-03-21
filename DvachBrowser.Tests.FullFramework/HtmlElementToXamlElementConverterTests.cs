@@ -8,13 +8,13 @@ namespace DvachBrowser.Tests.FullFramework
     [TestFixture]
     public class HtmlElementToXamlElementConverterTests
     {
-        private readonly HtmlElementToXamlElementConverter _instance = new HtmlElementToXamlElementConverter();
+        private readonly HtmlElementToXamlElementConverter _instance = new HtmlElementToXamlElementConverter(null);
 
         [TestCase("<br />", Result = "<LineBreak />")]
         [TestCase("<p>test</p>", Result = "<Span>test</Span>")]
         [TestCase("<strong>test</strong>", Result = "<Bold>test</Bold>")]
         [TestCase("<em>test</em>", Result = "<Italic>test</Italic>")]
-        [TestCase("<a href=\"test_uri\">test</a>", Result = "<Hyperlink NavigateUri=\"test_uri\" TargetName=\"_blank\">test</Hyperlink>")]
+        [TestCase("<a href=\"test_uri\">test</a>", Result = "<Hyperlink Foreground=\"#C9BE89\" NavigateUri=\"test_uri\" TargetName=\"_blank\">test</Hyperlink>")]
         [TestCase("<span class=\"u\">test</span>", Result = "<Underline>test</Underline>")]
         [TestCase("<span class=\"unkfunc\">test</span>", Result = "<Span Foreground=\"#789922\">test</Span>")]
         [TestCase("<span class=\"spoiler\">test</span>", Result = "<Span Foreground=\"#48B0FD\">test</Span>")]

@@ -12,8 +12,9 @@ namespace DvachBrowser.Assets.Controls
         private static readonly Regex ColorStyleRegex = new Regex("color: rgb\\((\\d+), (\\d+), (\\d+)\\);");
 
         private readonly Dictionary<string, Func<XElement, object, XElement>> _tagsToFunctionsMap;
+        private readonly SpanColors _colors;
 
-        public HtmlElementToXamlElementConverter()
+        public HtmlElementToXamlElementConverter(SpanColors colors)
         {
             this._tagsToFunctionsMap = new Dictionary<string, Func<XElement, object, XElement>>()
                                      {
@@ -27,6 +28,16 @@ namespace DvachBrowser.Assets.Controls
                                          { "span", this.CreateComplexSpan },
                                          { "font", this.CreateComplexSpan }
                                      };
+
+            if (colors == null)
+            {
+                colors = new SpanColors();
+                colors.LinkForeground = "#C9BE89";
+                colors.SpoilerForeground = "#48B0FD";
+                colors.QuoteForeground = "#789922";
+            }
+
+            this._colors = colors;
         }
 
         public string ConvertHtmlToXamlString(XDocument html)
@@ -103,7 +114,7 @@ namespace DvachBrowser.Assets.Controls
 
             return new XElement(
                 "Hyperlink",
-                new XAttribute("Foreground", "#C9BE89"),
+                new XAttribute("Foreground", this._colors.LinkForeground),
                 new XAttribute("NavigateUri", href.Value), 
                 new XAttribute("TargetName", "_blank"), 
                     content);
@@ -120,11 +131,11 @@ namespace DvachBrowser.Assets.Controls
                 }
                 else if (classAttribute.Value == "unkfunc")
                 {
-                    return new XElement("Span", new XAttribute("Foreground", "#789922"), content);
+                    return new XElement("Span", new XAttribute("Foreground", this._colors.QuoteForeground), content);
                 }
                 else if (classAttribute.Value == "spoiler")
                 {
-                    return new XElement("Span", new XAttribute("Foreground", "#48B0FD"), content);
+                    return new XElement("Span", new XAttribute("Foreground", this._colors.SpoilerForeground), content);
                 }
             }
 
@@ -145,6 +156,15 @@ namespace DvachBrowser.Assets.Controls
             }
 
             return this.CreateSimpleSpan(element, content);
+        }
+
+        public class SpanColors
+        {
+            public string QuoteForeground { get; set; }
+
+            public string LinkForeground { get; set; }
+
+            public string SpoilerForeground { get; set; }
         }
     }
 }

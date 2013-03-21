@@ -46,14 +46,9 @@ namespace DvachBrowser.Assets.HttpTasks
             {
                 response = (HttpWebResponse)httpWebRequest.EndGetResponse(ar);
             }
-            catch (WebException e)
-            {
-                this.InvokeOnErrorHandler(ErrorMessages.WebPageLoadError);
-                return;
-            }
             catch (Exception e)
             {
-                this.InvokeOnErrorHandler(e.Message);
+                this.InvokeOnErrorHandler(ErrorMessages.WebPageLoadError);
                 return;
             }
 

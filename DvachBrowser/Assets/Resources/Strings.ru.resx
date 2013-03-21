@@ -117,25 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DownloadError" xml:space="preserve">
-    <value>The requested item was not downloaded becasue of an unexpected error.</value>
+  <data name="AppTitle_2ch_boards" xml:space="preserve">
+    <value>2ch форумы</value>
   </data>
-  <data name="DownloadImageError" xml:space="preserve">
-    <value>Unable to download the image.</value>
+  <data name="AppTitle_AddNewPost" xml:space="preserve">
+    <value>Новое сообщение</value>
   </data>
-  <data name="HttpPostError" xml:space="preserve">
-    <value>Unable to send the message.</value>
+  <data name="Boards" xml:space="preserve">
+    <value>Форумы</value>
   </data>
-  <data name="ImageBrowserLoadError" xml:space="preserve">
-    <value>Unable to load the image.</value>
+  <data name="Captcha_Label" xml:space="preserve">
+    <value>Введите код подтверждения</value>
   </data>
-  <data name="JsonParseError" xml:space="preserve">
-    <value>Cannot parse the response from the server.</value>
+  <data name="DataFormat_Kb" xml:space="preserve">
+    <value>{0}Кб</value>
   </data>
-  <data name="SaveImageError" xml:space="preserve">
-    <value>Unable to save the image.</value>
+  <data name="DataFormat_PostsAndImages" xml:space="preserve">
+    <value>{0} ответов и {1} изображений</value>
   </data>
-  <data name="WebPageLoadError" xml:space="preserve">
-    <value>Unable to load the page.</value>
+  <data name="Download" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка...</value>
+  </data>
+  <data name="New_Post" xml:space="preserve">
+    <value>Новое сообщение</value>
+  </data>
+  <data name="Notification_ImageSaved" xml:space="preserve">
+    <value>Изображение сохранено в медиа библиотеке.</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Sage" xml:space="preserve">
+    <value>Sage</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Отправка...</value>
+  </data>
+  <data name="Validation_CaptchaAnswer" xml:space="preserve">
+    <value>Введите капчу.</value>
+  </data>
+  <data name="Validation_Comment" xml:space="preserve">
+    <value>Вы ничего не написали в сообщении.</value>
   </data>
 </root>

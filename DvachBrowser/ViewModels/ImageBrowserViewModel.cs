@@ -42,7 +42,7 @@ namespace DvachBrowser.ViewModels
             }
             catch (Exception e)
             {
-                this.OnError(e.Message);
+                this.OnError(ErrorMessages.SaveImageError);
             }
         }
 

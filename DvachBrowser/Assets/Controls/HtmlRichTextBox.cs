@@ -14,7 +14,7 @@ namespace DvachBrowser.Assets.Controls
 {
     public class HtmlRichTextBox : Control
     {
-        private readonly HtmlElementToXamlElementConverter _htmlConverter = new HtmlElementToXamlElementConverter();
+        private readonly HtmlElementToXamlElementConverter _htmlConverter;
         private readonly HtmlTagsHelper _htmlTagsHelper = new HtmlTagsHelper();
 
         private RichTextBox _textBox;
@@ -26,6 +26,13 @@ namespace DvachBrowser.Assets.Controls
                         <RichTextBox x:Name=""RichTextBox"" VerticalContentAlignment=""Top"" Margin=""-10,0"" />
                     </ControlTemplate>") as ControlTemplate;
             this.ApplyTemplate();
+
+            var spanColors = new HtmlElementToXamlElementConverter.SpanColors();
+            spanColors.LinkForeground = ((SolidColorBrush)App.Current.Resources["ThemeLinkForeground"]).Color.ToString();
+            spanColors.SpoilerForeground = ((SolidColorBrush)App.Current.Resources["ThemeSpoilerForeground"]).Color.ToString();
+            spanColors.QuoteForeground = ((SolidColorBrush)App.Current.Resources["ThemeQuoteForeground"]).Color.ToString();
+
+            this._htmlConverter = new HtmlElementToXamlElementConverter(spanColors);
         }
 
         public override void OnApplyTemplate()

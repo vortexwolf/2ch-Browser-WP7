@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DownloadError" xml:space="preserve">
-    <value>The requested item was not downloaded becasue of an unexpected error.</value>
+    <value>Произошла неизвестная ошибка во время загрузки.</value>
   </data>
   <data name="DownloadImageError" xml:space="preserve">
-    <value>Unable to download the image.</value>
+    <value>Невозможно загрузить изображение.</value>
   </data>
   <data name="HttpPostError" xml:space="preserve">
-    <value>Unable to send the message.</value>
+    <value>Невозможно отправить сообщение.</value>
   </data>
   <data name="ImageBrowserLoadError" xml:space="preserve">
-    <value>Unable to load the image.</value>
+    <value>Невозможно отобразить изображение.</value>
   </data>
   <data name="JsonParseError" xml:space="preserve">
-    <value>Cannot parse the response from the server.</value>
+    <value>Невозможно прочитать ответ от сервера.</value>
   </data>
   <data name="SaveImageError" xml:space="preserve">
-    <value>Unable to save the image.</value>
+    <value>Невозможно сохранить изображение.</value>
   </data>
   <data name="WebPageLoadError" xml:space="preserve">
-    <value>Unable to load the page.</value>
+    <value>Невозможно загрузить страницу.</value>
   </data>
 </root>

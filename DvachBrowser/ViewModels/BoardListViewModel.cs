@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using DvachBrowser.Assets;
 
@@ -47,28 +48,80 @@ namespace DvachBrowser.ViewModels
 
         private void FillBoardList()
         {
-            this.Boards.Add(new BoardItemViewModel() { Code = "b", Title = "бред" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "app", Title = "мобильные приложения" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "au", Title = "автомобили и транспорт" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "bi", Title = "велосипеды" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "biz", Title = "бизнес" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "bo", Title = "книги" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "c", Title = "комиксы и мультфильмы" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "di", Title = "столовая" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "em", Title = "другие страны и туризм" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "ew", Title = "конец света" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "fa", Title = "мода и стиль" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "fiz", Title = "физкультура" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "fl", Title = "иностранные языки" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "ftb", Title = "футбол" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "gd", Title = "gamedev" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "hh", Title = "хип-хоп культура" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "hi", Title = "история" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "hw", Title = "железо" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "me", Title = "медицина" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "mg", Title = "магия" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "mlp", Title = "my little pony" });
-            this.Boards.Add(new BoardItemViewModel() { Code = "mov", Title = "фильмы" });
+            this.AddBoardFromString("app; мобильные приложения");
+            this.AddBoardFromString("au; автомобили и транспорт");
+            this.AddBoardFromString("bi; велосипеды");
+            this.AddBoardFromString("biz; бизнес");
+            this.AddBoardFromString("bo; книги");
+            this.AddBoardFromString("c; комиксы и мультфильмы");
+            this.AddBoardFromString("di; столовая");
+            this.AddBoardFromString("em; другие страны и туризм");
+            this.AddBoardFromString("ew; конец света");
+            this.AddBoardFromString("fa; мода и стиль");
+            this.AddBoardFromString("fiz; физкультура");
+            this.AddBoardFromString("fl; иностранные языки");
+            this.AddBoardFromString("ftb; футбол");
+            this.AddBoardFromString("gd; gamedev");
+            this.AddBoardFromString("hh; хип-хоп культура");
+            this.AddBoardFromString("hi; история");
+            this.AddBoardFromString("hw; железо");
+            this.AddBoardFromString("me; медицина");
+            this.AddBoardFromString("mg; магия");
+            this.AddBoardFromString("mlp; my little pony");
+            this.AddBoardFromString("mov; фильмы");
+            this.AddBoardFromString("mo; мотоциклы");
+            this.AddBoardFromString("mu; музыка");
+            this.AddBoardFromString("ne; животные и природа");
+            this.AddBoardFromString("pvc; коллекционные фигурки");
+            this.AddBoardFromString("po; политика и новости");
+            this.AddBoardFromString("pr; программирование");
+            this.AddBoardFromString("psy; психология");
+            this.AddBoardFromString("ra; радиотехника");
+            this.AddBoardFromString("re; религия и философия");
+            this.AddBoardFromString("s; программы");
+            this.AddBoardFromString("sf; научная фантастика");
+            this.AddBoardFromString("sci; наука");
+            this.AddBoardFromString("sn; паранормальные явления");
+            this.AddBoardFromString("sp; спорт");
+            this.AddBoardFromString("spc; космос");
+            this.AddBoardFromString("t; техника");
+            this.AddBoardFromString("tr; транспорт и авиация");
+            this.AddBoardFromString("tv; тв");
+            this.AddBoardFromString("un; образование");
+            this.AddBoardFromString("wh; warhammer");
+            this.AddBoardFromString("wm; военная техника");
+            this.AddBoardFromString("w; оружие"); 
+
+            // games
+            this.AddBoardFromString("bg; настольные игры");
+            this.AddBoardFromString("cg; консоли");
+            this.AddBoardFromString("gb; азартные игры");
+            this.AddBoardFromString("mc; minecraft");
+            this.AddBoardFromString("mmo; MMO");
+            this.AddBoardFromString("vg; видеоигры");
+            this.AddBoardFromString("wr; текстовые ролевые игры");
+            this.AddBoardFromString("tes; the elder scrolls");
+
+            // random
+            this.AddBoardFromString("abu; абу");
+            this.AddBoardFromString("b; бред");
+            this.AddBoardFromString("d; обсуждение двача");
+            this.AddBoardFromString("fag; фагготрия");
+            this.AddBoardFromString("soc; общение");
+            this.AddBoardFromString("r; просьбы");
+            this.AddBoardFromString("int; international");
         }
+
+        private void AddBoardFromString(string str)
+        {
+            this.Boards.Add(this.ParseBoardItem(str));
+        }
+
+        private BoardItemViewModel ParseBoardItem(string str)
+        {
+            string[] strs = str.Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+
+            return new BoardItemViewModel() { Code = strs[0], Title = strs[1] };
+        } 
     }
 }

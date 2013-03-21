@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Text;
 
+using DvachBrowser.Assets.Resources;
+
 namespace DvachBrowser.Assets.HttpTasks
 {
     public class HttpGetStringTask : HttpGetTask
@@ -33,7 +35,7 @@ namespace DvachBrowser.Assets.HttpTasks
             }
             catch (Exception e)
             {
-                this.InvokeOnErrorHandler(e.Message);
+                this.InvokeOnErrorHandler(ErrorMessages.DownloadError);
             }
         }
     }

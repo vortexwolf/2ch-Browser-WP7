@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 
+using DvachBrowser.Assets.Resources;
+
 namespace DvachBrowser.Assets.HttpTasks
 {
     public class HttpGetImageTask : HttpGetTask
@@ -42,7 +44,7 @@ namespace DvachBrowser.Assets.HttpTasks
             }
             catch (Exception e)
             {
-                this.InvokeOnErrorHandler(e.Message);
+                this.InvokeOnErrorHandler(ErrorMessages.DownloadImageError);
             }
         }
 

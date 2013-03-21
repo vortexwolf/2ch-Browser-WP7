@@ -61,6 +61,15 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The requested item was not downloaded becasue of an unexpected error..
+        /// </summary>
+        public static string DownloadError {
+            get {
+                return ResourceManager.GetString("DownloadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to download the image..
         /// </summary>
         public static string DownloadImageError {
@@ -93,6 +102,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string JsonParseError {
             get {
                 return ResourceManager.GetString("JsonParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save the image..
+        /// </summary>
+        public static string SaveImageError {
+            get {
+                return ResourceManager.GetString("SaveImageError", resourceCulture);
             }
         }
         

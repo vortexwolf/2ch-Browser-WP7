@@ -1,7 +1,7 @@
 ﻿<vm:PostListViewModel xmlns:vm="clr-namespace:DvachBrowser.ViewModels"
                         IsLoading="False"
                         IsError="False"
-                        IsListLoaded="True"
+                        IsLoaded="True"
                         Title="/test/12345">
     <vm:PostListViewModel.Posts>
         <vm:PostItemViewModel Subject="Test subject 1" Comment="Test comment 1" HasImage ="True" ThumbnailImage="/Images/image.png" />
