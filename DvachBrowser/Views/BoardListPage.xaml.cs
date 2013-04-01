@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 using DvachBrowser.Assets;
@@ -41,6 +42,16 @@ namespace DvachBrowser.Views
             }
 
             this._viewModel.GoToBoard(selectedItem.Code);
+        }
+
+        private void OnTextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ((TextBox)sender).GetBindingExpression(TextBox.TextProperty).UpdateSource();
+
+                this._viewModel.GoToTypedBoardCommand.Execute(null);
+            }
         }
     }
 }

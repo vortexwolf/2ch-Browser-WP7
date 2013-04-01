@@ -10,11 +10,15 @@ namespace DvachBrowser.ViewModels
 {
     public class CaptchaViewModel : LoadingBaseViewModel
     {
+        private readonly DvachUrlBuilder _urlBuilder;
+
         private HttpGetStringTask _currentStringTask;
         private HttpGetImageTask _currentImageTask;
 
         public CaptchaViewModel()
         {
+            this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
+
             this.RefreshImageCommand = new RelayCommand(this.RefreshImage);
         }
 
@@ -46,7 +50,7 @@ namespace DvachBrowser.ViewModels
                 this._currentImageTask.Cancel();
             }
 
-            string checkUri = string.Format("http://2ch.hk/makaba/captcha.fcgi?nocache={0}", DateTime.UtcNow.Ticks);
+            string checkUri = this._urlBuilder.BuildCaptchaCheckUrl();
             this._currentStringTask = new HttpGetStringTask(checkUri, this.OnCheckStringLoaded);
             this._currentStringTask.OnError = this.ShowError;
 

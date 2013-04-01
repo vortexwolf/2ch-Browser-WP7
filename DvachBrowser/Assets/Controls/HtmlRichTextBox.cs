@@ -6,9 +6,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Xml.Linq;
+
+using GalaSoft.MvvmLight.Command;
 
 namespace DvachBrowser.Assets.Controls
 {
@@ -18,6 +22,7 @@ namespace DvachBrowser.Assets.Controls
         private readonly HtmlTagsHelper _htmlTagsHelper = new HtmlTagsHelper();
 
         private RichTextBox _textBox;
+        private List<Hyperlink> _currentHyperlinks = new List<Hyperlink>(); 
 
         public HtmlRichTextBox()
         {
@@ -43,6 +48,15 @@ namespace DvachBrowser.Assets.Controls
         }
         
         public int? MaxNumberOfSymbols { get; set; }
+
+        public ICommand HyperlinkCommand
+        {
+            get { return (ICommand)GetValue(HyperlinkCommandProperty); }
+            set { this.SetValue(HyperlinkCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty HyperlinkCommandProperty =
+            DependencyProperty.Register("HyperlinkCommand", typeof(ICommand), typeof(HtmlRichTextBox), new PropertyMetadata(null));
 
         public string Text
         {
@@ -77,6 +91,8 @@ namespace DvachBrowser.Assets.Controls
 
         private void UpdateXaml()
         {
+            this.ClearEvents();
+
             if (string.IsNullOrEmpty(this.Text))
             {
                 return;
@@ -88,11 +104,81 @@ namespace DvachBrowser.Assets.Controls
                 text = this._htmlTagsHelper.FixTags(text.Substring(0, this.MaxNumberOfSymbols.Value)) + "...";
             }
 
+            text = text.Replace("<br>", "<br/>");
+
             var html = XDocument.Parse("<div>" + text + "</div>");
 
             string xaml = this._htmlConverter.ConvertHtmlToXamlString(html);
 
             this._textBox.Xaml = xaml;
+
+            this.AddEvents();
+        }
+
+        private void ClearEvents()
+        {
+            foreach (var link in this._currentHyperlinks)
+            {
+                link.NavigateUri = (Uri)link.GetValue(HyperlinkProperties.UriProperty);
+                link.SetValue(HyperlinkProperties.UriProperty, null);
+
+                link.CommandParameter = null;
+                link.Command = null;
+            }
+
+            this._currentHyperlinks.Clear();
+        }
+
+        private void AddEvents()
+        {
+            this._currentHyperlinks = this.GetAllInlines<Hyperlink>(this._textBox.Blocks).ToList();
+
+            foreach (var link in this._currentHyperlinks)
+            {
+                link.SetValue(HyperlinkProperties.UriProperty, link.NavigateUri);
+                link.NavigateUri = null;
+
+                link.Command = new RelayCommand<Hyperlink>((parameter) => this.HyperlinkCommand.Execute(parameter));
+                link.CommandParameter = link;
+            }
+        }
+
+        private IEnumerable<T> GetAllInlines<T>(ICollection<Block> blocks) where T : Inline
+        {
+            return blocks.SelectMany(this.GetAllInlines<T>).ToList();
+        }
+
+        private IEnumerable<T> GetAllInlines<T>(Block block) where T : Inline
+        {
+            var paragraph = block as Paragraph;
+            if (paragraph != null)
+            {
+                var inlines = paragraph.Inlines.SelectMany(this.GetAllInlines<T>).ToList();
+
+                return inlines;
+            }
+
+            return Enumerable.Empty<T>();
+        }
+
+        private IEnumerable<T> GetAllInlines<T>(Inline inline) where T : Inline
+        {
+            var span = inline as Span;
+            if (span != null)
+            {
+                var inlines = span.Inlines.SelectMany(this.GetAllInlines<T>).ToList();
+
+                foreach (var si in inlines)
+                {
+                    yield return si;
+                }
+            }
+
+            var currentInline = inline as T;
+            if (currentInline != null)
+            {
+                yield return currentInline;
+            }
         }
     }
 }

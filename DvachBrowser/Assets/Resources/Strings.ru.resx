@@ -144,14 +144,26 @@
   <data name="New_Post" xml:space="preserve">
     <value>Новое сообщение</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
   <data name="Notification_ImageSaved" xml:space="preserve">
     <value>Изображение сохранено в медиа библиотеке.</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Назад</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Обновить</value>
   </data>
   <data name="Sage" xml:space="preserve">
     <value>Sage</value>
+  </data>
+  <data name="ScrollToBottom" xml:space="preserve">
+    <value>Последнее сообщение треда</value>
+  </data>
+  <data name="ScrollToTop" xml:space="preserve">
+    <value>Первое сообщение треда</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>

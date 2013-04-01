@@ -20,6 +20,26 @@ namespace DvachBrowser.Assets
             RootFrame.GoBack();
         }
 
+        public void NavigateToThreadListPage(string boardName, int? page)
+        {
+            string queryString = new QueryStringBuilder()
+                .Add(Constants.QueryStringBoard, boardName)
+                .Add(Constants.QueryStringPage, page != null ? page.ToString() : null)
+                .Build();
+
+            this.Navigate(Constants.ThreadListPageUri + queryString);
+        }
+
+        public void NavigateToPostListPage(string boardName, string pageNumber)
+        {
+            string queryString = new QueryStringBuilder()
+                .Add(Constants.QueryStringBoard, boardName)
+                .Add(Constants.QueryStringThread, pageNumber)
+                .Build();
+
+            this.Navigate(Constants.PostListPageUri + queryString);
+        }
+
         private static PhoneApplicationFrame RootFrame
         {
             get { return ((App)Application.Current).RootFrame; }

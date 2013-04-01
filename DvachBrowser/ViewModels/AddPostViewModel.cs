@@ -14,13 +14,15 @@ namespace DvachBrowser.ViewModels
     {
         private readonly PageNavigationService _navigationService;
         private readonly PostResponseParser _postResponseParser;
+        private readonly DvachUrlBuilder _urlBuilder;
 
         private HttpPostTask _currentPostTask;
 
         public AddPostViewModel()
         {
             this._navigationService = Container.Resolve<PageNavigationService>();
-            this._postResponseParser = new PostResponseParser();
+            this._postResponseParser = Container.Resolve<PostResponseParser>();
+            this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
 
             this.CaptchaModel = new CaptchaViewModel();
             this.IsLoaded = true;
@@ -105,7 +107,7 @@ namespace DvachBrowser.ViewModels
                 return;
             }
 
-            string url = string.Format("http://2ch.hk/{0}/wakaba.pl", this.BoardName);
+            string url = this._urlBuilder.BuildAddPostUrl(this.BoardName);
             var parameters = this.CreatePostParameters();
 
             this._currentPostTask = new HttpPostTask(url, parameters, this.OnPostCompleted);
@@ -139,6 +141,7 @@ namespace DvachBrowser.ViewModels
 
             if (postResult.IsSuccess)
             {
+                Container.Resolve<AddPostStorage>().IsSentSuccessfully = true;
                 this._navigationService.GoBack();
             }
             else

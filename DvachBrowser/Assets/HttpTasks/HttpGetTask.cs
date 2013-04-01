@@ -22,7 +22,6 @@ namespace DvachBrowser.Assets.HttpTasks
             // create the http request
             HttpWebRequest httpWebRequest = WebRequest.CreateHttp(this.Url);
             httpWebRequest.Method = "GET";
-            httpWebRequest.Accept = "application/json";
             httpWebRequest.UserAgent = "2ch Browser (Windows Phone)";
 
             // get the response asynchronously

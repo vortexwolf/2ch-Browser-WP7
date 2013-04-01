@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 
 using DvachBrowser.Assets;
 using DvachBrowser.Assets.Extensions;
 using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace DvachBrowser.Views
 {
@@ -13,11 +15,16 @@ namespace DvachBrowser.Views
         private readonly ThreadListViewModel _viewModel;
         private readonly PageNavigationService _pageNavigationService;
 
+        private readonly ApplicationBarIconButton _prevButton;
+        private readonly ApplicationBarIconButton _nextButton;
+
         private bool _isLoaded;
 
         public ThreadListPage()
         {
             this.InitializeComponent();
+            this._prevButton = (ApplicationBarIconButton)this.ApplicationBar.Buttons[2];
+            this._nextButton = (ApplicationBarIconButton)this.ApplicationBar.Buttons[3];
 
             this._pageNavigationService = Container.Resolve<PageNavigationService>();
 
@@ -30,15 +37,18 @@ namespace DvachBrowser.Views
         {
             if (!this._isLoaded)
             {
-                string board = this.NavigationContext.QueryString.GetValueOrDefault(Constants.QueryStringBoard)
-                               ?? Constants.DefaultBoardName;
+                string board = this.NavigationContext.QueryString.GetValueOrDefault(Constants.QueryStringBoard, Constants.DefaultBoardName);
+                string page = this.NavigationContext.QueryString.GetValueOrDefault(Constants.QueryStringPage);
+                int pageNumber = !string.IsNullOrEmpty(page) ? int.Parse(page) : Constants.DefaultPage;
 
-                this._viewModel.Load(board);
+                this._viewModel.Load(board, pageNumber);
                 this._isLoaded = true;
             }
 
             // clear the previous selection so that we can navigate to the same thread more than 1 time
             this.list.SelectedItem = null;
+
+            this.UpdateNextPrevButtonsVisibility();
 
             base.OnNavigatedTo(e);
         }
@@ -51,12 +61,7 @@ namespace DvachBrowser.Views
                 return;
             }
 
-            string queryString = new QueryStringBuilder()
-                .Add(Constants.QueryStringBoard, this._viewModel.BoardName)
-                .Add(Constants.QueryStringThread, selectedItem.Number.ToString())
-                .Build();
-
-            this._pageNavigationService.Navigate(Constants.PostListPageUri + queryString);
+            this._pageNavigationService.NavigateToPostListPage(this._viewModel.BoardName, selectedItem.Number.ToString());
         }
 
         private void OnRefreshClick(object sender, EventArgs e)
@@ -67,6 +72,33 @@ namespace DvachBrowser.Views
         private void OnBoardsButtonClick(object sender, EventArgs e)
         {
             this._pageNavigationService.Navigate(Constants.BoardListPageUri);
+        }
+
+        private void OnPreviousButtonClick(object sender, EventArgs e)
+        {
+            this.NavigateToPage(this._viewModel.Page - 1);
+        }
+
+        private void OnNextButtonClick(object sender, EventArgs e)
+        {
+            this.NavigateToPage(this._viewModel.Page + 1);
+        }
+
+        private void NavigateToPage(int page)
+        {
+            this._pageNavigationService.NavigateToThreadListPage(this._viewModel.BoardName, page);
+        }
+
+        private void UpdateNextPrevButtonsVisibility()
+        {
+            if (this._viewModel.Page == Constants.FirstPage)
+            {
+                this.ApplicationBar.Buttons.Remove(this._prevButton);
+            }
+            else if (this._viewModel.Page == Constants.LastPage)
+            {
+                this.ApplicationBar.Buttons.Remove(this._nextButton);
+            }
         }
     }
 }

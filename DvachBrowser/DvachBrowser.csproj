@@ -70,6 +70,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\AddPostStorage.cs" />
     <Compile Include="Assets\BitmapManager.cs" />
     <Compile Include="Assets\CachedBitmapImageModel.cs" />
     <Compile Include="Assets\Constants.cs" />
@@ -77,9 +78,12 @@
     <Compile Include="Assets\Controls\HtmlElementToXamlElementConverter.cs" />
     <Compile Include="Assets\Controls\HtmlRichTextBox.cs" />
     <Compile Include="Assets\Controls\HtmlTagsHelper.cs" />
+    <Compile Include="Assets\Controls\HyperlinkProperties.cs" />
     <Compile Include="Assets\Controls\TextBinding.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
+    <Compile Include="Assets\DvachUriParser.cs" />
+    <Compile Include="Assets\DvachUrlBuilder.cs" />
     <Compile Include="Assets\Extensions\CollectionExtensions.cs" />
     <Compile Include="Assets\Extensions\PageExtensions.cs" />
     <Compile Include="Assets\Extensions\PropertyNameExtensions.cs" />
@@ -220,16 +224,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.png" />
-    <Content Include="icon62x62.png" />
+    <Content Include="icon_62x62.png" />
     <Content Include="Images\alert.png" />
     <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.arrow.left.png" />
+    <Content Include="Images\appbar.arrow.right.png" />
     <Content Include="Images\appbar.check.png" />
     <Content Include="Images\appbar.download.png" />
     <Content Include="Images\appbar.list.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
+    <Content Include="tile_icon_173x173.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Resources\ErrorMessages.resx">

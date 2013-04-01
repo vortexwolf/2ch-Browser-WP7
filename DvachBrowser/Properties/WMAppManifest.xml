@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
   <App xmlns="" BitsPerPixel="32" ProductID="{5985b11f-10fe-4403-a9f5-0ddbac1cb38a}" Title="2ch Browser" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="vortexwolf" Description="2ch Browser" Publisher="vortexwolf">
-    <IconPath IsRelative="true" IsResource="false">icon62x62.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">icon_62x62.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
@@ -13,7 +13,7 @@
     <Tokens>
       <PrimaryToken TokenID="DvachBrowserToken" TaskName="_default">
         <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">icon.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">tile_icon_173x173.png</BackgroundImageURI>
           <Count>0</Count>
           <Title>2ch Browser</Title>
         </TemplateType5>

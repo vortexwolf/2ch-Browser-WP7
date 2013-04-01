@@ -64,9 +64,11 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DvachUriParserTests.cs" />
     <Compile Include="PostResponseParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlTagsHelperTests.cs" />
+    <Compile Include="QueryStringBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DvachBrowser\DvachBrowser.csproj">

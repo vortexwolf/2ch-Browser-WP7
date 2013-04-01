@@ -7,26 +7,32 @@ namespace DvachBrowser.Assets
 {
     public class QueryStringBuilder
     {
-        private readonly List<string> _keys;
-        private readonly List<string> _values;
+        private readonly Dictionary<string, string> _items;
 
         public QueryStringBuilder()
         {
-            this._keys = new List<string>();
-            this._values = new List<string>();
+            this._items = new Dictionary<string, string>();
         }
 
         public QueryStringBuilder Add(string key, string value)
         {
-            this._keys.Add(key);
-            this._values.Add(value);
+            value = value ?? string.Empty;
+
+            if (this._items.ContainsKey(key))
+            {
+                this._items[key] = value;
+            }
+            else
+            {
+                this._items.Add(key, value);
+            }
 
             return this;
         }
 
         public string Build()
         {
-            var pairs = Enumerable.Range(0, this._keys.Count).Select(i => this._keys[i] + "=" + this._values[i]).ToArray();
+            var pairs = this._items.Select(kv => kv.Key + "=" + Uri.EscapeDataString(kv.Value)).ToArray();
             var joinedStr = string.Join("&", pairs);
 
             return "?" + joinedStr;

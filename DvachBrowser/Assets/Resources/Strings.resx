@@ -144,14 +144,26 @@
   <data name="New_Post" xml:space="preserve">
     <value>New post</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="Notification_ImageSaved" xml:space="preserve">
     <value>The image is saved to the media library.</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Prev</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
   <data name="Sage" xml:space="preserve">
     <value>Sage</value>
+  </data>
+  <data name="ScrollToBottom" xml:space="preserve">
+    <value>Scroll to bottom</value>
+  </data>
+  <data name="ScrollToTop" xml:space="preserve">
+    <value>Scroll to top</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>

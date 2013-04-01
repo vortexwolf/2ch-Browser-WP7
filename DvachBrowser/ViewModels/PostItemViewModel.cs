@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,16 +13,19 @@ using System.Windows.Shapes;
 using DvachBrowser.Assets;
 using DvachBrowser.Models;
 
+using GalaSoft.MvvmLight.Command;
+
 namespace DvachBrowser.ViewModels
 {
     public class PostItemViewModel : ThreadPostBaseViewModel
     {
-        public PostItemViewModel() : base(null, null)
-        {
-        }
+        private readonly PostListViewModel _parent;
 
-        public PostItemViewModel(string boardName, BitmapManager bitmapManager) : base(boardName, bitmapManager)
+        public PostItemViewModel(PostListViewModel parent)
+            : base(parent.BoardName)
         {
+            this._parent = parent;
+            this.NavigateLinkCommand = new RelayCommand<Hyperlink>(this.OnNavigateLink);
         }
 
         private int _index;
@@ -36,11 +40,19 @@ namespace DvachBrowser.ViewModels
             }
         }
 
+        public ICommand NavigateLinkCommand { get; set; }
+
         public void MapModel(PostItemModel post, int index)
         {
             this.MapModel(post);
 
             this.Index = index;
+        }
+
+        private void OnNavigateLink(Hyperlink link)
+        {
+            Debug.WriteLine("OnNavigateLink clicked");
+            this._parent.NavigateToLink(this, link);
         }
     }
 }

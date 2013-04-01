@@ -57,10 +57,8 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.png" Text="Refresh" Click="OnRefreshClick"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
-            <!--<shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>-->
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.arrow.left.png" Text="Prev" Click="OnPreviousButtonClick"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.arrow.right.png" Text="Next" Click="OnNextButtonClick"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

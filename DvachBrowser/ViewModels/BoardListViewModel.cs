@@ -29,11 +29,7 @@ namespace DvachBrowser.ViewModels
 
         public void GoToBoard(string boardName)
         {
-            string queryString = new QueryStringBuilder()
-                    .Add(Constants.QueryStringBoard, boardName)
-                    .Build();
-
-            this._pageNavigationService.Navigate(Constants.ThreadListPageUri + queryString);
+            this._pageNavigationService.NavigateToThreadListPage(boardName, null);
         }
 
         private void GoToTypedBoard()

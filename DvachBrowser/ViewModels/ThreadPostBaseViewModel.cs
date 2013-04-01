@@ -19,11 +19,13 @@ namespace DvachBrowser.ViewModels
     public class ThreadPostBaseViewModel : ViewModel
     {
         protected readonly BitmapManager BitmapManager;
-        
-        public ThreadPostBaseViewModel(string boardName, BitmapManager bitmapManager)
+        private readonly DvachUrlBuilder _urlBuilder;
+
+        public ThreadPostBaseViewModel(string boardName)
         {
             this.BoardName = boardName;
-            this.BitmapManager = bitmapManager;
+            this.BitmapManager = Container.Resolve<BitmapManager>();
+            this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
         }
         
         public virtual void MapModel(PostItemModel post)
@@ -33,8 +35,8 @@ namespace DvachBrowser.ViewModels
             this.Subject = post.Subject;
             this.Comment = post.Comment;
             this.HasImage = !string.IsNullOrEmpty(post.ThumbnailUri);
-            this.ThumbnailUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ThumbnailUri : null;
-            this.ImageUri = this.HasImage ? "http://2ch.hk/" + this.BoardName + "/" + post.ImageUri : null;
+            this.ThumbnailUri = this.HasImage ? this._urlBuilder.BuildResourceUrl(this.BoardName, post.ThumbnailUri) : null;
+            this.ImageUri = this.HasImage ? this._urlBuilder.BuildResourceUrl(this.BoardName, post.ImageUri) : null;
             this.AttachmentInfo = string.Format(Strings.DataFormat_Kb, post.ImageSize);
         }
 

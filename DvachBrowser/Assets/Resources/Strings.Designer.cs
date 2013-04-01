@@ -142,11 +142,29 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The image is saved to the media library..
         /// </summary>
         public static string Notification_ImageSaved {
             get {
                 return ResourceManager.GetString("Notification_ImageSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prev.
+        /// </summary>
+        public static string Prev {
+            get {
+                return ResourceManager.GetString("Prev", resourceCulture);
             }
         }
         
@@ -165,6 +183,24 @@ namespace DvachBrowser.Assets.Resources {
         public static string Sage {
             get {
                 return ResourceManager.GetString("Sage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll to bottom.
+        /// </summary>
+        public static string ScrollToBottom {
+            get {
+                return ResourceManager.GetString("ScrollToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll to top.
+        /// </summary>
+        public static string ScrollToTop {
+            get {
+                return ResourceManager.GetString("ScrollToTop", resourceCulture);
             }
         }
         

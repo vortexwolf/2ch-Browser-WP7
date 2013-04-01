@@ -67,6 +67,10 @@ namespace DvachBrowser
             Container.Register<BitmapManager, BitmapManager>();
             Container.Register<PageNavigationService, PageNavigationService>();
             Container.Register<ThemeManager, ThemeManager>();
+            Container.Register<DvachUrlBuilder, DvachUrlBuilder>();
+            Container.Register<PostResponseParser, PostResponseParser>();
+            Container.Register<AddPostStorage, AddPostStorage>();
+            Container.Register<DvachUriParser, DvachUriParser>();
 
             Container.Resolve<ThemeManager>().ApplyTheme();
         }

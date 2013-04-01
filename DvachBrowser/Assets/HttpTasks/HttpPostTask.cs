@@ -28,11 +28,12 @@ namespace DvachBrowser.Assets.HttpTasks
         {
             base.Execute();
 
-            HttpWebRequest myRequest = WebRequest.CreateHttp(this.Url);
-            myRequest.Method = "POST";
-            myRequest.ContentType = string.Format("multipart/form-data; boundary={0}", this._boundary);
+            HttpWebRequest httpWebRequest = WebRequest.CreateHttp(this.Url);
+            httpWebRequest.Method = "POST";
+            httpWebRequest.ContentType = string.Format("multipart/form-data; boundary={0}", this._boundary);
+            httpWebRequest.UserAgent = "2ch Browser (Windows Phone)";
 
-            myRequest.BeginGetRequestStream(new AsyncCallback(this.GetRequestStreamCallback), myRequest);
+            httpWebRequest.BeginGetRequestStream(new AsyncCallback(this.GetRequestStreamCallback), httpWebRequest);
         }
 
         private void GetRequestStreamCallback(IAsyncResult asynchronousResult)

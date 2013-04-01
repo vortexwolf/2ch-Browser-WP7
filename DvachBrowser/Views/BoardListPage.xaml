@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding TypedBoard, Mode=TwoWay}" />
+            <TextBox Grid.Column="0" Text="{Binding TypedBoard, Mode=TwoWay}" KeyUp="OnTextBoxKeyUp" />
             <Button Grid.Column="1" Content="Go" Command="{Binding GoToTypedBoardCommand}" />
         </Grid>
 

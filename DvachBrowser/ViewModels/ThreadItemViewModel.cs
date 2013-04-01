@@ -18,7 +18,7 @@ namespace DvachBrowser.ViewModels
 {
     public class ThreadItemViewModel : ThreadPostBaseViewModel
     {
-        public ThreadItemViewModel(string boardName, ThreadItemModel thread, BitmapManager bitmapManager) : base(boardName, bitmapManager)
+        public ThreadItemViewModel(string boardName, ThreadItemModel thread) : base(boardName)
         {
             this.MapModel(thread);
         }

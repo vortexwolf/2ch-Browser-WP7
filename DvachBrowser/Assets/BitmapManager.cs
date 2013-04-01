@@ -17,6 +17,7 @@ namespace DvachBrowser.Assets
         private const int MaxImagesNumber = 75;
         private const int RemoveExceedingImagesNumber = 25;
 
+        private readonly List<string> _runningImageTasks = new List<string>();
         private readonly Dictionary<string, BitmapImageWithLastAccess> _images = new Dictionary<string, BitmapImageWithLastAccess>();
         private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
         
@@ -48,6 +49,13 @@ namespace DvachBrowser.Assets
                 return;
             }
 
+            if (this._runningImageTasks.Contains(uri))
+            {
+                return;
+            }
+
+            this._runningImageTasks.Add(uri);
+
             // download image
             var httpGet = new HttpGetImageTask(uri, image => this.OnImageDownloaded(uri, image, onFinished));
             httpGet.OnError = error => this.OnError(uri, error, onFinished);
@@ -58,6 +66,7 @@ namespace DvachBrowser.Assets
         private void OnImageDownloaded(string uri, BitmapSource bitmap, Action onFinished)
         {
             this.AddImage(uri, bitmap);
+            this._runningImageTasks.Remove(uri);
 
             onFinished();
         }
@@ -65,6 +74,7 @@ namespace DvachBrowser.Assets
         private void OnError(string uri, string error, Action onFinished)
         {
             this._errors.Add(uri, error);
+            this._runningImageTasks.Remove(uri);
 
             onFinished();
         }
@@ -84,7 +94,10 @@ namespace DvachBrowser.Assets
             }
 
             // add the image to cache
-            this._images.Add(uri, imageModel);
+            if (!this._images.ContainsKey(uri))
+            {
+                this._images.Add(uri, imageModel);
+            }
         }
 
         private class BitmapImageWithLastAccess

@@ -9,6 +9,7 @@ namespace DvachBrowser.ViewModels
     public class ThreadListViewModel : LoadingBaseViewModel
     {
         private readonly BitmapManager _bitmapManager;
+        private readonly DvachUrlBuilder _urlBuilder;
 
         private HttpGetJsonTask<ThreadListModel> _currentTask;
 
@@ -16,9 +17,10 @@ namespace DvachBrowser.ViewModels
         {
             this.Threads = new ObservableCollection<ThreadItemViewModel>();
             this._bitmapManager = Container.Resolve<BitmapManager>();
+            this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
         }
 
-        public void Load(string boardName)
+        public void Load(string boardName, int page)
         {
             if (this._currentTask != null)
             {
@@ -26,10 +28,11 @@ namespace DvachBrowser.ViewModels
             }
 
             this.BoardName = boardName;
-            this.Title = "/" + boardName + "/";
+            this.Page = page;
+            this.Title = string.Format("/{0}/{1}", boardName, page != 0 ? page.ToString() : string.Empty);
 
             // load threads from the network
-            string threadsUrl = string.Format("http://2ch.hk/{0}/wakaba.json?nocache={1}", boardName, DateTime.UtcNow.Ticks);
+            string threadsUrl = this._urlBuilder.BuildThreadsUrl(boardName, page);
             this._currentTask = new HttpGetJsonTask<ThreadListModel>(threadsUrl, this.OnThreadsLoaded);
             this._currentTask.OnError = this.ShowError;
             this._currentTask.OnProgressChanged = this.UpdateProgress;
@@ -40,7 +43,7 @@ namespace DvachBrowser.ViewModels
 
         public void Refresh()
         {
-            this.Load(this.BoardName);
+            this.Load(this.BoardName, this.Page);
         }
 
         public override void ShowError(string message)
@@ -65,13 +68,15 @@ namespace DvachBrowser.ViewModels
 
             foreach (var thread in threadList.Threads)
             {
-                var vm = new ThreadItemViewModel(this.BoardName, thread, this._bitmapManager);
+                var vm = new ThreadItemViewModel(this.BoardName, thread);
 
                 this.Threads.Add(vm);
             }
         }
 
         public string BoardName { get; set; }
+
+        public int Page { get; set; }
 
         public ObservableCollection<ThreadItemViewModel> Threads { get; set; }
     }

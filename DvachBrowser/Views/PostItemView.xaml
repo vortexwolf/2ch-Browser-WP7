@@ -36,8 +36,10 @@
         <view:ThumbnailView Grid.Column="0" Grid.Row="1" />
         
         <controls:HtmlRichTextBox Grid.Column="1" Grid.Row="1" 
-                        Text="{Binding Comment}" 
+                        Text="{Binding Comment}"
+                        HyperlinkCommand="{Binding NavigateLinkCommand}"
                         Foreground="{StaticResource ThemePrimaryText}" 
-                        FontSize="{StaticResource PhoneFontSizeNormal}" />
+                        FontSize="{StaticResource PhoneFontSizeNormal}"
+                        MaxHeight="2000"/>
     </Grid>
 </UserControl>

@@ -41,20 +41,23 @@
             <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
                         Text="{Binding ErrorMessage}"
                         Style="{StaticResource ErrorMessageStyle}" />
-            <ListBox Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
+            <ListBox x:Name="list" Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
                     ItemsSource="{Binding Posts}"
                     ItemTemplate="{StaticResource PostItemTemplate}"
                     ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
-                    VerticalAlignment="Stretch"
-                    SelectionChanged="ListBox_SelectionChanged">
+                    VerticalAlignment="Stretch">
             </ListBox>
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.png" Text="Refresh" Click="OnRefreshClick"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.png" Text="New_Post" Click="OnAddPostClick" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="ScrollToTop" Click="OnScrollToTopClick" />
+                <shell:ApplicationBarMenuItem Text="ScrollToBottom" Click="OnScrollToBottomClick" />
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
