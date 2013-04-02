@@ -115,6 +115,15 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} replies.
+        /// </summary>
+        public static string DataFormat_Replies {
+            get {
+                return ResourceManager.GetString("DataFormat_Replies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download.
         /// </summary>
         public static string Download {
@@ -156,6 +165,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string Notification_ImageSaved {
             get {
                 return ResourceManager.GetString("Notification_ImageSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         

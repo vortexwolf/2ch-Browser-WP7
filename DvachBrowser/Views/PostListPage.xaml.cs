@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.Controls;
 using DvachBrowser.Assets.Extensions;
 using DvachBrowser.Assets.Resources;
 using DvachBrowser.ViewModels;
@@ -25,7 +30,7 @@ namespace DvachBrowser.Views
         {
             this.InitializeComponent();
 
-            this.DataContext = this._viewModel = new PostListViewModel(this);
+            this.DataContext = this._viewModel = new PostListViewModel(this.popupPlaceholder);
 
             this.LocalizeAppBar();
 
@@ -84,36 +89,12 @@ namespace DvachBrowser.Views
 
         private void OnScrollToTopClick(object sender, EventArgs e)
         {
-            if (this.list.Items.Count > 0)
-            {
-                this.ScrollWithLayoutUpdate(this.list.Items[0]);
-            }
+            this.postListView.ScrollToTop();
         }
 
         private void OnScrollToBottomClick(object sender, EventArgs e)
         {
-            if (this.list.Items.Count > 0)
-            {
-                this.ScrollWithLayoutUpdate(this.list.Items[this.list.Items.Count - 1]);
-            }
-        }
-
-        public void ScrollToPost(PostItemViewModel post)
-        {
-            if (post == null)
-            {
-                return;
-            }
-
-            // TODO: replace by popup windows
-            this.ScrollWithLayoutUpdate(post);
-        }
-
-        private void ScrollWithLayoutUpdate(object item)
-        {
-            this.list.ScrollIntoView(item);
-            this.list.UpdateLayout();
-            this.list.ScrollIntoView(item);
+            this.postListView.ScrollToBottom();
         }
     }
 }

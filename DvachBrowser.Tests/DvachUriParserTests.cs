@@ -26,6 +26,19 @@ namespace DvachBrowser.Tests
             return result;
         }
 
+        [TestCase("http://2ch.hk/test/", Result = "test;;")]
+        [TestCase("http://2ch.hk/test/1.html", Result = "test;1;")]
+        [TestCase("http://2ch.hk/test/res/123.html", Result = "test;;123")]
+        [TestCase("http://2ch.hk/test/src/12345.png", Result = null)]
+        public string ParseUri(string uriStr)
+        {
+            Uri uri = new Uri(uriStr, UriKind.RelativeOrAbsolute);
+
+            var result = this._instance.ParseUri(uri);
+
+            return result == null ? null : string.Join(";", new[] { result.BoardName, result.PageNumber, result.ThreadNumber });
+        }
+
         [TestCase("http://2ch.hk/test/res/1000.html", Result = "1000")]
         [TestCase("/b/res/1000.html", Result = "1000")]
         [TestCase("http://2ch.hk/pr/res/2000.html#222", Result = "2000")]

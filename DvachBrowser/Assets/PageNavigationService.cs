@@ -40,6 +40,16 @@ namespace DvachBrowser.Assets
             this.Navigate(Constants.PostListPageUri + queryString);
         }
 
+        public void NavigateToAddPostPage(string boardName, string threadNumber)
+        {
+            string queryString = new QueryStringBuilder()
+                .Add(Constants.QueryStringBoard, boardName)
+                .Add(Constants.QueryStringThread, threadNumber)
+                .Build();
+
+            this.Navigate(Constants.AddPostPageUri + queryString);
+        }
+
         private static PhoneApplicationFrame RootFrame
         {
             get { return ((App)Application.Current).RootFrame; }

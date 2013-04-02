@@ -71,6 +71,7 @@ namespace DvachBrowser
             Container.Register<PostResponseParser, PostResponseParser>();
             Container.Register<AddPostStorage, AddPostStorage>();
             Container.Register<DvachUriParser, DvachUriParser>();
+            Container.Register<PopupDisplayer, PopupDisplayer>();
 
             Container.Resolve<ThemeManager>().ApplyTheme();
         }

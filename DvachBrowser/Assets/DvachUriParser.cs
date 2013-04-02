@@ -25,7 +25,7 @@ namespace DvachBrowser.Assets
             string path = uri.IsAbsoluteUri ? uri.LocalPath : new Uri(new Uri("http://example.com"), uri).LocalPath;
 
             Match match = this._groupsRegex.Match(path);
-            if (match.Success && match.Groups.Count == 4)
+            if (match.Success)
             {
                 return new DvachUriModel()
                            {

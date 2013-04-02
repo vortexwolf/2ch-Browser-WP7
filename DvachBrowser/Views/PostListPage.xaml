@@ -14,16 +14,6 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignData Source=../DesignData/PostListViewModelDesignData.xaml}">
-    <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="PostItemTemplate">
-            <Border Margin="0,3"
-                    BorderThickness="1" CornerRadius="5"
-                    Background="{StaticResource ThemePostBackground}"
-                    BorderBrush="{StaticResource ThemePostBorder}">
-                <view:PostItemView />
-            </Border>
-        </DataTemplate>
-    </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,12 +31,10 @@
             <TextBlock Visibility="{Binding IsError, Converter={StaticResource BoolToVisibleConverter}}"
                         Text="{Binding ErrorMessage}"
                         Style="{StaticResource ErrorMessageStyle}" />
-            <ListBox x:Name="list" Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}"
-                    ItemsSource="{Binding Posts}"
-                    ItemTemplate="{StaticResource PostItemTemplate}"
-                    ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
-                    VerticalAlignment="Stretch">
-            </ListBox>
+            <Border Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}" >
+                <view:PostListView x:Name="postListView"  DataContext="{Binding Posts}" />
+            </Border>
+            <Grid x:Name="popupPlaceholder" />
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>

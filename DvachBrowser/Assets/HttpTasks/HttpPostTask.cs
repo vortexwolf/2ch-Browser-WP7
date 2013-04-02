@@ -57,9 +57,18 @@ namespace DvachBrowser.Assets.HttpTasks
             {
                 response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                this.InvokeOnErrorHandler(ErrorMessages.HttpPostError);
+                if (e.InnerException != null && e.InnerException.Message.StartsWith("[net_WebHeaderInvalidControlChars]"))
+                {
+                    // not an exception, everything is ok
+                    this.InvokeInUiThread(() => this.OnCompleted(null));
+                }
+                else
+                {
+                    this.InvokeOnErrorHandler(ErrorMessages.HttpPostError);
+                }
+
                 return;
             }
 

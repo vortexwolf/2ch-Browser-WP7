@@ -135,6 +135,9 @@
   <data name="DataFormat_PostsAndImages" xml:space="preserve">
     <value>{0} ответов и {1} изображений</value>
   </data>
+  <data name="DataFormat_Replies" xml:space="preserve">
+    <value>{0} ответов</value>
+  </data>
   <data name="Download" xml:space="preserve">
     <value>Сохранить</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Notification_ImageSaved" xml:space="preserve">
     <value>Изображение сохранено в медиа библиотеке.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="Prev" xml:space="preserve">
     <value>Назад</value>

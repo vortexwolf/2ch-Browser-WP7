@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -41,5 +42,13 @@
                         Foreground="{StaticResource ThemePrimaryText}" 
                         FontSize="{StaticResource PhoneFontSizeNormal}"
                         MaxHeight="2000"/>
+
+        <HyperlinkButton Grid.Row="2" Grid.ColumnSpan="2"
+                         Command="{Binding ShowRepliesCommand}"
+                         Content="{Binding RepliesMessage}"
+                         Visibility="{Binding HasReplies, Converter={StaticResource BoolToVisibleConverter}}"
+                         Foreground="{StaticResource ThemeLinkForeground}"
+                         FontSize="{StaticResource PhoneFontSizeNormal}"
+                         HorizontalAlignment="Left" />
     </Grid>
 </UserControl>

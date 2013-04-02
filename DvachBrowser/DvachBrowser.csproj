@@ -79,6 +79,7 @@
     <Compile Include="Assets\Controls\HtmlRichTextBox.cs" />
     <Compile Include="Assets\Controls\HtmlTagsHelper.cs" />
     <Compile Include="Assets\Controls\HyperlinkProperties.cs" />
+    <Compile Include="Assets\Controls\PopupWindow.cs" />
     <Compile Include="Assets\Controls\TextBinding.cs" />
     <Compile Include="Assets\Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Assets\Converters\BoolToVisibleConverter.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Assets\HttpTasks\HttpPostTask.cs" />
     <Compile Include="Assets\LocalizedStrings.cs" />
     <Compile Include="Assets\PageNavigationService.cs" />
+    <Compile Include="Assets\PopupDisplayer.cs" />
     <Compile Include="Assets\PostResponseParser.cs" />
     <Compile Include="Assets\ProgressStream.cs" />
     <Compile Include="Assets\QueryStringBuilder.cs" />
@@ -146,6 +148,9 @@
     </Compile>
     <Compile Include="Views\PostListPage.xaml.cs">
       <DependentUpon>PostListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostListView.xaml.cs">
+      <DependentUpon>PostListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ThreadItemView.xaml.cs">
       <DependentUpon>ThreadItemView.xaml</DependentUpon>
@@ -201,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PostListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PostListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

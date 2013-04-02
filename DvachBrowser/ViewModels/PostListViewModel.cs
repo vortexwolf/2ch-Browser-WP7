@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 
 using DvachBrowser.Assets;
@@ -19,20 +21,26 @@ namespace DvachBrowser.ViewModels
         private readonly DvachUrlBuilder _urlBuilder;
         private readonly PageNavigationService _pageNavigationService;
         private readonly DvachUriParser _dvachUriParser;
+        private readonly PopupDisplayer _popupDisplayer;
 
-        private readonly PostListPage _view;
+        private readonly Panel _popupPlaceholder;
+
+        private readonly Dictionary<long, PostItemViewModel> _itemsByPostNumbers; 
 
         private HttpGetJsonTask<PostListModel> _currentTask;
         private HttpGetJsonTask<PostListModel> _updateTask;
 
-        public PostListViewModel(PostListPage view)
+        public PostListViewModel(Panel popupPlaceholder)
         {
-            this._view = view;
+            this._popupPlaceholder = popupPlaceholder;
+
+            this.Posts = new ObservableCollection<PostItemViewModel>();
+            this._itemsByPostNumbers = new Dictionary<long, PostItemViewModel>();
 
             this._dvachUriParser = Container.Resolve<DvachUriParser>();
-            this.Posts = new ObservableCollection<PostItemViewModel>();
             this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
             this._pageNavigationService = Container.Resolve<PageNavigationService>();
+            this._popupDisplayer = Container.Resolve<PopupDisplayer>();
         }
 
         public void Load(string boardName, string threadNumber)
@@ -103,7 +111,7 @@ namespace DvachBrowser.ViewModels
 
         private void OnPostsLoaded(PostListModel responseObject)
         {
-            this.DisplayPosts(responseObject);
+            this.AddPosts(responseObject);
 
             this.HideLoading();
 
@@ -112,28 +120,54 @@ namespace DvachBrowser.ViewModels
 
         private void OnPostsLoadedAfterUpdate(PostListModel responseObject)
         {
-            this.DisplayPosts(responseObject);
+            this.AddPosts(responseObject);
 
             this.IsLoadingAfterUpdate = false;
 
             this._updateTask = null;
         }
 
-        private void DisplayPosts(PostListModel postList)
+        private void AddPosts(PostListModel postList)
         {
+            int index = this.Posts.Count + 1;
             var lastPostNumber = this.Posts.Select(p => p.Number).DefaultIfEmpty(0).Max();
             var newPosts = postList.Posts.Select(postArray => postArray[0]).SkipWhile(post => post.Number <= lastPostNumber);
-            int index = 1 + this.Posts.Select(p => p.Index).DefaultIfEmpty(0).Last();
 
             foreach (var post in newPosts)
             {
-                var vm = new PostItemViewModel(this);
-                vm.MapModel(post, index);
-
-                this.Posts.Add(vm);
+                this.AddModel(post, index);
 
                 index++;
             }
+        }
+
+        private void AddModel(PostItemModel model, int index)
+        {
+            var vm = new PostItemViewModel(this);
+
+            vm.MapModel(model, index);
+            this.ArrangeReferences(vm);
+
+            this.Posts.Add(vm);
+            this._itemsByPostNumbers[vm.Number] = vm;
+        }
+        
+        private void ArrangeReferences(PostItemViewModel model)
+        {
+            foreach (var refNumber in model.RefersTo)
+            {
+                if (this._itemsByPostNumbers.ContainsKey(refNumber))
+                {
+                    this._itemsByPostNumbers[refNumber].AddReferenceFrom(model.Number);
+                }
+            }
+        }
+
+        public void ShowReplies(PostItemViewModel item)
+        {
+            var replies = item.ReferencesFrom.Select(number => this._itemsByPostNumbers[number]).ToList();
+
+            this._popupDisplayer.ShowPosts(replies, this._popupPlaceholder);
         }
 
         public void NavigateToLink(PostItemViewModel item, Hyperlink link)
@@ -147,29 +181,38 @@ namespace DvachBrowser.ViewModels
                 var uriModel = this._dvachUriParser.ParseUri(uri);
                 if (uriModel == null)
                 {
+                    this.NavigateToBrowser(uri);
                     return;
                 }
 
+                // if uri navigates to the current thread
                 if (uriModel.BoardName == this.BoardName && uriModel.ThreadNumber == this.ThreadNumber)
                 {
+                    // don't do anything if the uri has no fragment
                     if (!string.IsNullOrEmpty(uri.Fragment))
                     {
                         string fragment = uri.Fragment.Substring(1);
                         var post = this.Posts.FirstOrDefault(p => p.Number.ToString() == fragment);
 
-                        this._view.ScrollToPost(post);
+                        this._popupDisplayer.ShowPost(post, this._popupPlaceholder);
                     }
                 }
                 else
                 {
+                    // if uri navigates to another thread, open the necessary page
                     this._pageNavigationService.NavigateToPostListPage(uriModel.BoardName, uriModel.ThreadNumber);
                 }
             }
             else
             {
-                var webBrowserTask = new WebBrowserTask() { Uri = uri };
-                webBrowserTask.Show();
+                this.NavigateToBrowser(uri);
             }
+        }
+
+        private void NavigateToBrowser(Uri uri)
+        {
+            var webBrowserTask = new WebBrowserTask() { Uri = uri };
+            webBrowserTask.Show();
         }
 
         public void NavigateBoardsPage()
@@ -179,12 +222,7 @@ namespace DvachBrowser.ViewModels
 
         public void NavigateAddPostPage()
         {
-            string queryString = new QueryStringBuilder()
-                .Add(Constants.QueryStringBoard, this.BoardName)
-                .Add(Constants.QueryStringThread, this.ThreadNumber)
-                .Build();
-
-            this._pageNavigationService.Navigate(Constants.AddPostPageUri + queryString);
+            this._pageNavigationService.NavigateToAddPostPage(this.BoardName, this.ThreadNumber);
         }
 
         public ObservableCollection<PostItemViewModel> Posts { get; set; }
