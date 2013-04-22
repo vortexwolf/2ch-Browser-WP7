@@ -116,7 +116,7 @@ namespace DvachBrowser.Assets.HttpTasks
                 {
                     byte[] ba = value as byte[];
 
-                    writer.WriteLine(@"Content-Disposition: form-data; name=""{0}""; filename=""{1}""", key, "image.jpg");
+                    writer.WriteLine(@"Content-Disposition: form-data; name=""{0}""; filename=""{1}""", key, "image.png");
                     writer.WriteLine(@"Content-Type: application/octet-stream");
                     writer.WriteLine(@"Content-Length: " + ba.Length);
                     writer.WriteLine();

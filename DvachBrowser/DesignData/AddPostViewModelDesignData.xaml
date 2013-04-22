@@ -2,7 +2,9 @@
                     IsLoaded="True"
                      Text="Comment test"
                      CaptchaAnswer="Captcha answer test"
-                     IsSage="True">
+                     IsSage="True"
+                     HasAttachment="True"
+                     AttachmentName="sample.png">
     <vm:AddPostViewModel.CaptchaModel>
         <vm:CaptchaViewModel IsLoading="True" />
     </vm:AddPostViewModel.CaptchaModel>

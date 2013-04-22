@@ -7,6 +7,10 @@ using System.Windows;
 using DvachBrowser.Assets;
 using DvachBrowser.Assets.HttpTasks;
 using DvachBrowser.Assets.Resources;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using Microsoft.Phone.Tasks;
+using System.IO;
 
 namespace DvachBrowser.ViewModels
 {
@@ -26,6 +30,9 @@ namespace DvachBrowser.ViewModels
 
             this.CaptchaModel = new CaptchaViewModel();
             this.IsLoaded = true;
+            
+            this.AttachFileCommand = new RelayCommand(this.AttachFile);
+            this.RemoveFileCommand = new RelayCommand(this.RemoveFile);
 
             this._validator.AddValidationFor(() => this.Text).NotEmpty().Show(Strings.Validation_Comment);
             this._validator.AddValidationFor(() => this.CaptchaAnswer).NotEmpty().Show(Strings.Validation_CaptchaAnswer);
@@ -47,6 +54,12 @@ namespace DvachBrowser.ViewModels
 
         public bool IsSage { get; set; }
 
+        public byte[] AttachedFileBytes { get; set; }
+        
+        public ICommand AttachFileCommand { get; set; }
+
+        public ICommand RemoveFileCommand { get; set; }
+        
         private string _text;
 
         public string Text
@@ -95,6 +108,31 @@ namespace DvachBrowser.ViewModels
             }
         }
 
+        private bool _hasAttachment;
+
+        public bool HasAttachment
+        {
+            get { return this._hasAttachment; }
+            set
+            {
+                this._hasAttachment = value;
+                this.OnPropertyChanged("HasAttachment");
+            }
+        }
+
+        private string _attachmentName;
+
+        public string AttachmentName
+        {
+            get { return this._attachmentName; }
+            set
+            {
+                this._attachmentName = value;
+                this.OnPropertyChanged("AttachmentName");
+            }
+        }
+	
+        
         public void Send()
         {
             if (this._currentPostTask != null)
@@ -128,6 +166,11 @@ namespace DvachBrowser.ViewModels
             if (this.IsSage)
             {
                 entity.Add("nabiki", "sage"); // email
+            }
+
+            if (this.HasAttachment)
+            {
+                entity.Add("file", this.AttachedFileBytes);
             }
 
             return entity;
@@ -173,6 +216,36 @@ namespace DvachBrowser.ViewModels
             this.IsLoading = false;
             this.IsLoaded = true;
             this._currentPostTask = null;
+        }
+
+        private void AttachFile()
+        {
+            var chooseTask = new PhotoChooserTask();
+            chooseTask.ShowCamera = true;
+            chooseTask.Completed += (s, e) => this.OnChoosePhotoCompleted(e);
+            chooseTask.Show();
+        }
+
+        private void OnChoosePhotoCompleted(PhotoResult result)
+        {
+            if (result.TaskResult == TaskResult.OK)
+            {
+                this.HasAttachment = true;
+                this.AttachmentName = Path.GetFileName(result.OriginalFileName);
+
+                using (MemoryStream fileBytes = new MemoryStream())
+                {
+                    result.ChosenPhoto.CopyTo(fileBytes);
+                    this.AttachedFileBytes = fileBytes.GetBuffer();
+                }
+            }
+        }
+
+        private void RemoveFile()
+        {
+            this.HasAttachment = false;
+            this.AttachmentName = null;
+            this.AttachedFileBytes = null;
         }
     }
 }

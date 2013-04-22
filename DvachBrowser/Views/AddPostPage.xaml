@@ -13,7 +13,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True"
-    d:DataContext="{d:DesignData Source=../DesignData/AddPostViewModelDesignData.xaml}">
+    d:DataContext="{d:DesignData Source=../DesignData/AddPostViewModelDesignData.xaml}" d:DesignHeight="696" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
@@ -33,6 +33,7 @@
             <Grid Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -44,16 +45,38 @@
                                FontSize="{StaticResource PhoneFontSizeMediumLarge}" 
                                Margin="0"/>
                 </CheckBox>
-            
-                <TextBox Grid.Row="1" 
+
+                <Button Grid.Row="1"
+                        Command="{Binding AttachFileCommand}"
+                        Content="{Binding Strings.File, Source={StaticResource LocalizedStrings}}"
+                        HorizontalAlignment="Left" 
+                        Visibility="{Binding HasAttachment, Converter={StaticResource BoolToCollapsedConverter}}" />
+
+                <Grid Grid.Row="1" Visibility="{Binding HasAttachment, Converter={StaticResource BoolToVisibleConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1" Text="{Binding AttachmentName}" 
+                               Style="{StaticResource NeutronTextBlockLargeStyle}" 
+                               VerticalAlignment="Center"
+                               TextTrimming="WordEllipsis"/>
+                    <Button Grid.Column="2" 
+                            Command="{Binding RemoveFileCommand}"
+                            Content="{Binding Strings.Remove, Source={StaticResource LocalizedStrings}}" />
+                </Grid>
+
+                <TextBox Grid.Row="2" 
                          Text="{Binding Text, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                          AcceptsReturn="True" 
                          InputScope="Chat"
                          Style="{StaticResource ValidationTextBoxStyle}" />
 
-                <TextBlock Grid.Row="2" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" Style="{StaticResource NeutronTextBlockLargeStyle}" />
+                <TextBlock Grid.Row="3" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" 
+                           Style="{StaticResource NeutronTextBlockLargeStyle}" />
 
-                <Grid Grid.Row="3" DataContext="{Binding CaptchaModel}">
+                <Grid Grid.Row="4" DataContext="{Binding CaptchaModel}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -72,7 +95,7 @@
                             Command="{Binding RefreshImageCommand}" />
                 </Grid>
 
-                <TextBox Grid.Row="4" 
+                <TextBox Grid.Row="5" 
                          Text="{Binding CaptchaAnswer, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                          InputScope="Digits"
                          Style="{StaticResource ValidationTextBoxStyle}" />
