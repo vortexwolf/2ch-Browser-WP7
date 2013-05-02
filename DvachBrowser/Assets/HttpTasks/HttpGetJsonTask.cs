@@ -24,7 +24,7 @@ namespace DvachBrowser.Assets.HttpTasks
 
                 this.InvokeInUiThread(() => this.OnPostExecute(responseObject));
             }
-            catch (SerializationException e)
+            catch (Exception e)
             {
                 this.InvokeOnErrorHandler(ErrorMessages.JsonParseError);
             }

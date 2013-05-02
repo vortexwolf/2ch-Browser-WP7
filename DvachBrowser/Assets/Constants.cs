@@ -9,6 +9,7 @@ namespace DvachBrowser.Assets
     {
         public const string QueryStringBoard = "board";
         public const string QueryStringThread = "thread";
+        public const string QueryStringPost = "post";
         public const string QueryStringUri = "uri";
         public const string QueryStringPage = "page";
 
@@ -23,6 +24,6 @@ namespace DvachBrowser.Assets
         public const int FirstPage = 0;
         public const int LastPage = 19;
 
-        public const string DvachHost = "2ch.hk";
+        public const string DvachHost = "2ch.pm";
     }
 }

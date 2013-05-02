@@ -1,4 +1,7 @@
 ﻿using System.Windows.Controls;
+using System.Windows;
+using System.Windows.Media;
+using DvachBrowser.ViewModels;
 
 namespace DvachBrowser.Views
 {
@@ -28,8 +31,18 @@ namespace DvachBrowser.Views
         private void ScrollWithLayoutUpdate(object item)
         {
             this.list.ScrollIntoView(item);
-            this.list.UpdateLayout();
+            this.list.UpdateLayout(); // important to prevent scrolling bugs
             this.list.ScrollIntoView(item);
+        }
+
+        private void OnBorderMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var border = (Border)sender;
+            if (this.list.SelectedItem == border.DataContext)
+            {
+                this.list.SelectedItem = null;
+                e.Handled = true;
+            }
         }
     }
 }

@@ -88,11 +88,29 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the confirmation code.
         /// </summary>
         public static string Captcha_Label {
             get {
                 return ResourceManager.GetString("Captcha_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
         
@@ -133,7 +151,7 @@ namespace DvachBrowser.Assets.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File.
+        ///   Looks up a localized string similar to File....
         /// </summary>
         public static string File {
             get {
@@ -210,6 +228,15 @@ namespace DvachBrowser.Assets.Resources {
         public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply.
+        /// </summary>
+        public static string Reply {
+            get {
+                return ResourceManager.GetString("Reply", resourceCulture);
             }
         }
         

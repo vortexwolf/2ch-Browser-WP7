@@ -24,6 +24,7 @@ namespace DvachBrowser.ViewModels
     public class PostItemViewModel : ThreadPostBaseViewModel
     {
         private static readonly Regex ReferenceRegex = new Regex("<a.+?>&gt;&gt;(\\d+)</a>");
+        private static readonly Brush SelectedBorderBrush = new SolidColorBrush(Colors.Orange);
 
         private readonly PostListViewModel _parent;
 
@@ -58,6 +59,24 @@ namespace DvachBrowser.ViewModels
         public ICommand NavigateLinkCommand { get; set; }
 
         public ICommand ShowRepliesCommand { get; set; }
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get { return this._isSelected; }
+            set
+            {
+                this._isSelected = value;
+                this.OnPropertyChanged("IsSelected");
+                this.OnPropertyChanged("BorderBrush");
+            }
+        }
+
+        public Brush BorderBrush
+        {
+            get { return !this.IsSelected ? (Brush)App.Current.Resources["ThemePostBorder"] : SelectedBorderBrush; }
+        }
 
         private string _repliesMessage;
 

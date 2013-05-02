@@ -7,21 +7,23 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DataContext="{d:DesignData Source=../DesignData/PostListViewModelDesignData.xaml}"
     d:DesignHeight="800" d:DesignWidth="480">
     
     <UserControl.Resources>
         <DataTemplate x:Key="PostItemTemplate">
-            <Border Margin="0,3"
+            <Border Margin="0,3" MouseLeftButtonUp="OnBorderMouseLeftButtonUp"
                     BorderThickness="1" CornerRadius="5"
                     Background="{StaticResource ThemePostBackground}"
-                    BorderBrush="{StaticResource ThemePostBorder}">
+                    BorderBrush="{Binding BorderBrush}">
                 <view:PostItemView />
             </Border>
         </DataTemplate>
     </UserControl.Resources>
     
     <ListBox x:Name="list"
-                    ItemsSource="{Binding}"
+                    ItemsSource="{Binding Posts}"
+                    SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
                     ItemTemplate="{StaticResource PostItemTemplate}"
                     ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
                     VerticalAlignment="Stretch">

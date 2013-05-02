@@ -32,10 +32,17 @@ namespace DvachBrowser.Assets
                 return;
             }
 
-            var view = new PostListView() { DataContext = posts };
+            var view = new PostListView() { DataContext = new PopupListViewModel { Posts = posts } };
 
             var popup = new PopupWindow(placeholder) { Content = view, IsContentScrollable = false };
             popup.Open();
+        }
+
+        public class PopupListViewModel
+        {
+            public List<PostItemViewModel> Posts { get; set; }
+
+            public PostItemViewModel SelectedPost { get; set; }
         }
     }
 }

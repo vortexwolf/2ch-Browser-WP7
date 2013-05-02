@@ -40,11 +40,12 @@ namespace DvachBrowser.Assets
             this.Navigate(Constants.PostListPageUri + queryString);
         }
 
-        public void NavigateToAddPostPage(string boardName, string threadNumber)
+        public void NavigateToAddPostPage(string boardName, string threadNumber, string postNumber)
         {
             string queryString = new QueryStringBuilder()
                 .Add(Constants.QueryStringBoard, boardName)
                 .Add(Constants.QueryStringThread, threadNumber)
+                .Add(Constants.QueryStringPost, postNumber)
                 .Build();
 
             this.Navigate(Constants.AddPostPageUri + queryString);

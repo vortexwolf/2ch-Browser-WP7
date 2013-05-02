@@ -69,7 +69,8 @@
 
                 <TextBox Grid.Row="2" 
                          Text="{Binding Text, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
-                         AcceptsReturn="True" 
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
                          InputScope="Chat"
                          Style="{StaticResource ValidationTextBoxStyle}" />
 

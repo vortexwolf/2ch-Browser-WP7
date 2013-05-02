@@ -222,7 +222,14 @@ namespace DvachBrowser.ViewModels
 
         public void NavigateAddPostPage()
         {
-            this._pageNavigationService.NavigateToAddPostPage(this.BoardName, this.ThreadNumber);
+            this._pageNavigationService.NavigateToAddPostPage(this.BoardName, this.ThreadNumber, null);
+        }
+
+        public void ReplyToSelectedPost()
+        {
+            string postNumber = this.SelectedPost != null ? this.SelectedPost.Number.ToString() : null;
+
+            this._pageNavigationService.NavigateToAddPostPage(this.BoardName, this.ThreadNumber, postNumber);
         }
 
         public ObservableCollection<PostItemViewModel> Posts { get; set; }
@@ -251,6 +258,30 @@ namespace DvachBrowser.ViewModels
             }
         }
 
+        private PostItemViewModel _selectedPost;
+
+        public PostItemViewModel SelectedPost
+        {
+            get { return this._selectedPost; }
+            set
+            {
+                var previousSelectedPost = this._selectedPost;
+                this._selectedPost = value;
+
+                if (previousSelectedPost != null)
+                {
+                    previousSelectedPost.IsSelected = false;
+                }
+
+                if (this._selectedPost != null)
+                {
+                    this._selectedPost.IsSelected = true;
+                }
+
+                this.OnPropertyChanged("SelectedPost");
+            }
+        }
+        
         private double _progressAfterUpdate;
 
         public double ProgressAfterUpdate

@@ -238,10 +238,13 @@
     <Content Include="Images\appbar.add.png" />
     <Content Include="Images\appbar.arrow.left.png" />
     <Content Include="Images\appbar.arrow.right.png" />
+    <Content Include="Images\appbar.cancel.png" />
     <Content Include="Images\appbar.check.png" />
+    <Content Include="Images\appbar.clipboard.png" />
     <Content Include="Images\appbar.download.png" />
     <Content Include="Images\appbar.list.png" />
     <Content Include="Images\appbar.refresh.png" />
+    <Content Include="Images\appbar.reply.email.png" />
     <Content Include="Images\image.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="tile_icon_173x173.png" />

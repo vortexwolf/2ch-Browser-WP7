@@ -32,14 +32,21 @@ namespace DvachBrowser.Views
             this.AddValidationBinding();
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            this._viewModel.UpdateAddPostStorage();
+            base.OnNavigatingFrom(e);
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (!this._isLoaded)
             {
                 string boardName = this.NavigationContext.QueryString[Constants.QueryStringBoard];
                 string threadNumber = this.NavigationContext.QueryString[Constants.QueryStringThread];
+                string postNumber = this.NavigationContext.QueryString[Constants.QueryStringPost];
 
-                this._viewModel.Init(boardName, threadNumber);
+                this._viewModel.Init(boardName, threadNumber, postNumber);
 
                 this._isLoaded = true;
             }

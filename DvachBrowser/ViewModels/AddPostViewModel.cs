@@ -19,6 +19,7 @@ namespace DvachBrowser.ViewModels
         private readonly PageNavigationService _navigationService;
         private readonly PostResponseParser _postResponseParser;
         private readonly DvachUrlBuilder _urlBuilder;
+        private readonly AddPostStorage _addPostStorage;
 
         private HttpPostTask _currentPostTask;
 
@@ -27,9 +28,11 @@ namespace DvachBrowser.ViewModels
             this._navigationService = Container.Resolve<PageNavigationService>();
             this._postResponseParser = Container.Resolve<PostResponseParser>();
             this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
+            this._addPostStorage = Container.Resolve<AddPostStorage>();
 
             this.CaptchaModel = new CaptchaViewModel();
             this.IsLoaded = true;
+            this._text = "";
             
             this.AttachFileCommand = new RelayCommand(this.AttachFile);
             this.RemoveFileCommand = new RelayCommand(this.RemoveFile);
@@ -38,10 +41,36 @@ namespace DvachBrowser.ViewModels
             this._validator.AddValidationFor(() => this.CaptchaAnswer).NotEmpty().Show(Strings.Validation_CaptchaAnswer);
         }
 
-        public void Init(string boardName, string threadNumber)
+        public void Init(string boardName, string threadNumber, string postNumber)
         {
             this.BoardName = boardName;
             this.ThreadNumber = threadNumber;
+
+            if (this._addPostStorage.ThreadNumber == threadNumber)
+            {
+                this.IsSage = this._addPostStorage.Draft.IsSage;
+                this.Text = this._addPostStorage.Draft.CurrentText;
+                this.HasAttachment = this._addPostStorage.Draft.HasAttachment;
+                this.AttachmentName = this._addPostStorage.Draft.AttachmentName;
+                this.AttachedFileBytes = this._addPostStorage.Draft.AttachedFileBytes;
+            }
+            else
+            {
+                this._addPostStorage.ClearCurrentDraft();
+            }
+
+            if (!string.IsNullOrEmpty(postNumber))
+            {
+                string addText = string.Empty;
+                if (!string.IsNullOrEmpty(this.Text))
+                {
+                    addText += "\n";
+                }
+
+                addText += ">>" + postNumber + "\n";
+
+                this.Text += addText;
+            }
 
             this.CaptchaModel.RefreshImage();
         }
@@ -52,14 +81,24 @@ namespace DvachBrowser.ViewModels
 
         public CaptchaViewModel CaptchaModel { get; set; }
 
-        public bool IsSage { get; set; }
-
         public byte[] AttachedFileBytes { get; set; }
         
         public ICommand AttachFileCommand { get; set; }
 
         public ICommand RemoveFileCommand { get; set; }
-        
+
+        private bool _isSage;
+
+        public bool IsSage
+        {
+            get { return this._isSage; }
+            set
+            {
+                this._isSage = value;
+                this.OnPropertyChanged("IsSage");
+            }
+        }
+
         private string _text;
 
         public string Text
@@ -131,7 +170,6 @@ namespace DvachBrowser.ViewModels
                 this.OnPropertyChanged("AttachmentName");
             }
         }
-	
         
         public void Send()
         {
@@ -153,6 +191,22 @@ namespace DvachBrowser.ViewModels
 
             this.ShowLoading();
             this._currentPostTask.Execute();
+        }
+
+        public void UpdateAddPostStorage()
+        {
+            if (this._addPostStorage.IsSentSuccessfully)
+            {
+                this._addPostStorage.ClearCurrentDraft();
+                return;
+            }
+
+            this._addPostStorage.ThreadNumber = this.ThreadNumber;
+            this._addPostStorage.Draft.IsSage = this.IsSage;
+            this._addPostStorage.Draft.CurrentText = this.Text;
+            this._addPostStorage.Draft.HasAttachment = this.HasAttachment;
+            this._addPostStorage.Draft.AttachmentName = this.AttachmentName;
+            this._addPostStorage.Draft.AttachedFileBytes = this.AttachedFileBytes;
         }
 
         private Dictionary<string, object> CreatePostParameters()
@@ -184,7 +238,7 @@ namespace DvachBrowser.ViewModels
 
             if (postResult.IsSuccess)
             {
-                Container.Resolve<AddPostStorage>().IsSentSuccessfully = true;
+                this._addPostStorage.IsSentSuccessfully = true;
                 this._navigationService.GoBack();
             }
             else

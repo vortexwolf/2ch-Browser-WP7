@@ -11,9 +11,10 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignData Source=../DesignData/PostListViewModelDesignData.xaml}">
+
     <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,7 +33,7 @@
                         Text="{Binding ErrorMessage}"
                         Style="{StaticResource ErrorMessageStyle}" />
             <Border Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}" >
-                <view:PostListView x:Name="postListView"  DataContext="{Binding Posts}" />
+                <view:PostListView x:Name="postListView"  DataContext="{Binding}" />
             </Border>
             <Grid x:Name="popupPlaceholder" />
         </Grid>

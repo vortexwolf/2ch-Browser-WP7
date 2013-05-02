@@ -16,17 +16,22 @@ namespace DvachBrowser.Assets.Extensions
     {
         public static void LocalizeAppBar(this PhoneApplicationPage page)
         {
-            if (page.ApplicationBar == null)
+            LocalizeAppBar(page, page.ApplicationBar);
+        }
+
+        public static void LocalizeAppBar(this PhoneApplicationPage page, IApplicationBar appBar)
+        {
+            if (appBar == null)
             {
                 return;
             }
 
-            foreach (var button in page.ApplicationBar.Buttons.OfType<ApplicationBarIconButton>())
+            foreach (var button in appBar.Buttons.OfType<ApplicationBarIconButton>())
             {
                 button.Text = Strings.ResourceManager.GetString(button.Text);
             }
 
-            foreach (var menuItem in page.ApplicationBar.MenuItems.OfType<ApplicationBarMenuItem>())
+            foreach (var menuItem in appBar.MenuItems.OfType<ApplicationBarMenuItem>())
             {
                 menuItem.Text = Strings.ResourceManager.GetString(menuItem.Text);
             }
