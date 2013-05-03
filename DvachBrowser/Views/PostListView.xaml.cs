@@ -79,7 +79,7 @@ namespace DvachBrowser.Views
         /// <summary>
         /// This method is called before MouseUp and before Tap.
         /// </summary>
-        private void OnBorderManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
+        private void OnBorderManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e)
         {
             this._wasMouseUpCalled = false;
         }

@@ -110,7 +110,16 @@ namespace DvachBrowser.Assets.Controls
 
             string xaml = this._htmlConverter.ConvertHtmlToXamlString(html);
 
-            this._textBox.Xaml = xaml;
+            try
+            {
+                this._textBox.Xaml = xaml;
+            } 
+            catch (Exception e)
+            {
+                // TODO: use a plain text without html somehow
+                var plainHtmlDoc = new XDocument(new XElement("root", text));
+                this._textBox.Xaml = this._htmlConverter.ConvertHtmlToXamlString(plainHtmlDoc);
+            }
 
             this.AddEvents();
         }

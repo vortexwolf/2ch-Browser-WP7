@@ -12,7 +12,7 @@
     
     <UserControl.Resources>
         <DataTemplate x:Key="PostItemTemplate">
-            <Border ManipulationCompleted="OnBorderManipulationCompleted"
+            <Border ManipulationStarted="OnBorderManipulationStarted"
                     MouseLeftButtonUp="OnBorderMouseLeftButtonUp"
                     Tap="OnBorderTap"
                     Margin="0,3"

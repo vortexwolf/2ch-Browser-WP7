@@ -26,5 +26,14 @@ namespace DvachBrowser.Tests.FullFramework
 
             return xamlNode.ToString(SaveOptions.DisableFormatting);
         }
+
+        [Test]
+        public void ConvertHtmlToXamlString()
+        {
+            var xdoc = new XDocument(new XElement("root", "<div>test</div>"));
+
+            string xaml = this._instance.ConvertHtmlToXamlString(xdoc);
+            Assert.AreEqual("<Section xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'><Paragraph>&lt;div&gt;test&lt;/div&gt;</Paragraph></Section>", xaml);
+        }
     }
 }
