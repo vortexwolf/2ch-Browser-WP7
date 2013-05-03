@@ -3,6 +3,7 @@
     Number="25345"
     Subject="Test subject 1" 
     Comment="Test comment 1"
+    HasAttachment="True"
     HasImage="True"
     ThumbnailImage="/Images/image.png"
     AttachmentInfo="50Kb"

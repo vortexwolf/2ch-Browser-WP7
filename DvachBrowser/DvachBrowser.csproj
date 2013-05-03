@@ -116,6 +116,7 @@
     <Compile Include="Assets\Validation\IPropertyValidation.cs" />
     <Compile Include="Assets\Validation\ModelValidator.cs" />
     <Compile Include="Assets\Validation\PropertyValidation.cs" />
+    <Compile Include="Assets\YoutubeHelper.cs" />
     <Compile Include="Models\PostItemModel.cs" />
     <Compile Include="Models\PostListModel.cs" />
     <Compile Include="Models\ThreadItemModel.cs" />

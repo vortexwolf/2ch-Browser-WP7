@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 using DvachBrowser.Assets;
 using DvachBrowser.Assets.HttpTasks;
 using DvachBrowser.Assets.Resources;
-using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Tasks;
-using System.IO;
 
 namespace DvachBrowser.ViewModels
 {
@@ -32,7 +29,7 @@ namespace DvachBrowser.ViewModels
 
             this.CaptchaModel = new CaptchaViewModel();
             this.IsLoaded = true;
-            this._text = "";
+            this._text = string.Empty;
             
             this.AttachFileCommand = new RelayCommand(this.AttachFile);
             this.RemoveFileCommand = new RelayCommand(this.RemoveFile);

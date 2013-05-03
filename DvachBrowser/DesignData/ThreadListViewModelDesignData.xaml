@@ -4,8 +4,8 @@
                         IsLoaded="True"
                         Title="/test/">
     <vm:ThreadListViewModel.Threads>
-        <vm:ThreadItemViewModel Subject="Test subject 1" Comment="Test comment 1" RepliesImagesMessage="1 reply 1 image" HasImage="True" ThumbnailImage="/Images/image.png"/>
-        <vm:ThreadItemViewModel Subject="Test subject 2" Comment="Test comment 2" RepliesImagesMessage="2 replies 2 images" HasImage="True" ThumbnailImage="/Images/image.png"/>
-        <vm:ThreadItemViewModel Subject="Test subject 3" Comment="Test comment 3" RepliesImagesMessage="3 replies 3 images" HasImage="True" ThumbnailImage="/Images/image.png"/>
+        <vm:ThreadItemViewModel Subject="Test subject 1" Comment="Test comment 1" RepliesImagesMessage="1 reply 1 image" HasAttachment="True" ThumbnailImage="/Images/image.png"/>
+        <vm:ThreadItemViewModel Subject="Test subject 2" Comment="Test comment 2" RepliesImagesMessage="2 replies 2 images" HasAttachment="True" ThumbnailImage="/Images/image.png"/>
+        <vm:ThreadItemViewModel Subject="Test subject 3" Comment="Test comment 3" RepliesImagesMessage="3 replies 3 images" HasAttachment="True" ThumbnailImage="/Images/image.png"/>
     </vm:ThreadListViewModel.Threads>
 </vm:ThreadListViewModel>

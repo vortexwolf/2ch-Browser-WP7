@@ -12,7 +12,10 @@
     
     <UserControl.Resources>
         <DataTemplate x:Key="PostItemTemplate">
-            <Border Margin="0,3" MouseLeftButtonUp="OnBorderMouseLeftButtonUp"
+            <Border ManipulationCompleted="OnBorderManipulationCompleted"
+                    MouseLeftButtonUp="OnBorderMouseLeftButtonUp"
+                    Tap="OnBorderTap"
+                    Margin="0,3"
                     BorderThickness="1" CornerRadius="5"
                     Background="{StaticResource ThemePostBackground}"
                     BorderBrush="{Binding BorderBrush}">
@@ -20,10 +23,10 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    
+    <!--
+                    SelectedItem="{Binding SelectedPost, Mode=TwoWay}" -->
     <ListBox x:Name="list"
                     ItemsSource="{Binding Posts}"
-                    SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
                     ItemTemplate="{StaticResource PostItemTemplate}"
                     ItemContainerStyle="{StaticResource FullWidthListBoxItemStyle}"
                     VerticalAlignment="Stretch">

@@ -20,12 +20,14 @@ namespace DvachBrowser.ViewModels
     {
         protected readonly BitmapManager BitmapManager;
         private readonly DvachUrlBuilder _urlBuilder;
+        private readonly YoutubeHelper _youtubeHelper;
 
         public ThreadPostBaseViewModel(string boardName)
         {
             this.BoardName = boardName;
             this.BitmapManager = Container.Resolve<BitmapManager>();
             this._urlBuilder = Container.Resolve<DvachUrlBuilder>();
+            this._youtubeHelper = Container.Resolve<YoutubeHelper>();
         }
         
         public virtual void MapModel(PostItemModel post)
@@ -34,10 +36,35 @@ namespace DvachBrowser.ViewModels
             this.HasSubject = !string.IsNullOrEmpty(post.Subject);
             this.Subject = post.Subject;
             this.Comment = post.Comment;
+
             this.HasImage = !string.IsNullOrEmpty(post.ThumbnailUri);
-            this.ThumbnailUri = this.HasImage ? this._urlBuilder.BuildResourceUrl(this.BoardName, post.ThumbnailUri) : null;
-            this.ImageUri = this.HasImage ? this._urlBuilder.BuildResourceUrl(this.BoardName, post.ImageUri) : null;
-            this.AttachmentInfo = string.Format(Strings.DataFormat_Kb, post.ImageSize);
+            this.HasVideo = !string.IsNullOrEmpty(post.VideoHtml);
+            if (this.HasImage)
+            {
+                this.ThumbnailUri = this._urlBuilder.BuildResourceUrl(this.BoardName, post.ThumbnailUri);
+                this.AttachmentUri = this._urlBuilder.BuildResourceUrl(this.BoardName, post.ImageUri);
+                this.AttachmentInfo = string.Format(Strings.DataFormat_Kb, post.ImageSize);
+                if (this.AttachmentUri.EndsWith(".gif"))
+                {
+                    this.AttachmentInfo += " gif";
+                }
+            }
+            else if (this.HasVideo)
+            {
+                string code = this._youtubeHelper.GetYouTubeCode(post.VideoHtml);
+                if (code != null)
+                {
+                    this.ThumbnailUri = this._youtubeHelper.GetThumbnailUrl(code);
+                    this.AttachmentUri = this._youtubeHelper.GetVideoUrl(code);
+                    this.AttachmentInfo = "YouTube";
+                }
+                else
+                {
+                    this.HasVideo = false;
+                }
+            }
+
+            this.HasAttachment = this.HasImage || this.HasVideo;
         }
 
         public string BoardName { get; private set; }
@@ -52,17 +79,21 @@ namespace DvachBrowser.ViewModels
         
         public bool HasImage { get; protected set; }
 
+        public bool HasVideo { get; protected set; }
+
+        public bool HasAttachment { get; protected set; }
+
         public string ThumbnailUri { get; protected set; }
 
-        public string ImageUri { get; set; }
+        public string AttachmentUri { get; protected set; }
 
-        public string AttachmentInfo { get; set; }
+        public string AttachmentInfo { get; protected set; }
 
         public BitmapSource ThumbnailImage
         {
             get
             {
-                return this.HasImage ? this.GetThumbnailImage() : null;
+                return this.HasAttachment ? this.GetThumbnailImage() : null;
             }
         }
 

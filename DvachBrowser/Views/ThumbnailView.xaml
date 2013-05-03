@@ -10,7 +10,7 @@
     d:DesignHeight="150" d:DesignWidth="150"
     d:DataContext="{d:DesignData Source=../DesignData/ThreadItemViewModelDesignData.xaml}">
 
-    <StackPanel Visibility="{Binding HasImage, Converter={StaticResource BoolToVisibleConverter}}"
+    <StackPanel Visibility="{Binding HasAttachment, Converter={StaticResource BoolToVisibleConverter}}"
                 Background="Transparent"
                 Margin="0,10,10,0"
                 MouseLeftButtonUp="OnImageMouseLeftButtonUp">

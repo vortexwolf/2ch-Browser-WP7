@@ -232,6 +232,8 @@ namespace DvachBrowser.ViewModels
             this._pageNavigationService.NavigateToAddPostPage(this.BoardName, this.ThreadNumber, postNumber);
         }
 
+        public event EventHandler SelectedPostChanged = delegate { };
+
         public ObservableCollection<PostItemViewModel> Posts { get; set; }
 
         private string _boardName;
@@ -267,7 +269,7 @@ namespace DvachBrowser.ViewModels
             {
                 var previousSelectedPost = this._selectedPost;
                 this._selectedPost = value;
-
+                
                 if (previousSelectedPost != null)
                 {
                     previousSelectedPost.IsSelected = false;
@@ -277,8 +279,9 @@ namespace DvachBrowser.ViewModels
                 {
                     this._selectedPost.IsSelected = true;
                 }
-
+                
                 this.OnPropertyChanged("SelectedPost");
+                this.SelectedPostChanged(this, EventArgs.Empty);
             }
         }
         

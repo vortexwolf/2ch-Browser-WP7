@@ -17,6 +17,9 @@ namespace DvachBrowser.Models
         [DataMember(Name = "image")]
         public string ImageUri { get; set; }
 
+        [DataMember(Name = "video")]
+        public string VideoHtml { get; set; }
+
         [DataMember(Name = "size")]
         public int ImageSize { get; set; }
 

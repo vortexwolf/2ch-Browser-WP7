@@ -45,25 +45,8 @@ namespace DvachBrowser.Views
             BindingOperations.SetBinding(this._systemProgressIndicator, ProgressIndicator.ValueProperty, new Binding("ProgressAfterUpdate") { Source = this.DataContext });
             SystemTray.SetProgressIndicator(this, this._systemProgressIndicator);
 
-            // list box event listener
-            this.postListView.list.SelectionChanged += new SelectionChangedEventHandler(list_SelectionChanged);
-        }
-
-        void list_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                if (this.ApplicationBar != this._currentItemApplicationBar)
-                {
-                    this.ApplicationBar = this._currentItemApplicationBar;
-                }
-            }
-            else
-            {
-                this.ApplicationBar = this._listApplicationBar;
-            }
-
-            this.postListView.list.UpdateLayout(); // important to prevent scrolling bugs
+            // on selected post changed
+            this._viewModel.SelectedPostChanged += this.OnSelectedPostChanged;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -90,6 +73,11 @@ namespace DvachBrowser.Views
             }
 
             base.OnNavigatedTo(e);
+        }
+
+        private void OnSelectedPostChanged(object sender, EventArgs e)
+        {
+            this.ApplicationBar = this._viewModel.SelectedPost != null ? this._currentItemApplicationBar : this._listApplicationBar;
         }
 
         private void OnRefreshClick(object sender, EventArgs e)

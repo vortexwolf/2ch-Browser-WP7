@@ -4,8 +4,8 @@
                         IsLoaded="True"
                         Title="/test/12345">
     <vm:PostListViewModel.Posts>
-        <vm:PostItemViewModel Subject="Test subject 1" Comment="Test comment 1" HasImage ="True" ThumbnailImage="/Images/image.png" />
-        <vm:PostItemViewModel Subject="Test subject 2" Comment="Test comment 2" HasImage="False" />
-        <vm:PostItemViewModel Subject="Test subject 3" Comment="Test long comment 3 Test long comment 3 Test long comment 3 Test long comment 3" HasImage ="True" ThumbnailImage="/Images/image.png" />
+        <vm:PostItemViewModel Subject="Test subject 1" Comment="Test comment 1" HasAttachment ="True" ThumbnailImage="/Images/image.png" />
+        <vm:PostItemViewModel Subject="Test subject 2" Comment="Test comment 2" HasAttachment="False" />
+        <vm:PostItemViewModel Subject="Test subject 3" Comment="Test long comment 3 Test long comment 3 Test long comment 3 Test long comment 3" HasAttachment ="True" ThumbnailImage="/Images/image.png" />
     </vm:PostListViewModel.Posts>
 </vm:PostListViewModel>
