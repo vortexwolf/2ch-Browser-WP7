@@ -246,7 +246,13 @@
     <Content Include="Images\appbar.list.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\appbar.reply.email.png" />
+    <Content Include="Images\bold.png" />
     <Content Include="Images\image.png" />
+    <Content Include="Images\italic.png" />
+    <Content Include="Images\quote1.png" />
+    <Content Include="Images\spoiler.png" />
+    <Content Include="Images\strike.png" />
+    <Content Include="Images\underline.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="tile_icon_173x173.png" />
   </ItemGroup>

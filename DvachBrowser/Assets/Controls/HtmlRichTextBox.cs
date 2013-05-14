@@ -12,6 +12,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using DvachBrowser.Assets.Resources;
 using GalaSoft.MvvmLight.Command;
 
 namespace DvachBrowser.Assets.Controls
@@ -189,7 +190,7 @@ namespace DvachBrowser.Assets.Controls
                 textBox.Xaml = xaml;
 
                 var errorMessage = new Span() {Foreground = new SolidColorBrush(Colors.Red),};
-                errorMessage.Inlines.Add("Error while parsing text");
+                errorMessage.Inlines.Add(ErrorMessages.TextDisplayError);
                 var errorParagraph = new Paragraph();
                 errorParagraph.Inlines.Add(errorMessage);
                 textBox.Blocks.Insert(0, errorParagraph);

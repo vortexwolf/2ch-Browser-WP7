@@ -135,6 +135,9 @@
   <data name="SaveImageError" xml:space="preserve">
     <value>Невозможно сохранить изображение.</value>
   </data>
+  <data name="TextDisplayError" xml:space="preserve">
+    <value>Ошибка при отображении текста.</value>
+  </data>
   <data name="WebPageLoadError" xml:space="preserve">
     <value>Невозможно загрузить страницу.</value>
   </data>

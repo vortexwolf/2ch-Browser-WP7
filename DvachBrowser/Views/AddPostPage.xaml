@@ -14,7 +14,23 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignData Source=../DesignData/AddPostViewModelDesignData.xaml}" d:DesignHeight="696" d:DesignWidth="480">
-
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="MarkupImageStyle" TargetType="Image">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+        <Style x:Key="ImageButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+    
     <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -33,6 +49,7 @@
             <Grid Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibleConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
@@ -66,18 +83,43 @@
                             Command="{Binding RemoveFileCommand}"
                             Content="{Binding Strings.Remove, Source={StaticResource LocalizedStrings}}" />
                 </Grid>
+                
+                <StackPanel Grid.Row="2" Margin="10,10,10,0" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource ImageButtonStyle}" />
+                        <Style TargetType="Image" BasedOn="{StaticResource MarkupImageStyle}" />
+                    </StackPanel.Resources>
+                    <Button x:Name="BoldButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/bold.png" />
+                    </Button>
+                    <Button x:Name="ItalicButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/italic.png" />
+                    </Button>
+                    <Button x:Name="UnderlineButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/underline.png" />
+                    </Button>
+                    <Button x:Name="StrikeButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/strike.png" />
+                    </Button>
+                    <Button x:Name="SpoilerButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/spoiler.png" Width="70" />
+                    </Button>
+                    <Button x:Name="QuoteButton" Click="OnMarkupButtonClick">
+                        <Image Source="/Images/quote1.png" />
+                    </Button>
+                </StackPanel>
 
-                <TextBox Grid.Row="2" 
+                <TextBox x:Name="CommentText" Grid.Row="3" 
                          Text="{Binding Text, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                          AcceptsReturn="True"
                          TextWrapping="Wrap"
                          InputScope="Chat"
                          Style="{StaticResource ValidationTextBoxStyle}" />
 
-                <TextBlock Grid.Row="3" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" 
+                <TextBlock Grid.Row="4" Text="{Binding Strings.Captcha_Label, Source={StaticResource LocalizedStrings}}" 
                            Style="{StaticResource NeutronTextBlockLargeStyle}" />
 
-                <Grid Grid.Row="4" DataContext="{Binding CaptchaModel}">
+                <Grid Grid.Row="5" DataContext="{Binding CaptchaModel}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -96,7 +138,7 @@
                             Command="{Binding RefreshImageCommand}" />
                 </Grid>
 
-                <TextBox Grid.Row="5" 
+                <TextBox Grid.Row="6" 
                          Text="{Binding CaptchaAnswer, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, NotifyOnValidationError=True}"
                          InputScope="Digits"
                          Style="{StaticResource ValidationTextBoxStyle}" />

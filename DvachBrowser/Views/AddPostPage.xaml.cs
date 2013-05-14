@@ -69,5 +69,66 @@ namespace DvachBrowser.Views
                 focusedElement.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             }
         }
+
+        private void OnMarkupButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (sender == this.BoldButton)
+            {
+                this.SetMarkupTag("b");
+            }
+            else if (sender == this.ItalicButton)
+            {
+                this.SetMarkupTag("i");
+            }
+            else if (sender == this.UnderlineButton)
+            {
+                this.SetMarkupTag("u");
+            }
+            else if (sender == this.StrikeButton)
+            {
+                this.SetMarkupTag("s");
+            }
+            else if (sender == this.SpoilerButton)
+            {
+                this.SetMarkupTag("spoiler");
+            }
+            else if (sender == this.QuoteButton)
+            {
+                this.SetMarkupQuote();
+            }
+        }
+
+        private void SetMarkupTag(string tag)
+        {
+            int start = this.CommentText.SelectionStart;
+            int length = this.CommentText.SelectionLength;
+
+            string text = this.CommentText.Text;
+            var strBefore = text.Substring(0, start);
+            var strSelected = this.CommentText.SelectedText;
+            var strEnd = text.Substring(start + length);
+
+            string openTag = "[" + tag + "]";
+            string closeTag = "[/" + tag + "]";
+
+            text = strBefore + openTag + strSelected + closeTag + strEnd;
+            this.CommentText.Text = text;
+            this.CommentText.Focus();
+            this.CommentText.Select(start + openTag.Length, length);
+        }
+
+        private void SetMarkupQuote()
+        {
+            string quoteSymbol = ">";
+            int start = this.CommentText.SelectionStart;
+            int length = this.CommentText.SelectionLength;
+
+            string text = this.CommentText.Text;
+            text = text.Insert(start, quoteSymbol);
+
+            this.CommentText.Text = text;
+            this.CommentText.Focus();
+            this.CommentText.Select(start + quoteSymbol.Length, length);
+        }
     }
 }
