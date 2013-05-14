@@ -44,6 +44,7 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.list.png" Text="Boards" Click="OnBoardsButtonClick"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.png" Text="New_Post" Click="OnAddPostClick" />
             <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="OpenInBrowser" Click="OnOpenInBrowserClick" />
                 <shell:ApplicationBarMenuItem Text="ScrollToTop" Click="OnScrollToTopClick" />
                 <shell:ApplicationBarMenuItem Text="ScrollToBottom" Click="OnScrollToBottomClick" />
             </shell:ApplicationBar.MenuItems>

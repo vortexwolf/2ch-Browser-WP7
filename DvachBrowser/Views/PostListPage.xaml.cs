@@ -16,6 +16,7 @@ using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
 namespace DvachBrowser.Views
 {
@@ -103,6 +104,15 @@ namespace DvachBrowser.Views
         private void OnScrollToBottomClick(object sender, EventArgs e)
         {
             this.postListView.ScrollToBottom();
+        }
+
+        private void OnOpenInBrowserClick(object sender, EventArgs e)
+        {
+            var uriBuilder = Container.Resolve<DvachUrlBuilder>();
+            var uri = new Uri(uriBuilder.BuildResourceUrl(this._viewModel.BoardName, "res/" + this._viewModel.ThreadNumber + ".html"));
+
+            var webBrowserTask = new WebBrowserTask() { Uri = uri };
+            webBrowserTask.Show();
         }
 
         private void OnReplyButtonClick(object sender, EventArgs e)

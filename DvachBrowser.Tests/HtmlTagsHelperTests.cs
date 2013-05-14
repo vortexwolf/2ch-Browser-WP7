@@ -18,7 +18,7 @@ namespace DvachBrowser.Tests
         [TestCase("<span title='<test>'>", Result = "<span title='<test>'></span>")]
         public string AddClosedTagCases(string html)
         {
-            string fix = this._instance.FixTags(html);
+            string fix = this._instance.FixOpenCloseHtmlTags(html);
 
             return fix;
         }
@@ -27,7 +27,7 @@ namespace DvachBrowser.Tests
         public void OpenTagWithoutBracket_Remove()
         {
             var html = "before tag<a ";
-            string fix = this._instance.FixTags(html);
+            string fix = this._instance.FixCutHtml(html);
             Assert.AreEqual("before tag", fix);
         }
 
@@ -35,7 +35,7 @@ namespace DvachBrowser.Tests
         public void AmpersandWithoutSemicolon_Remove()
         {
             var html = "before&a";
-            string fix = this._instance.FixTags(html);
+            string fix = this._instance.FixCutHtml(html);
             Assert.AreEqual(fix, "before");
         }
 
@@ -43,7 +43,7 @@ namespace DvachBrowser.Tests
         public void AmpersandWithSemicolon_NotChanged()
         {
             var html = "before&lt;after";
-            string fix = this._instance.FixTags(html);
+            string fix = this._instance.FixCutHtml(html);
             Assert.AreEqual(fix, "before&lt;after");
         }
     }

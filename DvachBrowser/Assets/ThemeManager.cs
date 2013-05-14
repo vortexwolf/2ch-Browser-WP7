@@ -37,6 +37,8 @@ namespace DvachBrowser.Assets
             Color postBorder = this.GetColor("PostBorder", isDarkTheme);
             Color postnumber = this.GetColor("PostNumber", isDarkTheme);
             Color linkForeground = this.GetColor("LinkForeground", isDarkTheme);
+            Color spoilerForeground = this.GetColor("SpoilerForeground", isDarkTheme);
+            Color spoilerBackground = this.GetColor("SpoilerBackground", isDarkTheme);
 
             this.SetColor("ThemeBackground", background);
             this.SetColor("ThemeThreadTitle", threadTitle);
@@ -47,6 +49,8 @@ namespace DvachBrowser.Assets
             this.SetColor("ThemePostBackground", postBackground);
             this.SetColor("ThemePostNumber", postnumber);
             this.SetColor("ThemeLinkForeground", linkForeground);
+            this.SetColor("ThemeSpoilerForeground", spoilerForeground);
+            this.SetColor("ThemeSpoilerBackground", spoilerBackground);
         }
 
         private Color GetColor(string key, bool isDarkTheme)

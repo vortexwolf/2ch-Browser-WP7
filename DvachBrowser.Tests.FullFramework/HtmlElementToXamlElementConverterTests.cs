@@ -8,7 +8,7 @@ namespace DvachBrowser.Tests.FullFramework
     [TestFixture]
     public class HtmlElementToXamlElementConverterTests
     {
-        private readonly HtmlElementToXamlElementConverter _instance = new HtmlElementToXamlElementConverter(null);
+        private readonly HtmlElementToXamlElementConverter _instance = new HtmlElementToXamlElementConverter();
 
         [TestCase("<br />", Result = "<LineBreak />")]
         [TestCase("<p>test</p>", Result = "<Span>test</Span>")]

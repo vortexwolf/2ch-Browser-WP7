@@ -12,6 +12,11 @@ namespace DvachBrowser.Assets
 
         public bool IsDvachUri(Uri uri)
         {
+            if (uri == null)
+            {
+                return false;
+            }
+
             if (!uri.IsAbsoluteUri)
             {
                 return true;

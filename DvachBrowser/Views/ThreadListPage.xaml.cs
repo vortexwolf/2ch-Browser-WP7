@@ -7,6 +7,7 @@ using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
 namespace DvachBrowser.Views
 {
@@ -82,6 +83,15 @@ namespace DvachBrowser.Views
         private void OnNextButtonClick(object sender, EventArgs e)
         {
             this.NavigateToPage(this._viewModel.Page + 1);
+        }
+
+        private void OnOpenInBrowserClick(object sender, EventArgs e)
+        {
+            var uriBuilder = Container.Resolve<DvachUrlBuilder>();
+            var uri = new Uri(uriBuilder.BuildCustomUrl(this._viewModel.BoardName + "/"));
+
+            var webBrowserTask = new WebBrowserTask() { Uri = uri };
+            webBrowserTask.Show();
         }
 
         private void NavigateToPage(int page)

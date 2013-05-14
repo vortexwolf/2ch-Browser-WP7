@@ -203,7 +203,7 @@ namespace DvachBrowser.ViewModels
                     this._pageNavigationService.NavigateToPostListPage(uriModel.BoardName, uriModel.ThreadNumber);
                 }
             }
-            else
+            else if (uri != null)
             {
                 this.NavigateToBrowser(uri);
             }

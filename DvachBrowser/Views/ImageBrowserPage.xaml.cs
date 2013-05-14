@@ -7,11 +7,13 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 
 using DvachBrowser.Assets;
+using DvachBrowser.Assets.Extensions;
 using DvachBrowser.Assets.Resources;
 using DvachBrowser.ViewModels;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
 namespace DvachBrowser.Views
 {
@@ -26,6 +28,8 @@ namespace DvachBrowser.Views
             this.InitializeComponent();
 
             this.DataContext = this._viewModel = new ImageBrowserViewModel();
+
+            this.LocalizeAppBar();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,6 +66,12 @@ namespace DvachBrowser.Views
         private void OnDownloadClick(object sender, EventArgs e)
         {
             this._viewModel.Download();
+        }
+
+        private void OnOpenInBrowserClick(object sender, EventArgs e)
+        {
+            var webBrowserTask = new WebBrowserTask() { Uri = this.browser.Source };
+            webBrowserTask.Show();
         }
     }
 }

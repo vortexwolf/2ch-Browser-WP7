@@ -165,6 +165,9 @@
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
+  <data name="OpenInBrowser" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
   <data name="Prev" xml:space="preserve">
     <value>Prev</value>
   </data>

@@ -52,5 +52,10 @@ namespace DvachBrowser.Assets
         {
             return DomainName + boardName + "/" + url;
         }
+
+        public string BuildCustomUrl(string path)
+        {
+            return DomainName + path;
+        }
     }
 }

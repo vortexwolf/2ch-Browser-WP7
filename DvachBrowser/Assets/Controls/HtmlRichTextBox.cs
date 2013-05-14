@@ -10,8 +10,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Xml.Linq;
-
 using GalaSoft.MvvmLight.Command;
 
 namespace DvachBrowser.Assets.Controls
@@ -22,29 +22,40 @@ namespace DvachBrowser.Assets.Controls
         private readonly HtmlTagsHelper _htmlTagsHelper = new HtmlTagsHelper();
 
         private RichTextBox _textBox;
+        private ItemsControl _itemsControl;
         private List<Hyperlink> _currentHyperlinks = new List<Hyperlink>(); 
 
         public HtmlRichTextBox()
         {
             this.Template = XamlReader.Load(
                 @"  <ControlTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
-                        <RichTextBox x:Name=""RichTextBox"" VerticalContentAlignment=""Top"" Margin=""-10,0"" />
+                        <Grid>
+                            <RichTextBox x:Name=""RichTextBox"" VerticalContentAlignment=""Top"" Margin=""-10,0"" />
+                            <ItemsControl x:Name=""ItemsControl"" Visibility=""Collapsed"" />
+                        </Grid>
                     </ControlTemplate>") as ControlTemplate;
             this.ApplyTemplate();
 
-            var spanColors = new HtmlElementToXamlElementConverter.SpanColors();
-            spanColors.LinkForeground = ((SolidColorBrush)App.Current.Resources["ThemeLinkForeground"]).Color.ToString();
-            spanColors.SpoilerForeground = ((SolidColorBrush)App.Current.Resources["ThemeSpoilerForeground"]).Color.ToString();
-            spanColors.QuoteForeground = ((SolidColorBrush)App.Current.Resources["ThemeQuoteForeground"]).Color.ToString();
 
-            this._htmlConverter = new HtmlElementToXamlElementConverter(spanColors);
+            this._htmlConverter = new HtmlElementToXamlElementConverter();
+
+            if (App.Current.Resources.Contains("ThemeLinkForeground"))
+            {
+                this._htmlConverter.SpanValues.LinkForeground = ((SolidColorBrush)App.Current.Resources["ThemeLinkForeground"]).Color.ToString();
+                this._htmlConverter.SpanValues.SpoilerForeground = ((SolidColorBrush)App.Current.Resources["ThemeSpoilerForeground"]).Color.ToString();
+                this._htmlConverter.SpanValues.QuoteForeground = ((SolidColorBrush)App.Current.Resources["ThemeQuoteForeground"]).Color.ToString();
+                this._htmlConverter.SpanValues.SpoilerBackground = ((SolidColorBrush)App.Current.Resources["ThemeSpoilerBackground"]).Color.ToString();
+                this._htmlConverter.SpanValues.TextForeground = ((SolidColorBrush)App.Current.Resources["ThemePrimaryText"]).Color.ToString();
+                this._htmlConverter.SpanValues.TextFontSize = (double)App.Current.Resources["PhoneFontSizeNormal"];
+            }
+
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
             this._textBox = (RichTextBox)GetTemplateChild("RichTextBox");
+            this._itemsControl = (ItemsControl)GetTemplateChild("ItemsControl");
         }
         
         public int? MaxNumberOfSymbols { get; set; }
@@ -99,29 +110,98 @@ namespace DvachBrowser.Assets.Controls
             }
 
             string text = this.Text;
-            if (this.MaxNumberOfSymbols != null && text.Length > this.MaxNumberOfSymbols)
-            {
-                text = this._htmlTagsHelper.FixTags(text.Substring(0, this.MaxNumberOfSymbols.Value)) + "...";
-            }
-
             text = text.Replace("<br>", "<br/>");
 
-            var html = XDocument.Parse("<div>" + text + "</div>");
+            if (this.MaxNumberOfSymbols != null)
+            {
+                text = this._htmlTagsHelper.CutText(text, this.MaxNumberOfSymbols.Value);
+            }
 
-            string xaml = this._htmlConverter.ConvertHtmlToXamlString(html);
+            this.SetAndConvertHtml(text);
+        }
+
+        private void SetAndConvertHtml(string text)
+        {
+            int displayableTextLength = this.CalculateDisplayableTextLength();
+
+            if (text.Length <= displayableTextLength)
+            {
+                // single rich text box
+                this._textBox.Visibility = Visibility.Visible;
+                this._itemsControl.Visibility = Visibility.Collapsed;
+
+                this.SetTextToTextBox(this._textBox, text);
+            }
+            else
+            {   // multiple text boxes
+                this._textBox.Visibility = Visibility.Collapsed;
+                this._itemsControl.Visibility = Visibility.Visible;
+
+                var strings = this._htmlTagsHelper.SplitHtml(text, displayableTextLength);
+
+                this._itemsControl.Items.Clear();
+                foreach (var str in strings)
+                {
+                    var textBox = this.CreateRichTextBox();
+                    this.SetTextToTextBox(textBox, str);
+
+                    this._itemsControl.Items.Add(textBox);
+                    //// For test purposes
+                    ////this._itemsControl.Items.Add(new Rectangle() { Height = 3, Fill = new SolidColorBrush(Colors.Red) });
+                }
+            }
+        }
+
+        private RichTextBox CreateRichTextBox()
+        {
+            var textBox = new RichTextBox();
+            textBox.Margin = new Thickness(-10, 0, -10, 0);
+            textBox.VerticalContentAlignment = VerticalAlignment.Top;
+            textBox.FontSize = this.FontSize;
+            textBox.Foreground = this.Foreground;
+
+            return textBox;
+        }
+
+        private void SetTextToTextBox(RichTextBox textBox, string text)
+        {
+            textBox.Blocks.Clear();
 
             try
             {
-                this._textBox.Xaml = xaml;
-            } 
+                var html = XDocument.Parse("<root>" + text + "</root>");
+
+                string xaml = this._htmlConverter.ConvertHtmlToXamlString(html);
+
+                Section section = (Section)XamlReader.Load(xaml);
+                var block = section.Blocks[0];
+                section.Blocks.RemoveAt(0);
+
+                textBox.Blocks.Add(block);
+
+                this.AddEvents(textBox);
+            }
             catch (Exception e)
             {
                 // TODO: use a plain text without html somehow
-                var plainHtmlDoc = new XDocument(new XElement("root", text));
-                this._textBox.Xaml = this._htmlConverter.ConvertHtmlToXamlString(plainHtmlDoc);
-            }
+                var html = new XDocument(new XElement("root", text)); // encode tags and display as text
+                string xaml = this._htmlConverter.ConvertHtmlToXamlString(html);
+                textBox.Xaml = xaml;
 
-            this.AddEvents();
+                var errorMessage = new Span() {Foreground = new SolidColorBrush(Colors.Red),};
+                errorMessage.Inlines.Add("Error while parsing text");
+                var errorParagraph = new Paragraph();
+                errorParagraph.Inlines.Add(errorMessage);
+                textBox.Blocks.Insert(0, errorParagraph);
+            }
+        }
+
+        private int CalculateDisplayableTextLength()
+        {
+            double fontSize = this.FontSize;
+            double splitSize = 2000 * 800 * Math.Pow(fontSize, -2.2); // a formula which I calculated by testing different fonts manually
+
+            return (int)splitSize;
         }
 
         private void ClearEvents()
@@ -138,16 +218,17 @@ namespace DvachBrowser.Assets.Controls
             this._currentHyperlinks.Clear();
         }
 
-        private void AddEvents()
+        private void AddEvents(RichTextBox textBox)
         {
-            this._currentHyperlinks = this.GetAllInlines<Hyperlink>(this._textBox.Blocks).ToList();
+            var currentHyperlinks = this.GetAllInlines<Hyperlink>(textBox.Blocks).ToList();
+            this._currentHyperlinks.AddRange(currentHyperlinks);
 
-            foreach (var link in this._currentHyperlinks)
+            foreach (var link in currentHyperlinks)
             {
                 link.SetValue(HyperlinkProperties.UriProperty, link.NavigateUri);
                 link.NavigateUri = null;
 
-                link.Command = new RelayCommand<Hyperlink>((parameter) => this.HyperlinkCommand.Execute(parameter));
+                link.Command = new RelayCommand<Hyperlink>(p => this.HyperlinkCommand.Execute(p));
                 link.CommandParameter = link;
             }
         }

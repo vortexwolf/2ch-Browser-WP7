@@ -32,7 +32,9 @@
             <SolidColorBrush x:Key="NeutronPostBackground" Color="#2C2C2C" />
             <SolidColorBrush x:Key="NeutronPostNumber" Color="#C9BE89" />
             <SolidColorBrush x:Key="NeutronLinkForeground" Color="#C9BE89" />
-
+            <SolidColorBrush x:Key="NeutronSpoilerForeground" Color="#48B0FD" />
+            <SolidColorBrush x:Key="NeutronSpoilerBackground" Color="#575757" />
+            
             <SolidColorBrush x:Key="PhotonBackground" Color="#EEEEEE" />
             <SolidColorBrush x:Key="PhotonThreadTitle" Color="#002244" />
             <SolidColorBrush x:Key="PhotonPrimaryText" Color="#333333" />
@@ -42,6 +44,8 @@
             <SolidColorBrush x:Key="PhotonPostBackground" Color="#DDDDDD" />
             <SolidColorBrush x:Key="PhotonPostNumber" Color="#333333" />
             <SolidColorBrush x:Key="PhotonLinkForeground" Color="#FF6600" />
+            <SolidColorBrush x:Key="PhotonSpoilerForeground" Color="#000000" />
+            <SolidColorBrush x:Key="PhotonSpoilerBackground" Color="#BBBBBB" />
 
             <SolidColorBrush x:Key="ThemeBackground" Color="#212121" />
             <SolidColorBrush x:Key="ThemeThreadTitle" Color="#3941AC" />
@@ -53,6 +57,7 @@
             <SolidColorBrush x:Key="ThemePostNumber" Color="#C9BE89" />
             <SolidColorBrush x:Key="ThemeLinkForeground" Color="#C9BE89" />
             <SolidColorBrush x:Key="ThemeSpoilerForeground" Color="#48B0FD" />
+            <SolidColorBrush x:Key="ThemeSpoilerBackground" Color="#575757" />
             <SolidColorBrush x:Key="ThemeQuoteForeground" Color="#789922" />
 
             <!-- control styles -->
