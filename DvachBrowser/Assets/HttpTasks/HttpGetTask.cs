@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 
 using DvachBrowser.Assets.Resources;
@@ -15,7 +16,7 @@ namespace DvachBrowser.Assets.HttpTasks
             this.Url = url;
         }
 
-        public override void Execute()
+        public override async void Execute()
         {
             base.Execute();
 
@@ -25,25 +26,24 @@ namespace DvachBrowser.Assets.HttpTasks
             httpWebRequest.UserAgent = "2ch Browser (Windows Phone)";
 
             // get the response asynchronously
-            httpWebRequest.BeginGetResponse(this.OnGetResponseCompleted, httpWebRequest);
+            var task = httpWebRequest.GetResponseAsync();
+            await OnGetResponseCompleted(task);
         }
 
         protected abstract void OnStreamDownloaded(Stream stream);
 
-        private void OnGetResponseCompleted(IAsyncResult ar)
+        private async Task OnGetResponseCompleted(Task<WebResponse> task)
         {
             if (this._isCancelled)
             {
                 return;
             }
 
-            var httpWebRequest = (HttpWebRequest)ar.AsyncState;
-
             // get the response
             HttpWebResponse response;
             try
             {
-                response = (HttpWebResponse)httpWebRequest.EndGetResponse(ar);
+                response = (HttpWebResponse)await task.ConfigureAwait(false);
             }
             catch (Exception e)
             {
