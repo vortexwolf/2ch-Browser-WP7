@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-
+using System.Threading.Tasks;
 using DvachBrowser.Assets.Resources;
 
 namespace DvachBrowser.Assets.HttpTasks
@@ -24,7 +24,7 @@ namespace DvachBrowser.Assets.HttpTasks
 
         public Action<string> OnCompleted { get; private set; }
 
-        public override void Execute()
+        public override async void Execute()
         {
             base.Execute();
 
@@ -33,29 +33,28 @@ namespace DvachBrowser.Assets.HttpTasks
             httpWebRequest.ContentType = string.Format("multipart/form-data; boundary={0}", this._boundary);
             httpWebRequest.UserAgent = "2ch Browser (Windows Phone)";
 
-            httpWebRequest.BeginGetRequestStream(new AsyncCallback(this.GetRequestStreamCallback), httpWebRequest);
+            var task = httpWebRequest.GetRequestStreamAsync();
+            await GetRequestStreamCallback(task, httpWebRequest);
         }
 
-        private void GetRequestStreamCallback(IAsyncResult asynchronousResult)
+        private async Task GetRequestStreamCallback(Task<Stream> task, HttpWebRequest request)
         {
-            HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
-            Stream postStream = request.EndGetRequestStream(asynchronousResult);
+            Stream postStream = await task.ConfigureAwait(false);
 
             this.WriteMultipartObject(postStream, this.Parameters);
             postStream.Close();
 
-            request.BeginGetResponse(new AsyncCallback(this.GetResponseCallback), request);
+            var responseTask = request.GetResponseAsync();
+            await GetResponseCallback(responseTask);
         }
 
-        private void GetResponseCallback(IAsyncResult asynchronousResult)
+        private async Task GetResponseCallback(Task<WebResponse> task)
         {
-            HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
-
             // get the response
             HttpWebResponse response;
             try
             {
-                response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+                response = (HttpWebResponse)await task.ConfigureAwait(false);
             }
             catch (Exception e)
             {
