@@ -82,7 +82,7 @@ namespace DvachBrowser.Assets.HttpTasks
             {
                 using (StreamReader reader = new StreamReader(stream))
                 {
-                    string str = reader.ReadToEnd();
+                    string str = await reader.ReadToEndAsync().ConfigureAwait(false);
                     this.InvokeInUiThread(() => this.OnCompleted(str));
                 }
             }
